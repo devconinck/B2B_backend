@@ -1,22 +1,36 @@
 {
   "name": "2024-backend-g02-24",
   "version": "1.0.0",
-  "main": "src/index.js",
+  "main": "src/index.ts",
   "license": "MIT",
   "scripts": {
     "start": "env-cmd nodemon"
   },
   "dependencies": {
     "@koa/router": "^12.0.1",
+    "@prisma/client": "^5.12.1",
     "config": "^3.3.11",
     "koa": "^2.15.3",
     "koa-bodyparser": "^4.4.1",
+    "koa-helmet": "^7.0.2",
     "node-emoji": "^2.1.3",
+    "serialize-error": "^11.0.3",
     "winston": "^3.13.0"
   },
   "devDependencies": {
+    "@types/config": "^3.3.4",
+    "@types/koa": "^2.15.0",
+    "@types/koa-bodyparser": "^4.3.12",
+    "@types/koa-json": "^2.0.23",
+    "@types/koa-logger": "^3.1.5",
+    "@types/koa-router": "^7.4.8",
+    "@types/node": "^20.12.7",
+    "@types/winston": "^2.4.4",
     "env-cmd": "^10.1.0",
-    "nodemon": "^3.1.0"
+    "nodemon": "^3.1.0",
+    "prisma": "^5.12.1",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.5"
   },
   "nodemonConfig": {
     "signal": "SIGTERM",
@@ -29,8 +43,8 @@
       "config",
       "src"
     ],
-    "ext": "js,json",
+    "ext": "ts,js,json",
     "legacyWatch": true,
-    "exec": "node --inspect=0.0.0.0:9001 --trace-warnings src/index.js"
+    "exec": "ts-node src/index.ts"
   }
 }

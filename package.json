@@ -1,0 +1,36 @@
+{
+  "name": "2024-backend-g02-24",
+  "version": "1.0.0",
+  "main": "src/index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "env-cmd nodemon"
+  },
+  "dependencies": {
+    "@koa/router": "^12.0.1",
+    "config": "^3.3.11",
+    "koa": "^2.15.3",
+    "koa-bodyparser": "^4.4.1",
+    "node-emoji": "^2.1.3",
+    "winston": "^3.13.0"
+  },
+  "devDependencies": {
+    "env-cmd": "^10.1.0",
+    "nodemon": "^3.1.0"
+  },
+  "nodemonConfig": {
+    "signal": "SIGTERM",
+    "ignore": [
+      "node_modules/*",
+      ".vscode/*"
+    ],
+    "delay": "80",
+    "watch": [
+      "config",
+      "src"
+    ],
+    "ext": "js,json",
+    "legacyWatch": true,
+    "exec": "node --inspect=0.0.0.0:9001 --trace-warnings src/index.js"
+  }
+}

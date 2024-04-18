@@ -7,6 +7,8 @@ import emoji from 'node-emoji';
 import { Prisma, PrismaClient } from '@prisma/client';
 import { ServiceError } from './core/serviceError';
 
+const installRest = require('./rest');
+
 // Destructuring ENV and Logging variables
 const [NODE_ENV, LOG_LEVEL, LOG_DISABLED] = [config.get('env'), config.get('log.level'), config.get('log.disabled')];
 
@@ -120,7 +122,7 @@ export default async function createServer() {
   });
 
   // Giving the app object to the REST layer
-  // installRest(app);
+  installRest(app);
 
   return {
     getApp() {

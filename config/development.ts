@@ -11,4 +11,13 @@ module.exports = {
     port: 3306,
     dialect: 'mysql',
     },
+
+  auth: {
+    jwt: {
+      secret: 'eenveeltemoeilijksecretdatniemandooitzalradenandersisdesitegehacked2',
+      expirationInterval: 60 * 60 * 1000, // ms (1 hour)
+      issuer: 'brecht',
+      audience: 'developer',
+    },
+  },
 };

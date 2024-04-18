@@ -6,6 +6,7 @@ import { initializeLogger, getLogger } from './core/logging';
 import emoji from 'node-emoji';
 import { Prisma, PrismaClient } from '@prisma/client';
 import { ServiceError } from './core/serviceError';
+import installRest from './rest';
 
 // Destructuring ENV and Logging variables
 const [NODE_ENV, LOG_LEVEL, LOG_DISABLED] = [config.get('env'), config.get('log.level'), config.get('log.disabled')];
@@ -120,7 +121,7 @@ export default async function createServer() {
   });
 
   // Giving the app object to the REST layer
-  // installRest(app);
+  installRest(app);
 
   return {
     getApp() {
@@ -139,8 +140,8 @@ export default async function createServer() {
     async stop() {
       app.removeAllListeners();
       logger.info('Server stopped listening');
-      // Close database connection
-      // await shutdownData();
+      // Close Prisma connection
+      await prisma.$disconnect()
     },
   };
 }

@@ -1,3 +1,5 @@
+import { account } from "@prisma/client";
+
 const { ServiceError } = require('../core/serviceError');
 const userRepository = require('../data/user');
 const { verifyPassword } = require('../core/password');
@@ -18,11 +20,11 @@ const login = async (email: string, password: string) => {
   return await makeLoginData(user);
 };
 
-const makeExposedUser = ({id, name, email, roles}: User): ExposedUser => ({
-  id, name, email, roles,
+const makeExposedUser = ({ID, EMAIL, ROLE, company_id}: account): ExposedUser => ({
+  id: ID.toString(), email: EMAIL, role: ROLE, companyId: company_id.toString(),
 });
 
-const makeLoginData = async (user: User) => {
+const makeLoginData = async (user: account) => {
   const token = await generateJWT(user);
   return {
     user: makeExposedUser(user),
@@ -30,18 +32,11 @@ const makeLoginData = async (user: User) => {
   };
 };
 
-interface User {
+export interface ExposedUser {
   id: string;
-  name: string;
   email: string;
-  roles: string[];
-}
-
-interface ExposedUser {
-  id: string;
-  name: string;
-  email: string;
-  roles: string[];
+  role: number;
+  companyId: string;
 }
 
 module.exports = {

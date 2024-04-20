@@ -13,10 +13,16 @@ module.exports = {
     },
 
   auth: {
+    argon: {
+      saltLength: 32,
+      hashLength: 256,
+      timeCost: 16,
+      memoryCost: 2 ** 17,
+    },
     jwt: {
       secret: 'eenveeltemoeilijksecretdatniemandooitzalradenandersisdesitegehacked2',
       expirationInterval: 60 * 60 * 1000, // ms (1 hour)
-      issuer: 'brecht',
+      issuer: 'sdp-groep2',
       audience: 'developer',
     },
   },

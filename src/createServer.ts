@@ -3,11 +3,12 @@ import config from 'config';
 import bodyParser from 'koa-bodyparser';
 import koaHelmet from 'koa-helmet';
 import { initializeLogger, getLogger } from './core/logging';
-import emoji from 'node-emoji';
 import { Prisma, PrismaClient } from '@prisma/client';
 import { ServiceError } from './core/serviceError';
 
 const installRest = require('./rest');
+const { initializeData } = require('./data');
+const emoji = require('node-emoji');
 
 // Destructuring ENV and Logging variables
 const [NODE_ENV, LOG_LEVEL, LOG_DISABLED] = [config.get('env'), config.get('log.level'), config.get('log.disabled')];
@@ -23,7 +24,8 @@ export default async function createServer() {
   });
 
   // Initialize the database (PRISMA)
-  const prisma = new PrismaClient();
+  //const prisma = new PrismaClient();
+  await initializeData();
 
   // Create a new KOA App
   const app = new Koa();
@@ -85,7 +87,8 @@ export default async function createServer() {
       }
     } catch (error) {
       logger.error('Error occurred while handling a request', {
-        error: (await import('serialize-error')).serializeError(error as CustomError),
+        // Werkt niet TODO
+        //error: (await import('serialize-error')).serializeError(error as CustomError),
       });
 
       const isDevelopment = NODE_ENV === 'development';
@@ -113,7 +116,8 @@ export default async function createServer() {
         statusCode = 401;
         errorBody.code = 'UNAUTHORIZED';
         errorBody.message = ctx.state.jwtOriginalError.message;
-        errorBody.details.jwtOriginalError = (await import('serialize-error')).serializeError(ctx.state.jwtOriginalError);
+        // Werkt niet TODO
+        //errorBody.details.jwtOriginalError = (await import('serialize-error')).serializeError(ctx.state.jwtOriginalError);
       }
 
       ctx.status = statusCode;

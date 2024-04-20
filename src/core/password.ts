@@ -1,38 +1,34 @@
 import { Hash } from "crypto";
 
-const config = require('config');
-const argon2 = require('argon2');
+const crypto = require('crypto');
 
-const ARGON_SALT_LENGTH = config.get('auth.argon.saltLength');
-const ARGON_HASH_LENGTH = config.get('auth.argon.hashLength');
-const ARGON_TIME_COST = config.get('auth.argon.timeCost');
-const ARGON_MEMORY_COST = config.get('auth.argon.memoryCost');
+function encryptPassword(password: string, salt: Buffer) {
+  try {
+    // Combine password and salt into a single buffer
+    const fullPassword = Buffer.concat([Buffer.from(password), salt]);
 
-const hashPassword = async (password: string) => {
-  const passwordHash = await argon2.hash(password, {
-    type: argon2.argon2id,
-    saltLength: ARGON_SALT_LENGTH,
-    hashLength: ARGON_HASH_LENGTH,
-    timeCost: ARGON_TIME_COST,
-    memoryCost: ARGON_MEMORY_COST,
-  });
+    // Hash the combined buffer using SHA-256
+    const hashedBytes = crypto.createHash('sha256').update(fullPassword).digest();
 
-  return passwordHash;
-};
+    // Convert the hashed bytes to a hexadecimal string
+    const hashedPassword = hashedBytes.toString('hex');
 
-const verifyPassword = async (password: string, passwordHash: Hash) => {
-  const valid = await argon2.verify(passwordHash, password, {
-    type: argon2.argon2id,
-    saltLength: ARGON_SALT_LENGTH,
-    hashLength: ARGON_HASH_LENGTH,
-    timeCost: ARGON_TIME_COST,
-    memoryCost: ARGON_MEMORY_COST,
-  });
+    return hashedPassword;
+  } catch (error) {
+    console.error('Error hashing password:', error);
+    return null;
+  }
+}
+const customSalt = Buffer.from('J#7pQzL9', 'utf-8');
+const hashedPassword = (password: string): string => { return encryptPassword(password, customSalt);}
+
+const verifyPassword = async (password: string, passwordHash: string) => {
+  const valid = hashedPassword(password) == passwordHash
 
   return valid;
 };
 
 module.exports = {
-  hashPassword,
+  hashedPassword,
   verifyPassword,
 };

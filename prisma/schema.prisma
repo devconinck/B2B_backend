@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -13,8 +7,145 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
-  id    Int     @id @default(autoincrement())
-  email String  @unique
-  name  String?
+model account {
+  ID         BigInt   @id @default(autoincrement())
+  EMAIL      String?  @db.VarChar(255)
+  PASSWORD   String?  @db.VarChar(255)
+  ROLE       Int?
+  company_id BigInt?
+  company    company? @relation(fields: [company_id], references: [ID], onDelete: NoAction, onUpdate: NoAction, map: "FK_ACCOUNT_company_id")
+
+  @@index([company_id], map: "FK_ACCOUNT_company_id")
+}
+
+model company {
+  ID                                                                        BigInt                    @id @default(autoincrement())
+  BANKACCOUNTNR                                                             BigInt?
+  CUSTOMERSTART                                                             DateTime?                 @db.Date
+  ISACTIVE                                                                  Boolean?                  @default(false)
+  LOGO                                                                      String?                   @db.VarChar(255)
+  NAME                                                                      String?                   @db.VarChar(255)
+  SECTOR                                                                    String?                   @db.VarChar(255)
+  VATNUMBER                                                                 String?                   @db.VarChar(255)
+  CITY                                                                      String?                   @db.VarChar(255)
+  COUNTRY                                                                   String?                   @db.VarChar(255)
+  NUMBER                                                                    String?                   @db.VarChar(255)
+  STREET                                                                    String?                   @db.VarChar(255)
+  ZIPCODE                                                                   String?                   @db.VarChar(255)
+  EMAIL                                                                     String?                   @db.VarChar(255)
+  PHONENUMBER                                                               String?                   @db.VarChar(255)
+  account                                                                   account[]
+  company_known_companies_company_known_companies_company_idTocompany       company_known_companies[] @relation("company_known_companies_company_idTocompany")
+  company_known_companies_company_known_companies_known_company_idTocompany company_known_companies[] @relation("company_known_companies_known_company_idTocompany")
+  company_paymentoptions                                                    company_paymentoptions[]  @ignore
+  order_table_order_table_FROMCOMPANY_IDTocompany                           order_table[]             @relation("order_table_FROMCOMPANY_IDTocompany")
+  order_table_order_table_TOCOMPANY_IDTocompany                             order_table[]             @relation("order_table_TOCOMPANY_IDTocompany")
+}
+
+model company_known_companies {
+  company_id                                                BigInt
+  known_company_id                                          BigInt
+  company_company_known_companies_company_idTocompany       company @relation("company_known_companies_company_idTocompany", fields: [company_id], references: [ID], onDelete: NoAction, onUpdate: NoAction, map: "FK_company_known_companies_company_id")
+  company_company_known_companies_known_company_idTocompany company @relation("company_known_companies_known_company_idTocompany", fields: [known_company_id], references: [ID], onDelete: NoAction, onUpdate: NoAction, map: "FK_company_known_companies_known_company_id")
+
+  @@id([company_id, known_company_id])
+  @@index([known_company_id], map: "FK_company_known_companies_known_company_id")
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model company_paymentoptions {
+  Company_ID     BigInt?
+  PAYMENTOPTIONS String?  @db.VarChar(255)
+  company        company? @relation(fields: [Company_ID], references: [ID], onDelete: NoAction, onUpdate: NoAction, map: "FK_Company_PAYMENTOPTIONS_Company_ID")
+
+  @@index([Company_ID], map: "FK_Company_PAYMENTOPTIONS_Company_ID")
+  @@ignore
+}
+
+model company_update_requests {
+  ID                                     BigInt                                   @id @default(autoincrement())
+  NEWBANKACCOUNTNR                       BigInt?
+  NEWCUSTOMEREMAIL                       String?                                  @db.VarChar(255)
+  NEWCUSTOMERPASSWORD                    String?                                  @db.VarChar(255)
+  NEWCUSTOMERSTART                       DateTime?                                @db.Date
+  NEWLOGO                                String?                                  @db.VarChar(255)
+  NEWNAME                                String?                                  @db.VarChar(255)
+  NEWSECTOR                              String?                                  @db.VarChar(255)
+  NEWSUPPLIEREMAIL                       String?                                  @db.VarChar(255)
+  NEWSUPPLIERPASSWORD                    String?                                  @db.VarChar(255)
+  NEWVATNUMBER                           String?                                  @db.VarChar(255)
+  OLDVATNUMBER                           String?                                  @db.VarChar(255)
+  REQUESTDATE                            DateTime?                                @db.Date
+  CITY                                   String?                                  @db.VarChar(255)
+  COUNTRY                                String?                                  @db.VarChar(255)
+  NUMBER                                 String?                                  @db.VarChar(255)
+  STREET                                 String?                                  @db.VarChar(255)
+  ZIPCODE                                String?                                  @db.VarChar(255)
+  EMAIL                                  String?                                  @db.VarChar(255)
+  PHONENUMBER                            String?                                  @db.VarChar(255)
+  companyupdaterequest_newpaymentoptions companyupdaterequest_newpaymentoptions[] @ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model companyupdaterequest_newpaymentoptions {
+  CompanyUpdateRequest_ID BigInt?
+  NEWPAYMENTOPTIONS       String?                  @db.VarChar(255)
+  company_update_requests company_update_requests? @relation(fields: [CompanyUpdateRequest_ID], references: [ID], onDelete: NoAction, onUpdate: NoAction, map: "CmpnypdtRequestNEWPAYMENTOPTIONSCmpnypdteRequestID")
+
+  @@index([CompanyUpdateRequest_ID], map: "CmpnypdtRequestNEWPAYMENTOPTIONSCmpnypdteRequestID")
+  @@ignore
+}
+
+model order_table {
+  ID                                          BigInt      @id @default(autoincrement())
+  CURRENCY                                    String?     @db.VarChar(255)
+  DATE                                        String?     @db.VarChar(255)
+  LASTPAYMENTREMINDER                         String?     @db.VarChar(255)
+  NAME                                        String?     @db.VarChar(255)
+  NETAMOUNT                                   String?     @db.VarChar(255)
+  ORDERDATETIME                               DateTime?   @db.Date
+  ORDERID                                     String?     @db.VarChar(255)
+  ORDERREFERENCE                              String?     @db.VarChar(255)
+  ORDERSTATUS                                 Int?
+  PAYMENTSTATUS                               Int?
+  TAXAMOUNT                                   String?     @db.VarChar(255)
+  TOTALAMOUNT                                 String?     @db.VarChar(255)
+  FROMCOMPANY_ID                              BigInt?
+  TOCOMPANY_ID                                BigInt?
+  company_order_table_FROMCOMPANY_IDTocompany company?    @relation("order_table_FROMCOMPANY_IDTocompany", fields: [FROMCOMPANY_ID], references: [ID], onDelete: NoAction, onUpdate: NoAction, map: "FK_order_table_FROMCOMPANY_ID")
+  company_order_table_TOCOMPANY_IDTocompany   company?    @relation("order_table_TOCOMPANY_IDTocompany", fields: [TOCOMPANY_ID], references: [ID], onDelete: NoAction, onUpdate: NoAction, map: "FK_order_table_TOCOMPANY_ID")
+  orderitem                                   orderitem[]
+
+  @@index([FROMCOMPANY_ID], map: "FK_order_table_FROMCOMPANY_ID")
+  @@index([TOCOMPANY_ID], map: "FK_order_table_TOCOMPANY_ID")
+}
+
+model orderitem {
+  ID              BigInt       @id @default(autoincrement())
+  INSTOCK         String?      @db.VarChar(255)
+  NAME            String?      @db.VarChar(255)
+  ORDERID         Int?
+  ORDERITEMID     Int?
+  QUANTITY        Int?
+  SYNCID          Int?
+  TOTAL           Decimal?     @db.Decimal(38, 0)
+  UNITOFMEASUREID String?      @db.VarChar(255)
+  UNITPRICE       Decimal?     @db.Decimal(38, 0)
+  FROMORDER_ID    BigInt?
+  PRODUCT_ID      BigInt?
+  order_table     order_table? @relation(fields: [FROMORDER_ID], references: [ID], onDelete: NoAction, onUpdate: NoAction, map: "FK_ORDERITEM_FROMORDER_ID")
+  product         product?     @relation(fields: [PRODUCT_ID], references: [ID], onDelete: NoAction, onUpdate: NoAction, map: "FK_ORDERITEM_PRODUCT_ID")
+
+  @@index([FROMORDER_ID], map: "FK_ORDERITEM_FROMORDER_ID")
+  @@index([PRODUCT_ID], map: "FK_ORDERITEM_PRODUCT_ID")
+}
+
+model product {
+  ID                     BigInt      @id @default(autoincrement())
+  PRODUCTAVAILABILITY    String?     @db.VarChar(255)
+  PRODUCTCATEGORYID      String?     @db.VarChar(255)
+  PRODUCTID              String?     @db.VarChar(255)
+  PRODUCTUNITOFMEASUREID String?     @db.VarChar(255)
+  SYNCID                 Int?
+  orderitem              orderitem[]
 }

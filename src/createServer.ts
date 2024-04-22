@@ -3,9 +3,9 @@ import config from 'config';
 import bodyParser from 'koa-bodyparser';
 import koaHelmet from 'koa-helmet';
 import { initializeLogger, getLogger } from './core/logging';
-import emoji from 'node-emoji';
 import { Prisma, PrismaClient } from '@prisma/client';
 import { ServiceError } from './core/serviceError';
+import * as emoji from 'node-emoji';
 import installRest from './rest';
 
 // Destructuring ENV and Logging variables

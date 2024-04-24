@@ -1,4 +1,6 @@
+import { account } from '@prisma/client';
 import jwt from 'jsonwebtoken';
+import { ExposedUser } from '../service/user';
 
 import config from 'config';
 
@@ -7,19 +9,13 @@ const JWT_SECRET: jwt.Secret = config.get('auth.jwt.secret');
 const JWT_ISSUER: string = config.get('auth.jwt.issuer');
 const JWT_EXPIRATION_INTERVAL: number = config.get('auth.jwt.expirationInterval');
 
-// MAG NIET ECHT
-interface User {
-  id: string;
-  name: string;
-  email: string;
-  roles: string[];
-}
-
-const generateJWT = (user: User) => {
+const generateJWT = (acc: ExposedUser) => {
 
   const tokenData: jwt.JwtPayload = {
-    userId: user.id,
-    roles: user.roles,
+    userId: acc.id,
+    email: acc.email,
+    role: acc.role,
+    companyId: acc.companyId,
   };
 
   const signOptions: jwt.SignOptions = {

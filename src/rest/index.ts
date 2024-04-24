@@ -1,15 +1,29 @@
+// Importeren Koa vr Type
 import Koa from 'koa';
 
-const Router = require('@koa/router');
-const installUserRouter = require('./user');
+import Router from '@koa/router';
 
-module.exports = (app: Koa<Koa.DefaultState, Koa.DefaultContext>) => {
-  const router = new Router({
-    prefix: '/api',
-  });
+// router toevoegen
+import installHealthRouter from './_health';
+import installUserRouter from './_user';
 
-  installUserRouter(router);
+/**
+ *@param {Koa} app
+ */
 
-  app.use(router.routes())
-     .use(router.allowedMethods());
+export default function installRest(app: Koa) {
+    const router = new Router({
+        prefix: '/api',
+    });
+
+    //installOrderRouter(router);
+
+    // Vr monitoring etc
+    installHealthRouter(router);
+    installUserRouter(router);
+
+
+    app
+        .use(router.routes())
+        .use(router.allowedMethods());
 };

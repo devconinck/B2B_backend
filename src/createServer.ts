@@ -5,6 +5,8 @@ import koaHelmet from 'koa-helmet';
 import { initializeLogger, getLogger } from './core/logging';
 import { Prisma, PrismaClient } from '@prisma/client';
 import { ServiceError } from './core/serviceError';
+import * as emoji from 'node-emoji';
+import installRest from './rest';
 
 const installRest = require('./rest');
 const { initializeData } = require('./data');
@@ -145,8 +147,8 @@ export default async function createServer() {
     async stop() {
       app.removeAllListeners();
       logger.info('Server stopped listening');
-      // Close database connection
-      // await shutdownData();
+      // Close Prisma connection
+      await prisma.$disconnect()
     },
   };
 }

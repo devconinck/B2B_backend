@@ -1,6 +1,9 @@
-import { ServiceError } from "../core/serviceError";
-import repositoryOrders from "../data/order";
 import { serializeOrders } from "../data/serializeData";
+
+const { getLogger } = require('../core/logging');
+const { getAllOrders } = require('../data/order');
+const ServiceError = require('../core/serviceError');
+const repositoryOrders = require("../data/order")
 
 const getMyOrders = async (companyId: number) => {
   const items = serializeOrders(
@@ -10,16 +13,16 @@ const getMyOrders = async (companyId: number) => {
     items,
     count: items.length,
   };
+}
+const debugLog = (message: any, meta = {}) => {
+  const logger = getLogger();
+  logger.debug(message, meta);
 };
 
-const getMyOrder = async (companyId: number, orderId: number) => {
-  const result = await repositoryOrders.findMyOrder(companyId, orderId);
-  if (!result) {
-    throw ServiceError.notFound(`No order with id ${orderId} exists`, {
-      orderId,
-    });
-  }
-  return serializeOrders([result]);
+const getAll = async () => {
+  debugLog('Fetching all orders');
+  const orders = await getAllOrders();
+  return orders;
 };
 
 const getOrdersForMe = async (companyId: number) => {
@@ -33,3 +36,6 @@ const getOrdersForMe = async (companyId: number) => {
 };
 
 export default { getMyOrders, getMyOrder, getOrdersForMe };
+module.exports = {
+  getAll,
+}

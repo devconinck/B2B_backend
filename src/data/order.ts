@@ -21,3 +21,4 @@ const findOrdersToCustomer = async (companyId: number) => {
 };
 
 export default { findOrdersFromCustomer, findMyOrder, findOrdersToCustomer };
+

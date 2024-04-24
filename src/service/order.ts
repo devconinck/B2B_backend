@@ -1,9 +1,11 @@
 import { serializeOrders } from "../data/serializeData";
 
 const { getLogger } = require('../core/logging');
-const { getAllOrders } = require('../data/order');
+const { getOrders } = require('../data/order');
 const ServiceError = require('../core/serviceError');
 const repositoryOrders = require("../data/order")
+import { PaymentStatus } from '../types/enums/PaymentStatus';
+import { OrderStatus } from '../types/enums/OrderStatus';
 
 const getMyOrders = async (companyId: number) => {
   const items = serializeOrders(
@@ -19,11 +21,23 @@ const debugLog = (message: any, meta = {}) => {
   logger.debug(message, meta);
 };
 
-const getAll = async () => {
-  debugLog('Fetching all orders');
-  const orders = await getAllOrders();
-  return orders;
-};
+const getAll = async (params: {
+    page?: number;
+    startDate?: Date;
+    endDate?: Date;
+    companyName?: string;
+    minAmount?: number;
+    maxAmount?: number;
+    orderReference?: string;
+    orderStatus?: OrderStatus;
+    paymentStatus?: PaymentStatus;
+    orderId?: number;
+  }) => {
+    debugLog('Fetching orders', params);
+    const orders = await getOrders(params);
+    return orders;
+  };
+  
 
 const getOrdersForMe = async (companyId: number) => {
   const items = serializeOrders(
@@ -35,7 +49,7 @@ const getOrdersForMe = async (companyId: number) => {
   };
 };
 
-export default { getMyOrders, getMyOrder, getOrdersForMe };
+export default { getMyOrders, getOrdersForMe };
 module.exports = {
   getAll,
 }

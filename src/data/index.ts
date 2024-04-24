@@ -46,4 +46,5 @@ function getPrisma(): PrismaClient {
   return prismaInstance;
 };
 
+
 module.exports = { initializeData, shutdownData, getPrisma };

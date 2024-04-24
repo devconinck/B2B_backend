@@ -3,14 +3,11 @@ import config from 'config';
 import bodyParser from 'koa-bodyparser';
 import koaHelmet from 'koa-helmet';
 import { initializeLogger, getLogger } from './core/logging';
-import { Prisma, PrismaClient } from '@prisma/client';
 import { ServiceError } from './core/serviceError';
 import * as emoji from 'node-emoji';
 import installRest from './rest';
 
-const installRest = require('./rest');
-const { initializeData } = require('./data');
-const emoji = require('node-emoji');
+const { initializeData, shutdownData } = require('./data');
 
 // Destructuring ENV and Logging variables
 const [NODE_ENV, LOG_LEVEL, LOG_DISABLED] = [config.get('env'), config.get('log.level'), config.get('log.disabled')];
@@ -26,7 +23,6 @@ export default async function createServer() {
   });
 
   // Initialize the database (PRISMA)
-  //const prisma = new PrismaClient();
   await initializeData();
 
   // Create a new KOA App
@@ -148,7 +144,7 @@ export default async function createServer() {
       app.removeAllListeners();
       logger.info('Server stopped listening');
       // Close Prisma connection
-      await prisma.$disconnect()
+      await shutdownData();
     },
   };
 }

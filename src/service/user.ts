@@ -44,6 +44,4 @@ interface ExposedUser {
   roles: string[];
 }
 
-module.exports = {
-  login,
-};
+export default { login };

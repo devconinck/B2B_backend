@@ -1,11 +1,19 @@
 import jwt from 'jsonwebtoken';
 
-const config = require('config');
+import config from 'config';
 
 const JWT_AUDIENCE: string = config.get('auth.jwt.audience');
 const JWT_SECRET: jwt.Secret = config.get('auth.jwt.secret');
 const JWT_ISSUER: string = config.get('auth.jwt.issuer');
 const JWT_EXPIRATION_INTERVAL: number = config.get('auth.jwt.expirationInterval');
+
+// MAG NIET ECHT
+interface User {
+  id: string;
+  name: string;
+  email: string;
+  roles: string[];
+}
 
 const generateJWT = (user: User) => {
 

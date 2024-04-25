@@ -40,6 +40,7 @@ model company {
   company_paymentoptions                                                    company_paymentoptions[]  @ignore
   order_table_order_table_FROMCOMPANY_IDTocompany                           order_table[]             @relation("order_table_FROMCOMPANY_IDTocompany")
   order_table_order_table_TOCOMPANY_IDTocompany                             order_table[]             @relation("order_table_TOCOMPANY_IDTocompany")
+  product                                                                   product[]
 }
 
 model company_known_companies {
@@ -147,5 +148,9 @@ model product {
   PRODUCTID              String?     @db.VarChar(255)
   PRODUCTUNITOFMEASUREID String?     @db.VarChar(255)
   SYNCID                 Int?
+  FROMCOMPANY_ID         BigInt
   orderitem              orderitem[]
+  company                company?    @relation(fields: [FROMCOMPANY_ID], references: [ID], onDelete: NoAction, onUpdate: NoAction, map: "FK_PRODUCT_FROMCOMPANY_ID")
+
+  @@index([FROMCOMPANY_ID], map: "FK_PRODUCT_FROMCOMPANY_ID")
 }

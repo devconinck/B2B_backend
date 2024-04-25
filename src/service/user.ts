@@ -1,9 +1,12 @@
 import { account } from "@prisma/client";
+import Koa from 'koa';
+import { getLogger } from "../core/logging";
+import { Role } from "../core/roles";
 
 const { ServiceError } = require('../core/serviceError');
 const userRepository = require('../data/user');
 const { verifyPassword } = require('../core/password');
-const { generateJWT } = require('../core/jwt');
+const { generateJWT, verifyJWT } = require('../core/jwt');
 
 const login = async (email: string, password: string) => {
 
@@ -32,6 +35,40 @@ const makeLoginData = async (user: account) => {
   };
 };
 
+const checkAndParseSession = async (authHeader: any) => {
+
+  if (!authHeader) {
+    throw ServiceError.unauthorized('You need to be signed in');
+  } 
+
+  if (!authHeader.startsWith('Bearer ')) {
+    throw ServiceError.unauthorized('Invalid authentication token');
+  }
+
+  const authToken = authHeader.substring(7);
+  try {
+    const { role, companyId } = await verifyJWT(authToken);
+
+
+    return {
+      role,
+      companyId,
+      authToken,
+    };
+  } catch (error: any) {
+    getLogger().error(error.message, { error });
+    throw new Error(error.message);
+  }
+};
+
+const checkRole = (role: Role, requiredRole: Role) => {
+  if (requiredRole !== role) {
+    throw ServiceError.forbidden(
+      'You are not allowed to view this part of the application'
+    );
+  }
+};
+
 export interface ExposedUser {
   id: string;
   email: string;
@@ -39,4 +76,4 @@ export interface ExposedUser {
   companyId: string;
 }
 
-export default { login };
+export default { login, checkAndParseSession, checkRole };

@@ -6,6 +6,7 @@ import Router from '@koa/router';
 // router toevoegen
 import installHealthRouter from './_health';
 import installUserRouter from './_user';
+import installProductRouter from './_products';
 
 /**
  *@param {Koa} app
@@ -21,6 +22,7 @@ export default function installRest(app: Koa) {
     // Vr monitoring etc
     installHealthRouter(router);
     installUserRouter(router);
+    installProductRouter(router);
 
 
     app

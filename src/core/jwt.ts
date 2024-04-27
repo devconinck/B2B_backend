@@ -1,7 +1,6 @@
-import { account } from "@prisma/client";
 import { JsonWebKey } from "crypto";
 import { JsonWebTokenError } from "jsonwebtoken";
-import { ExposedUser } from "../service/user";
+import { serializedAccount } from "../data/user"
 
 const jwt = require('jsonwebtoken');
 
@@ -12,13 +11,13 @@ const JWT_SECRET = config.get('auth.jwt.secret');
 const JWT_ISSUER = config.get('auth.jwt.issuer');
 const JWT_EXPIRATION_INTERVAL = config.get('auth.jwt.expirationInterval');
 
-const generateJWT = (acc: account) => {
+const generateJWT = (acc: serializedAccount) => {
 
   const tokenData = {
-    userId: Number(acc.ID.toString()),
-    email: acc.EMAIL,
-    role: acc.ROLE,
-    companyId: Number(acc.company_id.toString()),
+    userId: acc.id,
+    email: acc.email,
+    role: acc.role,
+    companyId: acc.companyId,
   };
 
   const signOptions = {

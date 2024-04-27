@@ -16,9 +16,7 @@ const requireAuthentication = async (ctx: Koa.Context, next: Koa.Next) => {
 };
 
 const makeRequireRole = (requireRole: Role) => async (ctx: Koa.Context, next: Koa.Next) => {
-  console.log(ctx.state.session);
   const { role } = ctx.state.session;
-  console.log(`req: ${requireRole}, role: ${role}, /core/auth.ts`);
   userService.checkRole(role, requireRole);
   return next();
 };

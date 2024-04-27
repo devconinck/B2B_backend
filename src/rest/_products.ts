@@ -1,7 +1,7 @@
 import Koa from 'koa';
 import Router from '@koa/router';
 const { requireAuthentication, makeRequireRole } = require('../core/auth');
-import Role from '../core/roles';
+import { Role } from '../core/roles';
 
 import productService from '../service/product';
 
@@ -15,10 +15,10 @@ export default function installProductRouter(app: Router) {
     prefix: '/company',
   });
 
-  const requireAdmin = makeRequireRole(Role.ADMIN);
+  const requireSupplier = makeRequireRole(Role.ADMIN);
 
   // Public routes
-  router.get('/products', requireAuthentication, getOwnProducts);
+  router.get('/products', requireAuthentication, requireSupplier, getOwnProducts);
 
   app.use(router.routes()).use(router.allowedMethods());
 };

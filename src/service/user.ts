@@ -2,6 +2,7 @@ import { account } from "@prisma/client";
 import Koa from 'koa';
 import { getLogger } from "../core/logging";
 import { Role } from "../core/roles";
+import { serializedAccount } from "../data/user";
 
 const { ServiceError } = require('../core/serviceError');
 const userRepository = require('../data/user');
@@ -10,12 +11,12 @@ const { generateJWT, verifyJWT } = require('../core/jwt');
 
 const login = async (email: string, password: string) => {
 
-  const user = await userRepository.findByEmail(email);
+  const user: serializedAccount = await userRepository.findByEmail(email);
   if(!user) {
     throw ServiceError.unauthorized('The given email and password do not match');
   }
 
-  const passwordValid = await verifyPassword(password, user.PASSWORD);
+  const passwordValid = await verifyPassword(password, user.password);
   if(!passwordValid) {
     throw ServiceError.unauthorized('The given email and password do not match');
   }
@@ -23,11 +24,11 @@ const login = async (email: string, password: string) => {
   return await makeLoginData(user);
 };
 
-const makeExposedUser = ({ID, EMAIL, ROLE, company_id}: account): ExposedUser => ({
-  id: Number(ID.toString()), email: EMAIL, role: ROLE, companyId: Number(company_id.toString()),
+const makeExposedUser = ({id, email, role, companyId}: serializedAccount): ExposedUser => ({
+  id, email, role, companyId,
 });
 
-const makeLoginData = async (user: account) => {
+const makeLoginData = async (user: serializedAccount) => {
   const token = await generateJWT(user);
   return {
     user: makeExposedUser(user),
@@ -70,10 +71,10 @@ const checkRole = (role: Role, requiredRole: Role) => {
 };
 
 export interface ExposedUser {
-  id: number;
+  id: Number;
   email: string;
-  role: number;
-  companyId: number;
+  role: Role;
+  companyId: Number;
 }
 
 export default { login, checkAndParseSession, checkRole };

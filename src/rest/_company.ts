@@ -10,16 +10,20 @@ const getOwnProducts = async (ctx: Koa.Context) => {
   ctx.body = await companyService.getAllProducts(companyId);
 };
 
+const getAllCompanies = async (ctx: Koa.Context) => {
+  ctx.body = await companyService.getAllCompanies();
+};
+
 export default function installCompanyRouter(app: Router) {
   const router = new Router({
     prefix: '/company',
   });
 
-  const requireSupplier = makeRequireRole(Role.ADMIN);
+  //const requireSupplier = makeRequireRole(Role.SUPPLIER);
 
   // Public routes
-  // Routes when logged in
-  router.get('/products', requireAuthentication, getOwnProducts);
+  router.get('/products', getOwnProducts);
+  router.get('/', getAllCompanies)
 
   app.use(router.routes()).use(router.allowedMethods());
 };

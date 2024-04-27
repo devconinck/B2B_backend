@@ -1,4 +1,4 @@
-import companyRepository from '../data/company';
+const { companyRepository } = require('../data/company');
 
 const getAllProducts = async (companyId: number) => {
   const items = await companyRepository.findByCompany(companyId);
@@ -8,4 +8,12 @@ const getAllProducts = async (companyId: number) => {
   };
 };
 
-export default { getAllProducts };
+const getAllCompanies = async () => {
+  const items = await companyRepository.findAllCompanies();
+  return {
+    items,
+    count: items.length,
+  };
+};
+
+export default { getAllProducts, getAllCompanies };

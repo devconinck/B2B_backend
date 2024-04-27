@@ -3,14 +3,14 @@ import Router from '@koa/router';
 const { requireAuthentication, makeRequireRole } = require('../core/auth');
 import { Role } from '../core/roles';
 
-import productService from '../service/company';
+import companyService from '../service/company';
 
 const getOwnProducts = async (ctx: Koa.Context) => {
   const { companyId } = ctx.state.session;
-  ctx.body = await productService.getAllProducts(companyId);
+  ctx.body = await companyService.getAllProducts(companyId);
 };
 
-export default function installProductRouter(app: Router) {
+export default function installCompanyRouter(app: Router) {
   const router = new Router({
     prefix: '/company',
   });

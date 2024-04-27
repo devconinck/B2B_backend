@@ -1,7 +1,7 @@
-import productRepository from '../data/company';
+import companyRepository from '../data/company';
 
 const getAllProducts = async (companyId: number) => {
-  const items = await productRepository.findByCompany(companyId);
+  const items = await companyRepository.findByCompany(companyId);
   return {
     items,
     count: items.length,

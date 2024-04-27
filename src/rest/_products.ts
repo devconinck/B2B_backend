@@ -6,9 +6,7 @@ import Role from '../core/roles';
 import productService from '../service/product';
 
 const getOwnProducts = async (ctx: Koa.Context) => {
-  console.log(ctx.state.session);
   const { companyId } = ctx.state.session;
-  console.log(companyId);
   ctx.body = await productService.getAll(companyId);
 };
 

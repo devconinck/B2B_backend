@@ -24,7 +24,7 @@ const login = async (email: string, password: string) => {
 };
 
 const makeExposedUser = ({ID, EMAIL, ROLE, company_id}: account): ExposedUser => ({
-  id: ID.toString(), email: EMAIL, role: ROLE, companyId: company_id.toString(),
+  id: Number(ID.toString()), email: EMAIL, role: ROLE, companyId: Number(company_id.toString()),
 });
 
 const makeLoginData = async (user: account) => {
@@ -70,10 +70,10 @@ const checkRole = (role: Role, requiredRole: Role) => {
 };
 
 export interface ExposedUser {
-  id: string;
+  id: number;
   email: string;
   role: number;
-  companyId: string;
+  companyId: number;
 }
 
 export default { login, checkAndParseSession, checkRole };

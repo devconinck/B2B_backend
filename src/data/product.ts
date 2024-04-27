@@ -7,13 +7,13 @@ const findByCompany = async (companyId: number) => {
     where: {FROMCOMPANY_ID: companyId},
   });
   const serializedResults = results.map( result => ({
-    id: result.ID.toString(),
-    productavailability: result.PRODUCTAVAILABILITY,
-    productcategoryId: result.PRODUCTCATEGORYID,
+    id: Number(result.ID.toString()),
+    productAvailability: result.PRODUCTAVAILABILITY,
+    productCategoryId: result.PRODUCTCATEGORYID,
     productId: result.PRODUCTID,
     productUnitOfMeasureId: result.PRODUCTUNITOFMEASUREID,
     syncId: result.SYNCID,
-    fromCompanyId: result.FROMCOMPANY_ID.toString(),
+    fromCompanyId: Number(result.FROMCOMPANY_ID.toString()),
   }));
   return serializedResults;
 };

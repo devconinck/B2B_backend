@@ -38,7 +38,10 @@ const serializeCompanies = (companies: Array<company>) => {
     id: Number(result.ID.toString()),
     name: result.NAME,
     logo: result.LOGO,
+    isActive: result.ISACTIVE,
+    vatNumber: result.VATNUMBER,
     bankAccountNr: Number(result.BANKACCOUNTNR?.toString()),
+    sector: result.SECTOR,
     customerStart: result.CUSTOMERSTART,
     address: {
       country: result.COUNTRY,
@@ -51,13 +54,11 @@ const serializeCompanies = (companies: Array<company>) => {
       email: result.EMAIL,
       phoneNumber: result.PHONENUMBER,
     },
-    isActive: result.ISACTIVE,
-    sector: result.SECTOR,
-    vatNumber: result.VATNUMBER,
-  }))
-}
+  }));
+};
 
 module.exports = {
   serializeProducts,
   serializeOrders,
+  serializeCompanies,
 }

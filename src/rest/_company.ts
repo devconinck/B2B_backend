@@ -6,8 +6,8 @@ const { Role } = require('../core/roles');
 const companyService = require('../service/company');
 
 const getOwnProducts = async (ctx: typeof Koa.Context) => {
-  const { companyId } = ctx.state.session;
-  ctx.body = await companyService.getAllProducts(companyId);
+  const { companyId } = ctx.params.id;
+  ctx.body = await companyService.getAllProductsCompany(companyId);
 };
 
 const getAllCompanies = async (ctx: typeof Koa.Context) => {

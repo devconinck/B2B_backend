@@ -15,4 +15,4 @@ const findAllCompanies = async () => {
   return serializeCompanies(results);
 };
 
-export default { findByCompany, findAllCompanies };
+module.exports = { findByCompany, findAllCompanies };

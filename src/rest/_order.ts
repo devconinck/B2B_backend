@@ -10,6 +10,12 @@ const getMyOrders = async (ctx: Koa.Context) => {
   ctx.body = await orderService.getMyOrders(companyId);
 };
 
+const getMyOrder = async (ctx: Koa.Context) => {
+  const { companyId } = ctx.state.session;
+  const orderId = ctx.params.id;
+  ctx.body = await orderService.getMyOrder(companyId, orderId);
+};
+
 const getOrdersForMe = async (ctx: Koa.Context) => {
   const { companyId } = ctx.state.session;
   ctx.body = await orderService.getOrdersForMe(companyId);
@@ -25,8 +31,10 @@ export default function installOrderRouter(app: Router) {
 
   // Routes when logged in as customer
   router.get('/myorders', requireAuthentication, requireCustomer, getMyOrders);
+  router.get('/myorder/:id', requireAuthentication, requireCustomer, getMyOrder);
   // Routes when logged in as supplier
   router.get('/ordersforme', requireAuthentication, requireSupplier, getOrdersForMe);
+  router.get('/orderforme/:id', requireAuthentication, requireSupplier, getMyOrder);
 
   app.use(router.routes()).use(router.allowedMethods());
 };

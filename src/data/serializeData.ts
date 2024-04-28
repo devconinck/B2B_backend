@@ -13,7 +13,7 @@ const serializeProducts = (products: Array<product>) => {
   }));
 };
 
-const serializeOrders = (results: Array<order_table>) => {
+export const serializeOrders = (results: Array<order_table>) => {
   return results.map(result => ({
     id: Number(result.ID.toString()),
     fromCompanyId: Number(result.FROMCOMPANY_ID?.toString()),

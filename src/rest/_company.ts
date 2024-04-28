@@ -6,7 +6,7 @@ const { Role } = require('../core/roles');
 const companyService = require('../service/company');
 
 const getOwnProducts = async (ctx: typeof Koa.Context) => {
-  const { companyId } = ctx.params.id;
+  const companyId = ctx.params.id;
   ctx.body = await companyService.getAllProductsCompany(companyId);
 };
 
@@ -22,7 +22,7 @@ export default function installCompanyRouter(app: typeof Router) {
   //const requireSupplier = makeRequireRole(Role.SUPPLIER);
 
   // Public routes
-  router.get('/products', getOwnProducts);
+  router.get('/:id', getOwnProducts);
   router.get('/', getAllCompanies)
 
   app.use(router.routes()).use(router.allowedMethods());

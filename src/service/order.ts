@@ -22,6 +22,8 @@ const debugLog = (message: any, meta = {}) => {
 };
 
 const getAll = async (params: {
+    userId: string;
+    companyId: string;
     page?: number;
     startDate?: Date;
     endDate?: Date;

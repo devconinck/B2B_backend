@@ -1,13 +1,12 @@
 import { getLogger } from "../core/logging";
 import { Role } from "../core/roles";
-
-const { ServiceError } = require("../core/serviceError");
-const userRepository = require("../data/user");
-const { verifyPassword } = require("../core/password");
-const { generateJWT, verifyJWT } = require("../core/jwt");
+import { ServiceError } from "../core/serviceError";
+import * as userRepository from "../data/user";
+import { verifyPassword } from "../core/password";
+import { generateJWT, verifyJWT } from "../core/jwt";
 
 export const login = async (email: string, password: string) => {
-  const user = await userRepository.findByEmail(email);
+  const user: any = await userRepository.findByEmail(email);
   if (!user) {
     throw ServiceError.unauthorized(
       "The given email and password do not match"
@@ -50,7 +49,8 @@ export const checkAndParseSession = async (authHeader: any) => {
 
   const authToken = authHeader.substring(7);
   try {
-    const { role, companyId } = await verifyJWT(authToken);
+    const verified = await verifyJWT(authToken);
+    const { role, companyId }: any = verified;
 
     return {
       role,

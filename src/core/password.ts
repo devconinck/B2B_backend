@@ -22,7 +22,10 @@ const hashedPassword = (password: string): string | undefined => {
   return encryptPassword(password, customSalt);
 };
 
-const verifyPassword = async (password: string, passwordHash: string) => {
+export const verifyPassword = async (
+  password: string,
+  passwordHash: string
+) => {
   const valid = hashedPassword(password) == passwordHash;
 
   return valid;

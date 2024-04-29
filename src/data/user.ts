@@ -3,7 +3,7 @@ import { serializeAccounts } from "./serializeData";
 
 const prisma = new PrismaClient();
 
-const findByEmail = async (email: string) => {
+export const findByEmail = async (email: string) => {
   const result = await prisma.account.findFirst({
     where: { EMAIL: email },
   });

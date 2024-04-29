@@ -1,4 +1,4 @@
-const companyRepository = require("../data/company");
+import * as companyRepository from "../data/company";
 
 export const getAllProductsCompany = async (companyId: number) => {
   const items = await companyRepository.findByCompany(companyId);
@@ -15,5 +15,3 @@ export const getAllCompanies = async () => {
     count: items.length,
   };
 };
-
-module.exports = { getAllProductsCompany, getAllCompanies };

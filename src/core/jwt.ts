@@ -9,7 +9,7 @@ const JWT_EXPIRATION_INTERVAL: number = config.get(
   "auth.jwt.expirationInterval"
 );
 
-const generateJWT = (acc: any) => {
+export const generateJWT = (acc: any) => {
   const tokenData: object = {
     userId: acc.id,
     email: acc.email,
@@ -40,7 +40,7 @@ const generateJWT = (acc: any) => {
   });
 };
 
-const verifyJWT = (authToken: string) => {
+export const verifyJWT = (authToken: string) => {
   const verifyOptions: VerifyOptions & { complete: true } = {
     audience: JWT_AUDIENCE,
     issuer: JWT_ISSUER,
@@ -62,9 +62,4 @@ const verifyJWT = (authToken: string) => {
       }
     );
   });
-};
-
-module.exports = {
-  generateJWT,
-  verifyJWT,
 };

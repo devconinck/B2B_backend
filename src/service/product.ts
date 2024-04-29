@@ -1,4 +1,4 @@
-const productRepository = require("../data/product");
+import * as productRepository from "../data/product";
 
 export const getAllProducts = async () => {
   const items = await productRepository.findAll();
@@ -7,5 +7,3 @@ export const getAllProducts = async () => {
     count: items.length,
   };
 };
-
-module.exports = { getAllProducts };

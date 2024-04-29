@@ -6,9 +6,11 @@ export enum OrderStatus {
   DELIVERED = "DELIVERED", // 4
   COMPLETED = "COMPLETED", // 5
   NODATA = "NODATA",
-};
+}
 
-const getOrderStatusByNumber = (orderStatusNumber: number): OrderStatus => {
+export const getOrderStatusByNumber = (
+  orderStatusNumber: number | null
+): OrderStatus => {
   switch (orderStatusNumber) {
     case 0:
       return OrderStatus.PLACED;
@@ -24,7 +26,7 @@ const getOrderStatusByNumber = (orderStatusNumber: number): OrderStatus => {
       return OrderStatus.COMPLETED;
     default:
       return OrderStatus.NODATA;
-  };
+  }
 };
 
 export enum PaymentStatus {
@@ -32,9 +34,11 @@ export enum PaymentStatus {
   INVOICE_SENT = "SUPINVOICE_SENTPLIER", // 1
   PAID = "PAID", // 2
   NODATA = "NODATA",
-};
+}
 
-const getPaymentStatusByNumber = (paymentStatusNumber: number): PaymentStatus => {
+export const getPaymentStatusByNumber = (
+  paymentStatusNumber: number | null
+): PaymentStatus => {
   switch (paymentStatusNumber) {
     case 0:
       return PaymentStatus.UNPROCESSED;
@@ -44,7 +48,5 @@ const getPaymentStatusByNumber = (paymentStatusNumber: number): PaymentStatus =>
       return PaymentStatus.PAID;
     default:
       return PaymentStatus.NODATA;
-  };
+  }
 };
-
-module.exports = { getPaymentStatusByNumber, getOrderStatusByNumber };

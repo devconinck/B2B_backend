@@ -1,11 +1,11 @@
 import { PrismaClient } from "@prisma/client";
-const { serializeProducts, serializeCompanies } = require('./serializeData');
+import { serializeProducts, serializeCompanies } from "./serializeData";
 
 const prisma = new PrismaClient();
 
 const findByCompany = async (companyId: number) => {
   const results = await prisma.product.findMany({
-    where: {FROMCOMPANY_ID: companyId},
+    where: { FROMCOMPANY_ID: companyId },
   });
   return serializeProducts(results);
 };

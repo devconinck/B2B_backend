@@ -1,5 +1,4 @@
-import { JsonWebTokenError, VerifyOptions, SignOptions } from "jsonwebtoken";
-import { serializedAccount } from "../data/user";
+import { VerifyOptions, SignOptions } from "jsonwebtoken";
 import Jwt from "jsonwebtoken";
 import config from "config";
 
@@ -10,7 +9,7 @@ const JWT_EXPIRATION_INTERVAL: number = config.get(
   "auth.jwt.expirationInterval"
 );
 
-const generateJWT = (acc: serializedAccount) => {
+const generateJWT = (acc: any) => {
   const tokenData: object = {
     userId: acc.id,
     email: acc.email,

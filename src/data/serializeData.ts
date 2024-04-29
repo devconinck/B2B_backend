@@ -1,8 +1,9 @@
-import { product, order_table, company } from "@prisma/client";
-const { getPaymentStatusByNumber, getOrderStatusByNumber }= require('../core/enum');
+import { product, order_table, company, account } from "@prisma/client";
+import { getPaymentStatusByNumber, getOrderStatusByNumber } from "../core/enum";
+import { getRoleByNumber } from "../core/roles";
 
-const serializeProducts = (products: Array<product>) => {
-  return products.map( result => ({
+export const serializeProducts = (products: Array<product>) => {
+  return products.map((result) => ({
     id: Number(result.ID.toString()),
     productAvailability: result.PRODUCTAVAILABILITY,
     productCategoryId: result.PRODUCTCATEGORYID,
@@ -14,7 +15,7 @@ const serializeProducts = (products: Array<product>) => {
 };
 
 export const serializeOrders = (results: Array<order_table>) => {
-  return results.map(result => ({
+  return results.map((result) => ({
     id: Number(result.ID.toString()),
     fromCompanyId: Number(result.FROMCOMPANY_ID?.toString()),
     toCompanyId: Number(result.TOCOMPANY_ID?.toString()),
@@ -24,7 +25,7 @@ export const serializeOrders = (results: Array<order_table>) => {
     name: result.NAME,
     netAmount: result.NETAMOUNT,
     orderDate: result.ORDERDATETIME,
-    orderId: result.ORDERID,  // not the one you need, this is a string and different from "id"
+    orderId: result.ORDERID, // not the one you need, this is a string and different from "id"
     orderReference: result.ORDERREFERENCE,
     orderStatus: getOrderStatusByNumber(result.ORDERSTATUS),
     paymentStatus: getPaymentStatusByNumber(result.PAYMENTSTATUS),
@@ -33,8 +34,8 @@ export const serializeOrders = (results: Array<order_table>) => {
   }));
 };
 
-const serializeCompanies = (companies: Array<company>) => {
-  return companies.map(result => ({
+export const serializeCompanies = (companies: Array<company>) => {
+  return companies.map((result) => ({
     id: Number(result.ID.toString()),
     name: result.NAME,
     logo: result.LOGO,
@@ -57,8 +58,12 @@ const serializeCompanies = (companies: Array<company>) => {
   }));
 };
 
-module.exports = {
-  serializeProducts,
-  serializeOrders,
-  serializeCompanies,
+export function serializeAccounts(users: Array<account>) {
+  return users.map((result) => ({
+    id: Number(result.ID.toString()),
+    email: result.EMAIL,
+    password: result.PASSWORD,
+    role: getRoleByNumber(result.ROLE),
+    companyId: Number(result.company_id.toString()),
+  }));
 }

@@ -3,7 +3,7 @@ import { getLogger } from "../core/logging";
 
 let prismaInstance: PrismaClient;
 
-async function initializeData() {
+export async function initializeData() {
   const logger = getLogger();
   logger.info("🔁 Initializing connection to the database");
 
@@ -20,7 +20,7 @@ async function initializeData() {
   }
 }
 
-async function shutdownData() {
+export async function shutdownData() {
   const logger = getLogger();
 
   logger.info("Shutting down database connection");

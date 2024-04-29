@@ -7,6 +7,7 @@ import { ServiceError } from "./core/serviceError";
 import * as emoji from "node-emoji";
 import installRest from "./rest";
 const nlpManager = require('../src/core/nlp.config');
+import { initializeData, shutdownData } from "./data";
 
 // Staat hier niet goed
 interface CustomError extends Error {
@@ -14,8 +15,6 @@ interface CustomError extends Error {
   code?: string;
   details?: Record<string, unknown>;
 }
-
-const { initializeData, shutdownData } = require("./data");
 
 // Destructuring ENV and Logging variables
 const [NODE_ENV, LOG_LEVEL, LOG_DISABLED] = [

@@ -1,9 +1,9 @@
-import Koa from 'koa';
-import Router from '@koa/router';
-const { requireAuthentication, makeRequireRole } = require('../core/auth');
-import { Role } from '../core/roles';
+import Koa from "koa";
+import Router from "@koa/router";
+import { requireAuthentication, makeRequireRole } from "../core/auth";
+import { Role } from "../core/roles";
 
-import orderService from '../service/order';
+import orderService from "../service/order";
 
 const getMyOrders = async (ctx: Koa.Context) => {
   const { companyId } = ctx.state.session;
@@ -23,18 +23,33 @@ const getOrdersForMe = async (ctx: Koa.Context) => {
 
 export default function installOrderRouter(app: Router) {
   const router = new Router({
-    prefix: '/order',
+    prefix: "/order",
   });
 
   const requireCustomer = makeRequireRole(Role.CUSTOMER);
   const requireSupplier = makeRequireRole(Role.SUPPLIER);
 
   // Routes when logged in as customer
-  router.get('/myorders', requireAuthentication, requireCustomer, getMyOrders);
-  router.get('/myorder/:id', requireAuthentication, requireCustomer, getMyOrder);
+  router.get("/myorders", requireAuthentication, requireCustomer, getMyOrders);
+  router.get(
+    "/myorder/:id",
+    requireAuthentication,
+    requireCustomer,
+    getMyOrder
+  );
   // Routes when logged in as supplier
-  router.get('/ordersforme', requireAuthentication, requireSupplier, getOrdersForMe);
-  router.get('/orderforme/:id', requireAuthentication, requireSupplier, getMyOrder);
+  router.get(
+    "/ordersforme",
+    requireAuthentication,
+    requireSupplier,
+    getOrdersForMe
+  );
+  router.get(
+    "/orderforme/:id",
+    requireAuthentication,
+    requireSupplier,
+    getMyOrder
+  );
 
   app.use(router.routes()).use(router.allowedMethods());
-};
+}

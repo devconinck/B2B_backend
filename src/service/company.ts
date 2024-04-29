@@ -1,6 +1,6 @@
-const companyRepository = require('../data/company');
+const companyRepository = require("../data/company");
 
-const getAllProductsCompany = async (companyId: number) => {
+export const getAllProductsCompany = async (companyId: number) => {
   const items = await companyRepository.findByCompany(companyId);
   return {
     items,
@@ -8,7 +8,7 @@ const getAllProductsCompany = async (companyId: number) => {
   };
 };
 
-const getAllCompanies = async () => {
+export const getAllCompanies = async () => {
   const items = await companyRepository.findAllCompanies();
   return {
     items,

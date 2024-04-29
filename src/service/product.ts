@@ -1,6 +1,6 @@
-const productRepository = require('../data/product');
+const productRepository = require("../data/product");
 
-const getAllProducts = async () => {
+export const getAllProducts = async () => {
   const items = await productRepository.findAll();
   return {
     items,

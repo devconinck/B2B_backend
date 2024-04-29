@@ -1,7 +1,6 @@
 // Importeren Koa vr Type
-import Koa from 'koa';
-
-import Router from '@koa/router';
+import Koa from "koa";
+import Router from "@koa/router";
 
 // router toevoegen
 import installHealthRouter from './_health';
@@ -16,11 +15,9 @@ import installChatRouter from './_chat'
  */
 
 export default function installRest(app: Koa) {
-    const router = new Router({
-        prefix: '/api',
-    });
-
-    //installOrderRouter(router);
+  const router = new Router({
+    prefix: "/api",
+  });
 
     // Vr monitoring etc
     installHealthRouter(router);
@@ -30,7 +27,5 @@ export default function installRest(app: Koa) {
     installProductRouter(router);
     installChatRouter(router)
 
-    app
-        .use(router.routes())
-        .use(router.allowedMethods());
-};
+  app.use(router.routes()).use(router.allowedMethods());
+}

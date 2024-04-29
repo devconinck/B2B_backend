@@ -6,7 +6,7 @@ const userRepository = require("../data/user");
 const { verifyPassword } = require("../core/password");
 const { generateJWT, verifyJWT } = require("../core/jwt");
 
-const login = async (email: string, password: string) => {
+export const login = async (email: string, password: string) => {
   const user = await userRepository.findByEmail(email);
   if (!user) {
     throw ServiceError.unauthorized(
@@ -39,7 +39,7 @@ const makeLoginData = async (user: any) => {
   };
 };
 
-const checkAndParseSession = async (authHeader: any) => {
+export const checkAndParseSession = async (authHeader: any) => {
   if (!authHeader) {
     throw ServiceError.unauthorized("You need to be signed in");
   }
@@ -63,7 +63,7 @@ const checkAndParseSession = async (authHeader: any) => {
   }
 };
 
-const checkRole = (role: Role, requiredRole: Role) => {
+export const checkRole = (role: Role, requiredRole: Role) => {
   if (requiredRole !== role) {
     throw ServiceError.forbidden(
       "You are not allowed to view this part of the application"
@@ -77,5 +77,3 @@ export interface ExposedUser {
   role: Role;
   companyId: Number;
 }
-
-export default { login, checkAndParseSession, checkRole };

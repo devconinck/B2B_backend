@@ -5,6 +5,8 @@ import { getRoleByNumber } from "../core/roles";
 export const serializeProducts = (products: Array<product>) => {
   return products.map((result) => ({
     id: Number(result.ID.toString()),
+    name: result.NAME,
+    description: result.DESCRIPTION,
     productAvailability: result.PRODUCTAVAILABILITY,
     productCategoryId: result.PRODUCTCATEGORYID,
     productId: result.PRODUCTID,
@@ -63,7 +65,7 @@ export function serializeAccounts(users: Array<account>) {
     id: Number(result.ID.toString()),
     email: result.EMAIL,
     password: result.PASSWORD,
-    role: getRoleByNumber(result.ROLE),
-    companyId: Number(result.company_id.toString()),
+    role: getRoleByNumber(result.ROLE ?? 0),
+    companyId: Number(result.company_id?.toString() ?? 99999),
   }));
 }

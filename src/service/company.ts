@@ -1,7 +1,10 @@
 import * as companyRepository from "../data/company";
+import { serializeProducts, serializeCompanies } from "../data/serializeData";
 
 export const getAllProductsCompany = async (companyId: number) => {
-  const items = await companyRepository.findByCompany(companyId);
+  const items = serializeProducts(
+    await companyRepository.findByCompany(companyId)
+  );
   return {
     items,
     count: items.length,
@@ -9,7 +12,7 @@ export const getAllProductsCompany = async (companyId: number) => {
 };
 
 export const getAllCompanies = async () => {
-  const items = await companyRepository.findAllCompanies();
+  const items = serializeCompanies(await companyRepository.findAllCompanies());
   return {
     items,
     count: items.length,

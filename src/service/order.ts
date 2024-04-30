@@ -3,7 +3,9 @@ import repositoryOrders from "../data/order";
 import { serializeOrders } from "../data/serializeData";
 
 const getMyOrders = async (companyId: number) => {
-  const items = await repositoryOrders.findOrdersFromCustomer(companyId);
+  const items = serializeOrders(
+    await repositoryOrders.findOrdersFromCustomer(companyId)
+  );
   return {
     items,
     count: items.length,
@@ -21,7 +23,9 @@ const getMyOrder = async (companyId: number, orderId: number) => {
 };
 
 const getOrdersForMe = async (companyId: number) => {
-  const items = await repositoryOrders.findOrdersToCustomer(companyId);
+  const items = serializeOrders(
+    await repositoryOrders.findOrdersToCustomer(companyId)
+  );
   return {
     items,
     count: items.length,

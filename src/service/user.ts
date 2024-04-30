@@ -4,23 +4,35 @@ import { ServiceError } from "../core/serviceError";
 import * as userRepository from "../data/user";
 import { verifyPassword } from "../core/password";
 import { generateJWT, verifyJWT } from "../core/jwt";
+import { serializeAccounts } from "../data/serializeData";
+import { serializedAccount } from "../core/model";
+import { account } from "@prisma/client";
 
 export const login = async (email: string, password: string) => {
-  const user: any = await userRepository.findByEmail(email);
+  const user: account | null = await userRepository.findByEmail(email);
   if (!user) {
+    console.log("geen user");
     throw ServiceError.unauthorized(
       "The given email and password do not match"
     );
-  }
+  } else {
+    const serializedUsers: serializedAccount[] = serializeAccounts([user]);
+    const serializedUser: serializedAccount | undefined = serializedUsers.at(0);
 
-  const passwordValid = await verifyPassword(password, user.password);
-  if (!passwordValid) {
-    throw ServiceError.unauthorized(
-      "The given email and password do not match"
-    );
-  }
+    if (serializedUser) {
+      const passwordValid = await verifyPassword(
+        password,
+        serializedUser.password
+      );
+      if (!passwordValid) {
+        throw ServiceError.unauthorized(
+          "The given email and password do not match"
+        );
+      }
 
-  return await makeLoginData(user);
+      return await makeLoginData(serializedUser);
+    }
+  }
 };
 
 const makeExposedUser = ({ id, email, role, companyId }: any): ExposedUser => ({
@@ -30,7 +42,7 @@ const makeExposedUser = ({ id, email, role, companyId }: any): ExposedUser => ({
   companyId,
 });
 
-const makeLoginData = async (user: any) => {
+const makeLoginData = async (user: serializedAccount) => {
   const token = await generateJWT(user);
   return {
     user: makeExposedUser(user),

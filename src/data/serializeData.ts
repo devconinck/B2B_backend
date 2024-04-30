@@ -1,6 +1,7 @@
 import { product, order_table, company, account } from "@prisma/client";
 import { getPaymentStatusByNumber, getOrderStatusByNumber } from "../core/enum";
 import { getRoleByNumber } from "../core/roles";
+import { serializedAccount } from "../core/model";
 
 export const serializeProducts = (products: Array<product>) => {
   return products.map((result) => ({
@@ -60,12 +61,14 @@ export const serializeCompanies = (companies: Array<company>) => {
   }));
 };
 
-export function serializeAccounts(users: Array<account>) {
+export const serializeAccounts = (
+  users: Array<account>
+): serializedAccount[] => {
   return users.map((result) => ({
     id: Number(result.ID.toString()),
     email: result.EMAIL,
     password: result.PASSWORD,
-    role: getRoleByNumber(result.ROLE ?? 0),
-    companyId: Number(result.company_id?.toString() ?? 99999),
+    role: getRoleByNumber(result.ROLE),
+    companyId: Number(result.company_id.toString()),
   }));
-}
+};

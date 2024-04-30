@@ -46,6 +46,8 @@ const findOrders = async (params: {
     paymentStatus,
   } = params;
 
+  console.log(params)
+
   const offset = (page - 1) * pageAmount;
 
   const companyField = getCompanyField(role);
@@ -53,15 +55,20 @@ const findOrders = async (params: {
   return await prisma.order_table.findMany({
     where: {
       DATE: {
-        gte: startDate ? startDate.toISOString() : undefined,
+        gte: startDate ? new Date(startDate.setDate(startDate.getDate() - 1)).toISOString() : undefined,
         lte: endDate ? endDate.toISOString() : undefined,
       },
-      NAME: companyName ? companyName : undefined,
+      NAME:  {
+        contains: companyName,
+      },
+      // Werkt nog niet naar toebehoren
       TOTALAMOUNT: {
         gte: minAmount ? minAmount.toString() : undefined,
         lte: maxAmount ? maxAmount.toString() : undefined,
       },
-      ORDERREFERENCE: orderReference,
+      ORDERREFERENCE: {
+        contains: orderReference,
+      },
       ORDERSTATUS: orderStatus !== undefined ? orderStatus : undefined,
       PAYMENTSTATUS: paymentStatus !== undefined ? paymentStatus : undefined,
       [companyField]: BigInt(companyId)

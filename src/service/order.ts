@@ -33,11 +33,10 @@ const getOrders = async (params: {
     orderReference?: string;
     orderStatus?: OrderStatus;
     paymentStatus?: PaymentStatus;
-    orderId?: number;
   }) => {
     debugLog('Fetching orders', params);
-    const orders = await repositoryOrders.findOrders(params);
-    return orders;
+    const result = await repositoryOrders.findOrders(params);
+    return serializeOrders(result);
   };
   
 

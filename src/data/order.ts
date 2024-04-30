@@ -79,7 +79,7 @@ const findOrder = async (role: Role, companyId: number, orderId: number) => {
   const companyField = getCompanyField(role);
 
 
-  const result = await prisma.order_table.findFirst({
+  return await prisma.order_table.findFirst({
     where: {
       [companyField]: companyId,
       ID: orderId

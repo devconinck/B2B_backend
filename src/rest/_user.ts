@@ -8,7 +8,7 @@ const login = async (ctx: Koa.ParameterizedContext) => {
   ctx.body = token;
 };
 
-export default function installHealthRouter(app: Router) {
+export default function installUserRouter(app: Router) {
   const router = new Router({
     prefix: "/user",
   });

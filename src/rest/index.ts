@@ -2,6 +2,8 @@ import Koa from 'koa';
 
 const Router = require('@koa/router');
 const installUserRouter = require('./user');
+const installChatRouter = require('./chat');
+
 
 module.exports = (app: Koa<Koa.DefaultState, Koa.DefaultContext>) => {
   const router = new Router({
@@ -9,6 +11,7 @@ module.exports = (app: Koa<Koa.DefaultState, Koa.DefaultContext>) => {
   });
 
   installUserRouter(router);
+  installChatRouter(router);
 
   app.use(router.routes())
      .use(router.allowedMethods());

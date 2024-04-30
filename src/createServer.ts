@@ -9,6 +9,7 @@ import { ServiceError } from './core/serviceError';
 const installRest = require('./rest');
 const { initializeData } = require('./data');
 const emoji = require('node-emoji');
+const nlpManager = require('../src/core/nlp.config');
 
 // Destructuring ENV and Logging variables
 const [NODE_ENV, LOG_LEVEL, LOG_DISABLED] = [config.get('env'), config.get('log.level'), config.get('log.disabled')];
@@ -26,6 +27,10 @@ export default async function createServer() {
   // Initialize the database (PRISMA)
   //const prisma = new PrismaClient();
   await initializeData();
+
+  // train nlp model
+  await nlpManager.train()
+  nlpManager.save();
 
   // Create a new KOA App
   const app = new Koa();

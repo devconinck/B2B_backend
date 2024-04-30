@@ -1,0 +1,472 @@
+{
+  "settings": {
+    "languages": [
+      "en"
+    ],
+    "tag": "nlp",
+    "threshold": 0.5,
+    "autoLoad": true,
+    "autoSave": true,
+    "modelFileName": "model.nlp",
+    "executeActionsBeforeAnswers": false,
+    "calculateSentiment": true
+  },
+  "nluManager": {
+    "settings": {
+      "tag": "nlu-manager"
+    },
+    "locales": [
+      "en"
+    ],
+    "languageNames": {},
+    "domainManagers": {
+      "en": {
+        "settings": {
+          "locale": "en",
+          "trainByDomain": false,
+          "tag": "domain-manager-en",
+          "nluByDomain": {
+            "default": {
+              "className": "NeuralNlu",
+              "settings": {}
+            }
+          },
+          "useStemDict": true
+        },
+        "stemDict": {
+          "hello": {
+            "intent": "greeting",
+            "domain": "default"
+          },
+          "hi": {
+            "intent": "greeting",
+            "domain": "default"
+          },
+          "hey,there": {
+            "intent": "greeting",
+            "domain": "default"
+          },
+          "good,morn": {
+            "intent": "greeting",
+            "domain": "default"
+          },
+          "afternoon,good": {
+            "intent": "greeting",
+            "domain": "default"
+          },
+          "yow": {
+            "intent": "greeting",
+            "domain": "default"
+          },
+          "help": {
+            "intent": "help",
+            "domain": "default"
+          },
+          "help,me": {
+            "intent": "help",
+            "domain": "default"
+          },
+          "can,do,what,you": {
+            "intent": "info",
+            "domain": "default"
+          },
+          "can,help,how,you": {
+            "intent": "info",
+            "domain": "default"
+          },
+          "do,me,tell,to,what": {
+            "intent": "info",
+            "domain": "default"
+          },
+          "do,me,tell,what,you": {
+            "intent": "info",
+            "domain": "default"
+          }
+        },
+        "intentDict": {
+          "greeting": "default",
+          "help": "default",
+          "info": "default"
+        },
+        "sentences": [
+          {
+            "domain": "default",
+            "utterance": "hello",
+            "intent": "greeting"
+          },
+          {
+            "domain": "default",
+            "utterance": "hi",
+            "intent": "greeting"
+          },
+          {
+            "domain": "default",
+            "utterance": "hey there",
+            "intent": "greeting"
+          },
+          {
+            "domain": "default",
+            "utterance": "good morning",
+            "intent": "greeting"
+          },
+          {
+            "domain": "default",
+            "utterance": "good afternoon",
+            "intent": "greeting"
+          },
+          {
+            "domain": "default",
+            "utterance": "yow",
+            "intent": "greeting"
+          },
+          {
+            "domain": "default",
+            "utterance": "help",
+            "intent": "help"
+          },
+          {
+            "domain": "default",
+            "utterance": "Help me",
+            "intent": "help"
+          },
+          {
+            "domain": "default",
+            "utterance": "What can you do",
+            "intent": "info"
+          },
+          {
+            "domain": "default",
+            "utterance": "How can you help",
+            "intent": "info"
+          },
+          {
+            "domain": "default",
+            "utterance": "Tell me what to do",
+            "intent": "info"
+          },
+          {
+            "domain": "default",
+            "utterance": "Tell me what you do",
+            "intent": "info"
+          }
+        ],
+        "domains": {
+          "master_domain": {
+            "settings": {
+              "locale": "en",
+              "tag": "nlu-en",
+              "keepStopwords": true,
+              "nonefeatureValue": 1,
+              "nonedeltaMultiplier": 1.2,
+              "spellCheck": false,
+              "spellCheckDistance": 1,
+              "filterZeros": true,
+              "log": true
+            },
+            "features": {
+              "hello": 1,
+              "hi": 1,
+              "hey": 1,
+              "there": 1,
+              "good": 1,
+              "morn": 1,
+              "afternoon": 1,
+              "yow": 1,
+              "help": 1,
+              "me": 1,
+              "what": 1,
+              "can": 1,
+              "you": 1,
+              "do": 1,
+              "how": 1,
+              "tell": 1,
+              "to": 1
+            },
+            "intents": {
+              "greeting": 1,
+              "help": 1,
+              "info": 1
+            },
+            "intentFeatures": {
+              "greeting": {
+                "hello": 1,
+                "hi": 1,
+                "hey": 1,
+                "there": 1,
+                "good": 1,
+                "morn": 1,
+                "afternoon": 1,
+                "yow": 1
+              },
+              "help": {
+                "help": 1,
+                "me": 1
+              },
+              "info": {
+                "what": 1,
+                "can": 1,
+                "you": 1,
+                "do": 1,
+                "how": 1,
+                "help": 1,
+                "tell": 1,
+                "me": 1,
+                "to": 1
+              }
+            },
+            "featuresToIntent": {
+              "hello": [
+                "greeting"
+              ],
+              "hi": [
+                "greeting"
+              ],
+              "hey": [
+                "greeting"
+              ],
+              "there": [
+                "greeting"
+              ],
+              "good": [
+                "greeting"
+              ],
+              "morn": [
+                "greeting"
+              ],
+              "afternoon": [
+                "greeting"
+              ],
+              "yow": [
+                "greeting"
+              ],
+              "help": [
+                "help",
+                "info"
+              ],
+              "me": [
+                "help",
+                "info"
+              ],
+              "what": [
+                "info"
+              ],
+              "can": [
+                "info"
+              ],
+              "you": [
+                "info"
+              ],
+              "do": [
+                "info"
+              ],
+              "how": [
+                "info"
+              ],
+              "tell": [
+                "info"
+              ],
+              "to": [
+                "info"
+              ]
+            },
+            "neuralNetwork": {
+              "settings": {
+                "locale": "en",
+                "tag": "nlu-en",
+                "keepStopwords": true,
+                "nonefeatureValue": 1,
+                "nonedeltaMultiplier": 1.2,
+                "spellCheck": false,
+                "spellCheckDistance": 1,
+                "filterZeros": true,
+                "log": true
+              },
+              "features": [
+                "hello",
+                "hi",
+                "hey",
+                "there",
+                "good",
+                "morn",
+                "afternoon",
+                "yow",
+                "help",
+                "me",
+                "what",
+                "can",
+                "you",
+                "do",
+                "how",
+                "tell",
+                "to"
+              ],
+              "intents": [
+                "greeting",
+                "help",
+                "info"
+              ],
+              "perceptrons": [
+                [
+                  6.270742416381836,
+                  6.270924091339111,
+                  3.1366891860961914,
+                  3.1366891860961914,
+                  4.182260513305664,
+                  2.0912389755249023,
+                  2.0910239219665527,
+                  6.269252300262451,
+                  -8.003341674804688,
+                  -2.3869690895080566,
+                  -2.102368116378784,
+                  -1.820929765701294,
+                  -1.9863948822021484,
+                  -2.102368116378784,
+                  -0.49981385469436646,
+                  -0.8066779375076294,
+                  -0.6401612758636475,
+                  8.012101041738845
+                ],
+                [
+                  -1.7070679664611816,
+                  -1.7048661708831787,
+                  -0.8616122603416443,
+                  -0.8616122603416443,
+                  -1.1514474153518677,
+                  -0.576158344745636,
+                  -0.5746052265167236,
+                  -1.7007060050964355,
+                  12.052486419677734,
+                  0.7284784317016602,
+                  -1.4257371425628662,
+                  -4.522535800933838,
+                  -4.819881916046143,
+                  -1.4257371425628662,
+                  -4.4032111167907715,
+                  -1.3064135313034058,
+                  -1.009005069732666,
+                  1.738425743585122
+                ],
+                [
+                  -0.5426887273788452,
+                  -0.5352274179458618,
+                  -0.3724927604198456,
+                  -0.3724927604198456,
+                  -0.6112069487571716,
+                  -0.288665235042572,
+                  -0.2585788369178772,
+                  -0.49176540970802307,
+                  -0.1389772891998291,
+                  0.1694634109735489,
+                  2.8278424739837646,
+                  4.392609119415283,
+                  4.270775318145752,
+                  2.8278424739837646,
+                  5.724791526794434,
+                  4.161502361297607,
+                  4.283206939697266,
+                  0.011305710808782206
+                ]
+              ]
+            }
+          }
+        }
+      }
+    },
+    "intentDomains": {},
+    "extraSentences": [
+      [
+        "en",
+        "hello"
+      ],
+      [
+        "en",
+        "hi"
+      ],
+      [
+        "en",
+        "hey there"
+      ],
+      [
+        "en",
+        "good morning"
+      ],
+      [
+        "en",
+        "good afternoon"
+      ],
+      [
+        "en",
+        "yow"
+      ],
+      [
+        "en",
+        "help"
+      ],
+      [
+        "en",
+        "Help me"
+      ],
+      [
+        "en",
+        "What can you do"
+      ],
+      [
+        "en",
+        "How can you help"
+      ],
+      [
+        "en",
+        "Tell me what to do"
+      ],
+      [
+        "en",
+        "Tell me what you do"
+      ]
+    ]
+  },
+  "ner": {
+    "settings": {
+      "tag": "ner",
+      "entityPreffix": "%",
+      "entitySuffix": "%"
+    },
+    "rules": {}
+  },
+  "nlgManager": {
+    "settings": {
+      "tag": "nlg-manager"
+    },
+    "responses": {
+      "en": {
+        "greeting": [
+          {
+            "answer": "Hi, I am DelBot, your virtual assistent!"
+          },
+          {
+            "answer": "Hi, how can I help"
+          },
+          {
+            "answer": "What's up? I'm  Delbot, your virtual assistent!"
+          }
+        ],
+        "help": [
+          {
+            "answer": "How can I help"
+          }
+        ],
+        "info": [
+          {
+            "answer": "I can help with FAQ's and provice information about invoices."
+          }
+        ]
+      }
+    }
+  },
+  "actionManager": {
+    "settings": {
+      "tag": "action-manager"
+    },
+    "actions": {}
+  },
+  "slotManager": {}
+}

@@ -30,7 +30,6 @@ const findOrders = async (params: {
   orderReference?: string;
   orderStatus?: OrderStatus;
   paymentStatus?: PaymentStatus;
-  orderId?: number;
 }) => {
   const {
     role,
@@ -45,7 +44,6 @@ const findOrders = async (params: {
     orderReference,
     orderStatus,
     paymentStatus,
-    orderId,
   } = params;
 
   const offset = (page - 1) * pageAmount;

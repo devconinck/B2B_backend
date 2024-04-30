@@ -14,7 +14,7 @@ const getAllOrders = async (ctx: Koa.ParameterizedContext) => {
     const { companyId, role } = ctx.state.session;
     const {
       page,
-      papgeAmount,
+      pageAmount,
       startDate,
       endDate,
       companyName,
@@ -23,7 +23,6 @@ const getAllOrders = async (ctx: Koa.ParameterizedContext) => {
       orderReference,
       orderStatus,
       paymentStatus,
-      orderId,
     } = ctx.query;
   
 
@@ -31,7 +30,7 @@ const getAllOrders = async (ctx: Koa.ParameterizedContext) => {
       role,
       companyId,
       page: page ? parseInt(page as string, 10) : undefined,
-      papgeAmount: papgeAmount ? parseInt(page as string, 10) : undefined,
+      pageAmount: pageAmount ? parseInt(page as string, 10) : undefined,
       startDate: startDate ? new Date(startDate as string) : undefined,
       endDate: endDate ? new Date(endDate as string) : undefined,
       companyName: companyName as string,
@@ -40,7 +39,6 @@ const getAllOrders = async (ctx: Koa.ParameterizedContext) => {
       orderReference: orderReference as string,
       orderStatus: orderStatus !== undefined ? OrderStatus[orderStatus as keyof typeof OrderStatus] : undefined,
       paymentStatus: paymentStatus !== undefined ? PaymentStatus[paymentStatus as keyof typeof PaymentStatus] : undefined,
-      orderId: orderId ? parseInt(orderId as string, 10) : undefined,
     });
   
     ctx.body = JSON.stringify(orders, (key, value) => typeof value === 'bigint' ? value.toString() : value);

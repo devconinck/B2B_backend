@@ -1,5 +1,4 @@
 const { getLogger } = require('../core/logging');
-const { getOrders } = require('../data/order');
 import { PaymentStatus } from '../types/enums/PaymentStatus';
 import { OrderStatus } from '../types/enums/OrderStatus';
 import { ServiceError } from '../core/serviceError';
@@ -21,11 +20,12 @@ const debugLog = (message: any, meta = {}) => {
   logger.debug(message, meta);
 };
 
-const getAll = async (params: {
+const getOrders = async (params: {
     userId: string;
     companyId: string;
     role: Role,
     page?: number;
+    pageAmount?: number;
     startDate?: Date;
     endDate?: Date;
     companyName?: string;
@@ -37,7 +37,7 @@ const getAll = async (params: {
     orderId?: number;
   }) => {
     debugLog('Fetching orders', params);
-    const orders = await getOrders(params);
+    const orders = await repositoryOrders.findOrders(params);
     return orders;
   };
   
@@ -61,7 +61,4 @@ export default { getMyOrders, getOrdersForMe };
     return serializeOrders([result]);
   };
 
-module.exports = {
-  getAll,
-  getOrder
-}
+export default { getOrders, getOrder }

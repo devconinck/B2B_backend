@@ -2,11 +2,23 @@
 import { PrismaClient } from "@prisma/client";
 import { PaymentStatus } from '../types/enums/PaymentStatus';
 import { OrderStatus } from '../types/enums/OrderStatus';
+import { Role } from '../core/roles';
 
 const prisma = new PrismaClient();
 
-const getOrders = async (params: {
-  userId: string;
+const getCompanyField = (role: Role) => {
+  switch (role) {
+    case Role.SUPPLIER:
+      return 'TOCOMPANY_ID';
+    case Role.CUSTOMER:
+      return 'FROMCOMPANY_ID';
+    default:
+      throw new Error(`Invalid role: ${role}`);
+  }
+};
+
+const findOrders = async (params: {
+  role: Role,
   companyId: string;
   page?: number;
   pageAmount?: number;
@@ -21,7 +33,7 @@ const getOrders = async (params: {
   orderId?: number;
 }) => {
   const {
-    userId,
+    role,
     companyId,
     page = 1,
     pageAmount = 20,
@@ -38,6 +50,8 @@ const getOrders = async (params: {
 
   const offset = (page - 1) * pageAmount;
 
+  const companyField = getCompanyField(role);
+
   return await prisma.order_table.findMany({
     where: {
       DATE: {
@@ -52,8 +66,7 @@ const getOrders = async (params: {
       ORDERREFERENCE: orderReference,
       ORDERSTATUS: orderStatus !== undefined ? orderStatus : undefined,
       PAYMENTSTATUS: paymentStatus !== undefined ? paymentStatus : undefined,
-      ID: orderId,
-      FROMCOMPANY_ID: BigInt(companyId)
+      [companyField]: BigInt(companyId)
     },
     orderBy: {
       DATE: 'asc',
@@ -63,4 +76,19 @@ const getOrders = async (params: {
   });
 };
 
-export { getOrders };
+
+const findOrder = async (role: Role, companyId: number, orderId: number) => {
+  const companyField = getCompanyField(role);
+
+
+  const result = await prisma.order_table.findFirst({
+    where: {
+      [companyField]: companyId,
+      ID: orderId
+    }
+  });
+  return result;
+};
+
+export default { findOrders, findOrder };
+

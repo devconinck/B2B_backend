@@ -25,7 +25,4 @@ const makeRequireRole = (role: Role) => async (ctx: Koa.Context, next: Koa.Next)
   return next();
 };
 
-module.exports = {
-  requireAuthentication,
-  makeRequireRole,
-};
+export default { requireAuthentication, makeRequireRole };

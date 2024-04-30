@@ -3,15 +3,15 @@ import Koa from 'koa'
 import Router from '@koa/router';
 import { PaymentStatus } from '../types/enums/PaymentStatus';
 import { OrderStatus } from '../types/enums/OrderStatus';
-import {requireAuthentication} from '../core/auth';
+import authentication from '../core/auth';
+import orderService from '../service/order';
 
-const orderService = require('../service/order');
 
 // Get all the cardio exercises in the database
 const getAllOrders = async (ctx: Koa.ParameterizedContext) => {
     console.log(ctx)
-    const { userId, companyId } = ctx.state.session;
 
+    const { companyId, role } = ctx.state.session;
     const {
       page,
       papgeAmount,
@@ -26,8 +26,9 @@ const getAllOrders = async (ctx: Koa.ParameterizedContext) => {
       orderId,
     } = ctx.query;
   
-    const orders = await orderService.getAll({
-      userId,
+
+    const orders = await orderService.getOrders({
+      role,
       companyId,
       page: page ? parseInt(page as string, 10) : undefined,
       papgeAmount: papgeAmount ? parseInt(page as string, 10) : undefined,
@@ -45,15 +46,30 @@ const getAllOrders = async (ctx: Koa.ParameterizedContext) => {
     ctx.body = JSON.stringify(orders, (key, value) => typeof value === 'bigint' ? value.toString() : value);
   };
 
-
-
+  const getOrder = async (ctx: Koa.Context) => {
+    const { companyId, role } = ctx.state.session;
+    const orderId = ctx.params.id;
+    ctx.body = await orderService.getOrder(role, companyId, orderId);
+  };
+  
 export default function installOrderRouter(app: Router) {
     const router = new Router({
         prefix: '/orders',
     });
 
+    /* 
+    // Routes when logged in as customer --> FromCompany
+    router.get('/myorders', requireAuthentication, requireCustomer, getMyOrders); 
+    router.get('/myorder/:id', requireAuthentication, requireCustomer, getMyOrder);
+    // Routes when logged in as supplier --> ToCompany
+    router.get('/ordersforme', requireAuthentication, requireSupplier, getOrdersForMe); 
+    router.get('/orderforme/:id', requireAuthentication, requireSupplier, getMyOrder);
+    */
+    // Nieuw oplossing --> We halen de rol op en geven deze mee, op basis hiervan halen we de correct
+
     // Authenticatie toevoegen
-    router.get('/', requireAuthentication, getAllOrders);
+    router.get('/all', authentication.requireAuthentication, getAllOrders);
+    router.get('/:id', authentication.requireAuthentication, getOrder);
 
     app
         .use(router.routes())

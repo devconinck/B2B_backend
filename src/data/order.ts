@@ -1,24 +1,25 @@
-
 import { PrismaClient } from "@prisma/client";
-import { PaymentStatus } from '../types/enums/PaymentStatus';
-import { OrderStatus } from '../types/enums/OrderStatus';
-import { Role } from '../core/roles';
+import { PaymentStatus } from "../types/enums/PaymentStatus";
+import { OrderStatus } from "../types/enums/OrderStatus";
+import { Role } from "../core/roles";
+import { PaymentStatus as pstatus, paymentStatusToNumber } from "../core/enum";
+import { getLogger } from "../core/logging";
 
 const prisma = new PrismaClient();
 
 const getCompanyField = (role: Role) => {
   switch (role) {
     case Role.SUPPLIER:
-      return 'TOCOMPANY_ID';
+      return "TOCOMPANY_ID";
     case Role.CUSTOMER:
-      return 'FROMCOMPANY_ID';
+      return "FROMCOMPANY_ID";
     default:
       throw new Error(`Invalid role: ${role}`);
   }
 };
 
 const findOrders = async (params: {
-  role: Role,
+  role: Role;
   companyId: string;
   page?: number;
   pageAmount?: number;
@@ -46,8 +47,6 @@ const findOrders = async (params: {
     paymentStatus,
   } = params;
 
-  console.log(params)
-
   const offset = (page - 1) * pageAmount;
 
   const companyField = getCompanyField(role);
@@ -55,10 +54,12 @@ const findOrders = async (params: {
   return await prisma.order_table.findMany({
     where: {
       DATE: {
-        gte: startDate ? new Date(startDate.setDate(startDate.getDate() - 1)).toISOString() : undefined,
+        gte: startDate
+          ? new Date(startDate.setDate(startDate.getDate() - 1)).toISOString()
+          : undefined,
         lte: endDate ? endDate.toISOString() : undefined,
       },
-      NAME:  {
+      NAME: {
         contains: companyName,
       },
       // Werkt nog niet naar toebehoren
@@ -71,29 +72,43 @@ const findOrders = async (params: {
       },
       ORDERSTATUS: orderStatus !== undefined ? orderStatus : undefined,
       PAYMENTSTATUS: paymentStatus !== undefined ? paymentStatus : undefined,
-      [companyField]: BigInt(companyId)
+      [companyField]: BigInt(companyId),
     },
     orderBy: {
-      DATE: 'asc',
+      DATE: "asc",
     },
     skip: offset,
     take: pageAmount,
   });
 };
 
-
 const findOrder = async (role: Role, companyId: number, orderId: number) => {
   const companyField = getCompanyField(role);
-
-
   return await prisma.order_table.findFirst({
     where: {
       [companyField]: companyId,
-      ID: orderId
-    }
+      ID: orderId,
+    },
   });
   return result;
 };
 
-export default { findOrders, findOrder };
+const updateById = async (
+  orderId: number,
+  companyId: number,
+  status: pstatus
+) => {
+  try {
+    return prisma.order_table.update({
+      where: { ID: orderId, FROMCOMPANY_ID: companyId },
+      data: {
+        PAYMENTSTATUS: paymentStatusToNumber(status),
+      },
+    });
+  } catch (error: any) {
+    getLogger().error("Error in updateById", { error });
+    throw error;
+  }
+};
 
+export default { findOrders, findOrder, updateById };

@@ -1,3 +1,5 @@
+import { handleDBError } from "../service/_handleDBError";
+
 export enum OrderStatus {
   PLACED = "PLACED", // 0
   PROCESSED = "PROCESSED", // 1
@@ -31,7 +33,7 @@ export const getOrderStatusByNumber = (
 
 export enum PaymentStatus {
   UNPROCESSED = "UNPROCESSED", // 0
-  INVOICE_SENT = "SUPINVOICE_SENTPLIER", // 1
+  INVOICE_SENT = "INVOICE_SENT", // 1
   PAID = "PAID", // 2
   NODATA = "NODATA",
 }
@@ -48,5 +50,18 @@ export const getPaymentStatusByNumber = (
       return PaymentStatus.PAID;
     default:
       return PaymentStatus.NODATA;
+  }
+};
+
+export const paymentStatusToNumber = (paymentStatus: PaymentStatus): number => {
+  switch (paymentStatus) {
+    case PaymentStatus.UNPROCESSED:
+      return 0;
+    case PaymentStatus.INVOICE_SENT:
+      return 1;
+    case PaymentStatus.PAID:
+      return 2;
+    default:
+      throw handleDBError;
   }
 };

@@ -11,7 +11,6 @@ import { account } from "@prisma/client";
 export const login = async (email: string, password: string) => {
   const user: account | null = await userRepository.findByEmail(email);
   if (!user) {
-    console.log("geen user");
     throw ServiceError.unauthorized(
       "The given email and password do not match"
     );

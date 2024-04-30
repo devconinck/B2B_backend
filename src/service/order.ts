@@ -5,6 +5,8 @@ import { ServiceError } from "../core/serviceError";
 import repositoryOrders from "../data/order";
 import { serializeOrders } from "../data/serializeData";
 import { Role } from "../core/roles";
+import { handleDBError } from "./_handleDBError";
+import { PaymentStatus as pstatus } from "../core/enum";
 
 const getMyOrders = async (companyId: number) => {
   const items = serializeOrders(
@@ -49,4 +51,18 @@ const getOrder = async (role: Role, companyId: number, orderId: number) => {
   return serializeOrders([result]);
 };
 
-export default { getOrders, getOrder };
+const updateOrder = async (
+  role: Role,
+  companyId: number,
+  orderId: number,
+  paymentStatus: pstatus
+) => {
+  try {
+    await repositoryOrders.updateById(orderId, companyId, paymentStatus);
+    return getOrder(role, companyId, orderId);
+  } catch (error: any) {
+    throw handleDBError(error);
+  }
+};
+
+export default { getOrders, getOrder, updateOrder };

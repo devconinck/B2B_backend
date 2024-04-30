@@ -2,13 +2,14 @@ import Koa from "koa";
 import Router from "@koa/router";
 import { PaymentStatus } from "../types/enums/PaymentStatus";
 import { OrderStatus } from "../types/enums/OrderStatus";
-import { requireAuthentication } from "../core/auth";
+import { requireAuthentication, makeRequireRole } from "../core/auth";
 import orderService from "../service/order";
+import { Role } from "../core/roles";
+import { getPaymentStatusByNumber } from "../core/enum";
+import { UpdatePaymentStatusRequest } from "../types/interface";
 
 // Get all the cardio exercises in the database TODO ???? cardio excercises???? @Heekie
 const getAllOrders = async (ctx: Koa.ParameterizedContext) => {
-  console.log(ctx);
-
   const { companyId, role } = ctx.state.session;
   const {
     page,
@@ -55,10 +56,25 @@ const getOrder = async (ctx: Koa.Context) => {
   ctx.body = await orderService.getOrder(role, companyId, orderId);
 };
 
+const updateOrder = async (ctx: Koa.Context) => {
+  const { companyId, role } = ctx.state.session;
+  const orderId = ctx.params.id;
+  const body = <UpdatePaymentStatusRequest>ctx.request.body;
+  const paymentStatus = getPaymentStatusByNumber(body.paymentStatus);
+  ctx.body = await orderService.updateOrder(
+    role,
+    companyId,
+    orderId,
+    paymentStatus
+  );
+};
+
 export default function installOrderRouter(app: Router) {
   const router = new Router({
     prefix: "/orders",
   });
+
+  const requireCustomer = makeRequireRole(Role.CUSTOMER);
 
   /* 
     // Routes when logged in as customer --> FromCompany
@@ -73,6 +89,8 @@ export default function installOrderRouter(app: Router) {
   // Authenticatie toevoegen
   router.get("/all", requireAuthentication, getAllOrders);
   router.get("/:id", requireAuthentication, getOrder);
+
+  router.put("/:id", requireAuthentication, requireCustomer, updateOrder);
 
   app.use(router.routes()).use(router.allowedMethods());
 }

@@ -1,10 +1,11 @@
+import Koa from "koa";
+import { Role } from "./roles";
+import * as userService from "../service/user";
 
-import Koa, { DefaultContext, DefaultState } from 'koa';
-import { Role } from '../types/enums/Role'
-
-const userService = require('../service/user');
-
-export const requireAuthentication = async (ctx: Koa.ParameterizedContext<DefaultState, DefaultContext>, next: Koa.Next) => {
+export const requireAuthentication = async (
+  ctx: Koa.Context,
+  next: Koa.Next
+) => {
   const { authorization } = ctx.headers;
 
   const { authToken, ...session } = await userService.checkAndParseSession(
@@ -17,12 +18,12 @@ export const requireAuthentication = async (ctx: Koa.ParameterizedContext<Defaul
   return next();
 };
 
+const makeRequireRole =
+  (requiredRole: Role) => async (ctx: Koa.Context, next: Koa.Next) => {
+    const { role } = ctx.state.session;
 
-const makeRequireRole = (role: Role) => async (ctx: Koa.Context, next: Koa.Next) => {
-  const { roles = [] } = ctx.state.session;
-
-  userService.checkRole(role, roles);
-  return next();
-};
+    userService.checkRole(requiredRole, role);
+    return next();
+  };
 
 export default { requireAuthentication, makeRequireRole };

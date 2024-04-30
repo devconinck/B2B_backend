@@ -53,12 +53,12 @@ export const verifyJWT = (authToken: string) => {
       authToken,
       JWT_SECRET,
       verifyOptions,
-      (err: Error | null, decodedToken: object | undefined) => {
+      (err: Error | null, decodedToken: any | undefined) => {
         if (err || !decodedToken) {
           console.log("Error while verifying token:", err?.message);
           return reject(err || new Error("Token could not be parsed"));
         }
-        return resolve(decodedToken);
+        return resolve(decodedToken.payload);
       }
     );
   });

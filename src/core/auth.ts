@@ -18,7 +18,7 @@ export const requireAuthentication = async (
   return next();
 };
 
-const makeRequireRole =
+export const makeRequireRole =
   (requiredRole: Role) => async (ctx: Koa.Context, next: Koa.Next) => {
     const { role } = ctx.state.session;
 

@@ -41,7 +41,7 @@ export default function installOrderRouter(app: Router) {
   router.get(
     "/ordersforme",
     requireAuthentication,
-    requireSupplier,
+    //requireSupplier,
     getOrdersForMe
   );
   router.get(

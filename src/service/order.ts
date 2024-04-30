@@ -21,7 +21,6 @@ const debugLog = (message: any, meta = {}) => {
 };
 
 const getOrders = async (params: {
-    userId: string;
     companyId: string;
     role: Role,
     page?: number;

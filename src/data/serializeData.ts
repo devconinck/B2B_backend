@@ -1,4 +1,4 @@
-import { product, order_table, company, account } from "@prisma/client";
+import { product, order_table, company, account, orderitem } from "@prisma/client";
 import { getPaymentStatusByNumber, getOrderStatusByNumber } from "../core/enum";
 import { getRoleByNumber } from "../core/roles";
 import { serializedAccount } from "../core/model";
@@ -58,6 +58,35 @@ export const serializeCompanies = (companies: Array<company>) => {
       email: result.EMAIL,
       phoneNumber: result.PHONENUMBER,
     },
+  }));
+};
+
+export const serializeOrderItems = (orderItems: Array<orderitem & { product: product | null }>) => {
+  return orderItems.map((orderItem) => ({
+    id: Number(orderItem.ID.toString()),
+    inStock: orderItem.INSTOCK,
+    name: orderItem.NAME,
+    orderId: orderItem.ORDERID,
+    orderItemId: orderItem.ORDERITEMID,
+    quantity: orderItem.QUANTITY,
+    syncId: orderItem.SYNCID,
+    total: Number(orderItem.TOTAL?.toString()),
+    unitOfMeasureId: orderItem.UNITOFMEASUREID,
+    unitPrice: Number(orderItem.UNITPRICE?.toString()),
+    fromOrderId: Number(orderItem.FROMORDER_ID?.toString()),
+    product: orderItem.product
+      ? {
+          id: Number(orderItem.product.ID.toString()),
+          description: orderItem.product.DESCRIPTION,
+          name: orderItem.product.NAME,
+          productAvailability: orderItem.product.PRODUCTAVAILABILITY,
+          productCategoryId: orderItem.product.PRODUCTCATEGORYID,
+          productId: orderItem.product.PRODUCTID,
+          productUnitOfMeasureId: orderItem.product.PRODUCTUNITOFMEASUREID,
+          syncId: orderItem.product.SYNCID,
+          fromCompanyId: Number(orderItem.product.FROMCOMPANY_ID.toString()),
+        }
+      : null,
   }));
 };
 

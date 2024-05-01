@@ -3,12 +3,13 @@ import Koa from "koa";
 import Router from "@koa/router";
 
 // router toevoegen
-import installHealthRouter from './_health';
-import installUserRouter from './_user';
-import installCompanyRouter from './_company';
-import installOrderRouter from './_order';
-import installProductRouter from './_product';
 import installChatRouter from './_chat'
+import installHealthRouter from "./_health";
+import installUserRouter from "./_user";
+import installCompanyRouter from "./_company";
+import installOrderRouter from "./_order";
+import installProductRouter from "./_product";
+import installOrderItemRouter from "./_orderItem";
 
 
 /**
@@ -21,12 +22,15 @@ export default function installRest(app: Koa) {
   });
 
     // Vr monitoring etc
-    installHealthRouter(router);
-    installUserRouter(router);
-    installCompanyRouter(router);
-    installOrderRouter(router);
-    installProductRouter(router);
+
     installChatRouter(router)
+  // Vr monitoring etc
+  installHealthRouter(router);
+  installUserRouter(router);
+  installCompanyRouter(router);
+  installOrderRouter(router);
+  installProductRouter(router);
+  installOrderItemRouter(router);
 
   app.use(router.routes()).use(router.allowedMethods());
 }

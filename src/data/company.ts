@@ -8,6 +8,12 @@ export const findByCompany = async (companyId: number) => {
   });
 };
 
+export const findCompany = async (companyId: number) => {
+  return await prisma.company.findFirst({
+    where: { ID: companyId },
+  });
+};
+
 export const findAllCompanies = async () => {
   return await prisma.company.findMany();
 };

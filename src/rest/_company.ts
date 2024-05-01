@@ -12,6 +12,11 @@ const getAllCompanies = async (ctx: Koa.Context) => {
   ctx.body = await companyService.getAllCompanies();
 };
 
+const getCompany = async (ctx: Koa.Context) => {
+  const companyId = ctx.params.id;
+  ctx.body = await companyService.getCompany(companyId);
+};
+
 export default function installCompanyRouter(app: Router) {
   const router = new Router({
     prefix: "/company",
@@ -20,8 +25,9 @@ export default function installCompanyRouter(app: Router) {
   //const requireSupplier = makeRequireRole(Role.SUPPLIER);
 
   // Public routes
-  router.get("/:id", getOwnProducts);
+  router.get("/:id/products", getOwnProducts);
   router.get("/", getAllCompanies);
+  router.get("/:id", getCompany)
 
   app.use(router.routes()).use(router.allowedMethods());
 }

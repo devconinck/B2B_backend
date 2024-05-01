@@ -9,8 +9,8 @@ datasource db {
 
 model account {
   ID         BigInt   @id @default(autoincrement())
-  EMAIL      String   @db.VarChar(255)
-  PASSWORD   String   @db.VarChar(255)
+  EMAIL      String  @db.VarChar(255)
+  PASSWORD   String  @db.VarChar(255)
   ROLE       Int
   company_id BigInt
   company    company? @relation(fields: [company_id], references: [ID], onDelete: NoAction, onUpdate: NoAction, map: "FK_ACCOUNT_company_id")
@@ -103,14 +103,14 @@ model order_table {
   DATE                                        String?     @db.VarChar(255)
   LASTPAYMENTREMINDER                         String?     @db.VarChar(255)
   NAME                                        String?     @db.VarChar(255)
-  NETAMOUNT                                   String?     @db.VarChar(255)
+  NETAMOUNT                                   Float?
   ORDERDATETIME                               DateTime?   @db.Date
   ORDERID                                     String?     @db.VarChar(255)
   ORDERREFERENCE                              String?     @db.VarChar(255)
   ORDERSTATUS                                 Int?
   PAYMENTSTATUS                               Int?
-  TAXAMOUNT                                   String?     @db.VarChar(255)
-  TOTALAMOUNT                                 String?     @db.VarChar(255)
+  TAXAMOUNT                                   Float?
+  TOTALAMOUNT                                 Float?
   FROMCOMPANY_ID                              BigInt?
   TOCOMPANY_ID                                BigInt?
   company_order_table_FROMCOMPANY_IDTocompany company?    @relation("order_table_FROMCOMPANY_IDTocompany", fields: [FROMCOMPANY_ID], references: [ID], onDelete: NoAction, onUpdate: NoAction, map: "FK_order_table_FROMCOMPANY_ID")

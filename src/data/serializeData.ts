@@ -26,14 +26,14 @@ export const serializeOrders = (results: Array<order_table>) => {
     currency: result.CURRENCY,
     lastPaymentReminder: result.LASTPAYMENTREMINDER,
     name: result.NAME,
-    netAmount: result.NETAMOUNT,
+    netAmount: Number(result.NETAMOUNT),
     orderDate: result.ORDERDATETIME,
     orderId: result.ORDERID, // not the one you need, this is a string and different from "id"
     orderReference: result.ORDERREFERENCE,
     orderStatus: getOrderStatusByNumber(result.ORDERSTATUS),
     paymentStatus: getPaymentStatusByNumber(result.PAYMENTSTATUS),
-    taxAmount: result.TAXAMOUNT,
-    totalAmount: result.TOTALAMOUNT,
+    taxAmount: Number(result.TAXAMOUNT),
+    totalAmount: Number(result.TOTALAMOUNT),
   }));
 };
 

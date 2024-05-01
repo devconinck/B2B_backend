@@ -64,8 +64,8 @@ const findOrders = async (params: {
       },
       // Werkt nog niet naar toebehoren
       TOTALAMOUNT: {
-        gte: minAmount ? minAmount.toString() : undefined,
-        lte: maxAmount ? maxAmount.toString() : undefined,
+        gte: minAmount,
+        lte: maxAmount,
       },
       ORDERREFERENCE: {
         contains: orderReference,

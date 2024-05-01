@@ -7,7 +7,17 @@ exports.processMessage = async (message:string) => {
 
   const logger = getLogger();
 
+  let answer = responseObj.answer
+  switch(responseObj.intent) {
+    case 'orderStatus':
+      const orderid = responseObj.entities[0].sourceText
+      logger.debug(orderid)
+      answer += "PAID"
+    default:
+        logger.debug("Sorry, I did not understand that.");
+  }
+
   logger.debug(responseObj)
 
-  return responseObj.answer || 'Sorry! I could not understand that, requesting you to rephrase!';
+  return answer || 'Sorry! I could not understand that, requesting you to rephrase!';
 };

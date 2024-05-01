@@ -1,5 +1,6 @@
-const { NlpManager } = require('node-nlp');
+const { NlpManager, NerManager  } = require('node-nlp');
 const manager = new NlpManager({ languages: ['en'] });
+
 /****************
  *   GREETINGS  *
  ***************/
@@ -37,6 +38,11 @@ manager.addDocument('en', 'yoww', 'greeting');  // Typo for "yow"
  *     HELP     *
  ***************/
 manager.addDocument('en','help', 'help');
+manager.addDocument('en','hepl', 'help');
+manager.addDocument('en','hepl', 'ehlp');
+manager.addDocument('en','hepl', 'hzlp');
+manager.addDocument('en','hepl', 'hrlp');
+manager.addDocument('en','hepl', 'hekp');
 manager.addDocument('en','Help me', 'help');
 
 /****************
@@ -51,26 +57,13 @@ manager.addDocument('en','Tell me what you do', 'info');
  *  INVOICE STATUS  *
  *******************/
 // Adding phrases to check invoice status
-manager.addDocument('en', "Can you show me the current status of my invoices?", 'checkInvoiceStatus');
-manager.addDocument('en', "I need to check the latest status on my invoices.", 'checkInvoiceStatus');
-manager.addDocument('en', "Show me the status of my recent invoices.", 'checkInvoiceStatus');
-manager.addDocument('en', "How to view the status of my outstanding invoices?", 'checkInvoiceStatus');
-manager.addDocument('en', "What's the status of my latest invoice?", 'checkInvoiceStatus');
-manager.addDocument('en', "Tell me how to check what's pending on my invoices.", 'checkInvoiceStatus');
-manager.addDocument('en', "How do I find out about my invoice details?", 'checkInvoiceStatus');
-manager.addDocument('en', "Can you help me access my invoice records?", 'checkInvoiceStatus');
-manager.addDocument('en', "I want to review the status of my invoices, how do I do that?", 'checkInvoiceStatus');
-manager.addDocument('en', "Please guide me on how to check my invoice status.", 'checkInvoiceStatus');
-manager.addDocument('en', "How to get updates on my invoice payments?", 'checkInvoiceStatus');
-manager.addDocument('en', "I'm looking to see the progress of my invoice payments, how can I do that?", 'checkInvoiceStatus');
-manager.addDocument('en', "Guide me through checking my invoice status.", 'checkInvoiceStatus');
-manager.addDocument('en', "Where do I go to see my invoice payment status?", 'checkInvoiceStatus');
+manager.addRegexEntity('orderid', 'en', /ORD\d+/);
 
-manager.addAnswer('en', 'checkInvoiceStatus', "You can find the invoice status of each order in your profile. Go to Profile > My Orders and click on the order you want to see.");
-manager.addAnswer('en', 'checkInvoiceStatus', "To check your invoice status, please log into your account and navigate to the 'My Orders' tab where you can see all the details.");
-manager.addAnswer('en', 'checkInvoiceStatus', "You can easily check the status of your invoices by accessing the 'My Orders' area on our website.");
-manager.addAnswer('en', 'checkInvoiceStatus', "Your invoice status and history are available online. Just visit the 'My Orders' section after logging into your account.");
-manager.addAnswer('en', 'checkInvoiceStatus', "For details on your invoices' status and history, please go to the 'My Orders' section in your profile on our portal.");
+manager.addDocument('en', 'I need details for order %orderid%', 'orderStatus');
+manager.addDocument('en', 'What is the status of invoice %orderid%?', 'orderStatus');
+manager.addDocument('en', 'Can you check invoice %orderid% for me?', 'orderStatus');
+
+manager.addAnswer('en', 'orderStatus', "The status of invoice #{{orderid}} is ");
 
 manager.addDocument('en', "Where can I find my invoice history?", 'checkInvoiceHistory');
 manager.addDocument('en', "How can I access the records of my past invoices?", 'checkInvoiceHistory');
@@ -79,9 +72,28 @@ manager.addDocument('en', "Can I see the history of my payments and invoices?", 
 manager.addDocument('en', "What is the process to check my invoice history on your platform?", 'checkInvoiceHistory');
 manager.addDocument('en', "Help me understand where to find my past invoices.", 'checkInvoiceHistory');
 
-manager.addAnswer('en', 'checkInvoiceHistory', "You can view the status and history of your invoices in your account dashboard under the 'Invoices' section.");
+manager.addAnswer('en', 'checkInvoiceHistory', "You can view the status and history of your invoices in your account dashboard under the 'My Orders' section.");
 
+/********************
+ *     WEATHER      *
+ *******************/
 
+manager.addDocument('en', 'What’s the weather like today?', 'weather');
+manager.addDocument('en', 'Is it going to rain tomorrow?', 'weather');
+manager.addDocument('en', 'Do I need an umbrella today?', 'weather');
+manager.addDocument('en', 'Will it be cold this weekend?', 'weather');
+manager.addDocument('en', 'What is the temperature outside?', 'weather');
+manager.addDocument('en', 'Tell me the weather forecast for this week', 'weather');
+manager.addDocument('en', 'Is there a storm coming?', 'stormWarning');
+
+manager.addAnswer('en', 'weather', "I'd tell you a weather joke but it's all over the map.");
+manager.addAnswer('en', 'weather', "It's schrödinger's weather today: until you look outside, it could be anything!");
+manager.addAnswer('en', 'weather', "I predict... yes, definitely, it might rain tomorrow. Or not.");
+manager.addAnswer('en', 'weather', "Let me check my crystal ball... Nope, still foggy on the weekend weather.");
+manager.addAnswer('en', 'weather', "Bring an umbrella. If it doesn’t rain, you can use it as a sunshade!");
+manager.addAnswer('en', 'weather', "Umbrella or not? I'd say yes. It's better to be safe than soggy.");
+manager.addAnswer('en', 'weather', "It's cooler than a snowman in sunglasses outside.");
+manager.addAnswer('en', 'weather', "Expect a mix of weather this week. If you're lucky, some of it might even be nice!");
 
 // Answers for different intents
 manager.addAnswer('en','greeting','Hi, I am DelBot, your virtual assistent!');

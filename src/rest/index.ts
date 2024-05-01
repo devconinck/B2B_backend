@@ -9,6 +9,7 @@ import installUserRouter from './_user';
 import installCompanyRouter from './_company';
 import installOrderRouter from './_order';
 import installProductRouter from './_product';
+import installChatRouter from './_chat'
 
 /**
  *@param {Koa} app
@@ -27,7 +28,7 @@ export default function installRest(app: Koa) {
     installCompanyRouter(router);
     installOrderRouter(router);
     installProductRouter(router);
-
+    installChatRouter(router)
 
     app
         .use(router.routes())

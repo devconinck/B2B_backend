@@ -38,6 +38,10 @@
             "intent": "greeting",
             "domain": "default"
           },
+          "hello,there": {
+            "intent": "greeting",
+            "domain": "default"
+          },
           "hi": {
             "intent": "greeting",
             "domain": "default"
@@ -55,6 +59,82 @@
             "domain": "default"
           },
           "yow": {
+            "intent": "greeting",
+            "domain": "default"
+          },
+          "helo": {
+            "intent": "greeting",
+            "domain": "default"
+          },
+          "hlelo": {
+            "intent": "greeting",
+            "domain": "default"
+          },
+          "heyllo": {
+            "intent": "greeting",
+            "domain": "default"
+          },
+          "hii": {
+            "intent": "greeting",
+            "domain": "default"
+          },
+          "hie": {
+            "intent": "greeting",
+            "domain": "default"
+          },
+          "hy": {
+            "intent": "greeting",
+            "domain": "default"
+          },
+          "hey,tehr": {
+            "intent": "greeting",
+            "domain": "default"
+          },
+          "hey,thr": {
+            "intent": "greeting",
+            "domain": "default"
+          },
+          "good,mrone": {
+            "intent": "greeting",
+            "domain": "default"
+          },
+          "god,morn": {
+            "intent": "greeting",
+            "domain": "default"
+          },
+          "good,morinng": {
+            "intent": "greeting",
+            "domain": "default"
+          },
+          "afternon,good": {
+            "intent": "greeting",
+            "domain": "default"
+          },
+          "afternnon,good": {
+            "intent": "greeting",
+            "domain": "default"
+          },
+          "afternoon,godo": {
+            "intent": "greeting",
+            "domain": "default"
+          },
+          "yoow": {
+            "intent": "greeting",
+            "domain": "default"
+          },
+          "ywo": {
+            "intent": "greeting",
+            "domain": "default"
+          },
+          "youw": {
+            "intent": "greeting",
+            "domain": "default"
+          },
+          "gow": {
+            "intent": "greeting",
+            "domain": "default"
+          },
+          "yoww": {
             "intent": "greeting",
             "domain": "default"
           },
@@ -81,17 +161,104 @@
           "do,me,tell,what,you": {
             "intent": "info",
             "domain": "default"
+          },
+          "can,current,invoic,me,my,of,show,status,the,you": {
+            "intent": "checkInvoiceStatus",
+            "domain": "default"
+          },
+          "check,i,invoic,latest,my,need,on,status,the,to": {
+            "intent": "checkInvoiceStatus",
+            "domain": "default"
+          },
+          "invoic,me,my,of,recent,show,status,the": {
+            "intent": "checkInvoiceStatus",
+            "domain": "default"
+          },
+          "how,invoic,my,of,outstand,status,the,to,view": {
+            "intent": "checkInvoiceStatus",
+            "domain": "default"
+          },
+          "invoic,is,latest,my,of,status,the,what": {
+            "intent": "checkInvoiceStatus",
+            "domain": "default"
+          },
+          "check,how,invoic,is,me,my,on,pend,tell,to,what": {
+            "intent": "checkInvoiceStatus",
+            "domain": "default"
+          },
+          "about,detail,do,find,how,i,invoic,my,out": {
+            "intent": "checkInvoiceStatus",
+            "domain": "default"
+          },
+          "access,can,help,invoic,me,my,record,you": {
+            "intent": "checkInvoiceStatus",
+            "domain": "default"
+          },
+          "do,how,i,invoic,my,of,review,status,that,the,to,want": {
+            "intent": "checkInvoiceStatus",
+            "domain": "default"
+          },
+          "check,guid,how,invoic,me,my,on,pleas,status,to": {
+            "intent": "checkInvoiceStatus",
+            "domain": "default"
+          },
+          "get,how,invoic,my,on,payment,to,updat": {
+            "intent": "checkInvoiceStatus",
+            "domain": "default"
+          },
+          "am,can,do,how,i,invoic,look,my,of,payment,progress,see,that,the,to": {
+            "intent": "checkInvoiceStatus",
+            "domain": "default"
+          },
+          "check,guid,invoic,me,my,status,through": {
+            "intent": "checkInvoiceStatus",
+            "domain": "default"
+          },
+          "do,go,i,invoic,my,payment,see,status,to,where": {
+            "intent": "checkInvoiceStatus",
+            "domain": "default"
+          },
+          "can,find,histori,i,invoic,my,where": {
+            "intent": "checkInvoiceHistory",
+            "domain": "default"
+          },
+          "access,can,how,i,invoic,my,of,past,record,the": {
+            "intent": "checkInvoiceHistory",
+            "domain": "default"
+          },
+          "a,all,invoic,is,my,previous,see,there,to,way": {
+            "intent": "checkInvoiceHistory",
+            "domain": "default"
+          },
+          "and,can,histori,i,invoic,my,of,payment,see,the": {
+            "intent": "checkInvoiceHistory",
+            "domain": "default"
+          },
+          "check,histori,invoic,is,my,on,platform,process,the,to,what,your": {
+            "intent": "checkInvoiceHistory",
+            "domain": "default"
+          },
+          "find,help,invoic,me,my,past,to,understand,where": {
+            "intent": "checkInvoiceHistory",
+            "domain": "default"
           }
         },
         "intentDict": {
           "greeting": "default",
           "help": "default",
-          "info": "default"
+          "info": "default",
+          "checkInvoiceStatus": "default",
+          "checkInvoiceHistory": "default"
         },
         "sentences": [
           {
             "domain": "default",
             "utterance": "hello",
+            "intent": "greeting"
+          },
+          {
+            "domain": "default",
+            "utterance": "hello there",
             "intent": "greeting"
           },
           {
@@ -117,6 +284,106 @@
           {
             "domain": "default",
             "utterance": "yow",
+            "intent": "greeting"
+          },
+          {
+            "domain": "default",
+            "utterance": "helo",
+            "intent": "greeting"
+          },
+          {
+            "domain": "default",
+            "utterance": "hlelo",
+            "intent": "greeting"
+          },
+          {
+            "domain": "default",
+            "utterance": "heyllo",
+            "intent": "greeting"
+          },
+          {
+            "domain": "default",
+            "utterance": "hii",
+            "intent": "greeting"
+          },
+          {
+            "domain": "default",
+            "utterance": "hie",
+            "intent": "greeting"
+          },
+          {
+            "domain": "default",
+            "utterance": "hy",
+            "intent": "greeting"
+          },
+          {
+            "domain": "default",
+            "utterance": "hey tehre",
+            "intent": "greeting"
+          },
+          {
+            "domain": "default",
+            "utterance": "hey thr",
+            "intent": "greeting"
+          },
+          {
+            "domain": "default",
+            "utterance": "hey tehre",
+            "intent": "greeting"
+          },
+          {
+            "domain": "default",
+            "utterance": "good mroning",
+            "intent": "greeting"
+          },
+          {
+            "domain": "default",
+            "utterance": "god morning",
+            "intent": "greeting"
+          },
+          {
+            "domain": "default",
+            "utterance": "good morinng",
+            "intent": "greeting"
+          },
+          {
+            "domain": "default",
+            "utterance": "good afternon",
+            "intent": "greeting"
+          },
+          {
+            "domain": "default",
+            "utterance": "good afternnon",
+            "intent": "greeting"
+          },
+          {
+            "domain": "default",
+            "utterance": "godo afternoon",
+            "intent": "greeting"
+          },
+          {
+            "domain": "default",
+            "utterance": "yoow",
+            "intent": "greeting"
+          },
+          {
+            "domain": "default",
+            "utterance": "ywo",
+            "intent": "greeting"
+          },
+          {
+            "domain": "default",
+            "utterance": "youw",
+            "intent": "greeting"
+          },
+          {
+            "domain": "default",
+            "utterance": "gow",
+            "intent": "greeting"
+          },
+          {
+            "domain": "default",
+            "utterance": "yoww",
             "intent": "greeting"
           },
           {
@@ -148,6 +415,106 @@
             "domain": "default",
             "utterance": "Tell me what you do",
             "intent": "info"
+          },
+          {
+            "domain": "default",
+            "utterance": "Can you show me the current status of my invoices?",
+            "intent": "checkInvoiceStatus"
+          },
+          {
+            "domain": "default",
+            "utterance": "I need to check the latest status on my invoices.",
+            "intent": "checkInvoiceStatus"
+          },
+          {
+            "domain": "default",
+            "utterance": "Show me the status of my recent invoices.",
+            "intent": "checkInvoiceStatus"
+          },
+          {
+            "domain": "default",
+            "utterance": "How to view the status of my outstanding invoices?",
+            "intent": "checkInvoiceStatus"
+          },
+          {
+            "domain": "default",
+            "utterance": "What's the status of my latest invoice?",
+            "intent": "checkInvoiceStatus"
+          },
+          {
+            "domain": "default",
+            "utterance": "Tell me how to check what's pending on my invoices.",
+            "intent": "checkInvoiceStatus"
+          },
+          {
+            "domain": "default",
+            "utterance": "How do I find out about my invoice details?",
+            "intent": "checkInvoiceStatus"
+          },
+          {
+            "domain": "default",
+            "utterance": "Can you help me access my invoice records?",
+            "intent": "checkInvoiceStatus"
+          },
+          {
+            "domain": "default",
+            "utterance": "I want to review the status of my invoices, how do I do that?",
+            "intent": "checkInvoiceStatus"
+          },
+          {
+            "domain": "default",
+            "utterance": "Please guide me on how to check my invoice status.",
+            "intent": "checkInvoiceStatus"
+          },
+          {
+            "domain": "default",
+            "utterance": "How to get updates on my invoice payments?",
+            "intent": "checkInvoiceStatus"
+          },
+          {
+            "domain": "default",
+            "utterance": "I'm looking to see the progress of my invoice payments, how can I do that?",
+            "intent": "checkInvoiceStatus"
+          },
+          {
+            "domain": "default",
+            "utterance": "Guide me through checking my invoice status.",
+            "intent": "checkInvoiceStatus"
+          },
+          {
+            "domain": "default",
+            "utterance": "Where do I go to see my invoice payment status?",
+            "intent": "checkInvoiceStatus"
+          },
+          {
+            "domain": "default",
+            "utterance": "Where can I find my invoice history?",
+            "intent": "checkInvoiceHistory"
+          },
+          {
+            "domain": "default",
+            "utterance": "How can I access the records of my past invoices?",
+            "intent": "checkInvoiceHistory"
+          },
+          {
+            "domain": "default",
+            "utterance": "Is there a way to see all my previous invoices?",
+            "intent": "checkInvoiceHistory"
+          },
+          {
+            "domain": "default",
+            "utterance": "Can I see the history of my payments and invoices?",
+            "intent": "checkInvoiceHistory"
+          },
+          {
+            "domain": "default",
+            "utterance": "What is the process to check my invoice history on your platform?",
+            "intent": "checkInvoiceHistory"
+          },
+          {
+            "domain": "default",
+            "utterance": "Help me understand where to find my past invoices.",
+            "intent": "checkInvoiceHistory"
           }
         ],
         "domains": {
@@ -165,13 +532,32 @@
             },
             "features": {
               "hello": 1,
+              "there": 1,
               "hi": 1,
               "hey": 1,
-              "there": 1,
               "good": 1,
               "morn": 1,
               "afternoon": 1,
               "yow": 1,
+              "helo": 1,
+              "hlelo": 1,
+              "heyllo": 1,
+              "hii": 1,
+              "hie": 1,
+              "hy": 1,
+              "tehr": 1,
+              "thr": 1,
+              "mrone": 1,
+              "god": 1,
+              "morinng": 1,
+              "afternon": 1,
+              "afternnon": 1,
+              "godo": 1,
+              "yoow": 1,
+              "ywo": 1,
+              "youw": 1,
+              "gow": 1,
+              "yoww": 1,
               "help": 1,
               "me": 1,
               "what": 1,
@@ -180,23 +566,93 @@
               "do": 1,
               "how": 1,
               "tell": 1,
-              "to": 1
+              "to": 1,
+              "show": 1,
+              "the": 1,
+              "current": 1,
+              "status": 1,
+              "of": 1,
+              "my": 1,
+              "invoic": 1,
+              "i": 1,
+              "need": 1,
+              "check": 1,
+              "latest": 1,
+              "on": 1,
+              "recent": 1,
+              "view": 1,
+              "outstand": 1,
+              "is": 1,
+              "pend": 1,
+              "find": 1,
+              "out": 1,
+              "about": 1,
+              "detail": 1,
+              "access": 1,
+              "record": 1,
+              "want": 1,
+              "review": 1,
+              "that": 1,
+              "pleas": 1,
+              "guid": 1,
+              "get": 1,
+              "updat": 1,
+              "payment": 1,
+              "am": 1,
+              "look": 1,
+              "see": 1,
+              "progress": 1,
+              "through": 1,
+              "where": 1,
+              "go": 1,
+              "histori": 1,
+              "past": 1,
+              "a": 1,
+              "way": 1,
+              "all": 1,
+              "previous": 1,
+              "and": 1,
+              "process": 1,
+              "your": 1,
+              "platform": 1,
+              "understand": 1
             },
             "intents": {
               "greeting": 1,
               "help": 1,
-              "info": 1
+              "info": 1,
+              "checkInvoiceStatus": 1,
+              "checkInvoiceHistory": 1
             },
             "intentFeatures": {
               "greeting": {
                 "hello": 1,
+                "there": 1,
                 "hi": 1,
                 "hey": 1,
-                "there": 1,
                 "good": 1,
                 "morn": 1,
                 "afternoon": 1,
-                "yow": 1
+                "yow": 1,
+                "helo": 1,
+                "hlelo": 1,
+                "heyllo": 1,
+                "hii": 1,
+                "hie": 1,
+                "hy": 1,
+                "tehr": 1,
+                "thr": 1,
+                "mrone": 1,
+                "god": 1,
+                "morinng": 1,
+                "afternon": 1,
+                "afternnon": 1,
+                "godo": 1,
+                "yoow": 1,
+                "ywo": 1,
+                "youw": 1,
+                "gow": 1,
+                "yoww": 1
               },
               "help": {
                 "help": 1,
@@ -212,19 +668,103 @@
                 "tell": 1,
                 "me": 1,
                 "to": 1
+              },
+              "checkInvoiceStatus": {
+                "can": 1,
+                "you": 1,
+                "show": 1,
+                "me": 1,
+                "the": 1,
+                "current": 1,
+                "status": 1,
+                "of": 1,
+                "my": 1,
+                "invoic": 1,
+                "i": 1,
+                "need": 1,
+                "to": 1,
+                "check": 1,
+                "latest": 1,
+                "on": 1,
+                "recent": 1,
+                "how": 1,
+                "view": 1,
+                "outstand": 1,
+                "what": 1,
+                "is": 1,
+                "tell": 1,
+                "pend": 1,
+                "do": 1,
+                "find": 1,
+                "out": 1,
+                "about": 1,
+                "detail": 1,
+                "help": 1,
+                "access": 1,
+                "record": 1,
+                "want": 1,
+                "review": 1,
+                "that": 1,
+                "pleas": 1,
+                "guid": 1,
+                "get": 1,
+                "updat": 1,
+                "payment": 1,
+                "am": 1,
+                "look": 1,
+                "see": 1,
+                "progress": 1,
+                "through": 1,
+                "where": 1,
+                "go": 1
+              },
+              "checkInvoiceHistory": {
+                "where": 1,
+                "can": 1,
+                "i": 1,
+                "find": 1,
+                "my": 1,
+                "invoic": 1,
+                "histori": 1,
+                "how": 1,
+                "access": 1,
+                "the": 1,
+                "record": 1,
+                "of": 1,
+                "past": 1,
+                "is": 1,
+                "there": 1,
+                "a": 1,
+                "way": 1,
+                "to": 1,
+                "see": 1,
+                "all": 1,
+                "previous": 1,
+                "payment": 1,
+                "and": 1,
+                "what": 1,
+                "process": 1,
+                "check": 1,
+                "on": 1,
+                "your": 1,
+                "platform": 1,
+                "help": 1,
+                "me": 1,
+                "understand": 1
               }
             },
             "featuresToIntent": {
               "hello": [
                 "greeting"
               ],
+              "there": [
+                "greeting",
+                "checkInvoiceHistory"
+              ],
               "hi": [
                 "greeting"
               ],
               "hey": [
-                "greeting"
-              ],
-              "there": [
                 "greeting"
               ],
               "good": [
@@ -239,34 +779,267 @@
               "yow": [
                 "greeting"
               ],
+              "helo": [
+                "greeting"
+              ],
+              "hlelo": [
+                "greeting"
+              ],
+              "heyllo": [
+                "greeting"
+              ],
+              "hii": [
+                "greeting"
+              ],
+              "hie": [
+                "greeting"
+              ],
+              "hy": [
+                "greeting"
+              ],
+              "tehr": [
+                "greeting"
+              ],
+              "thr": [
+                "greeting"
+              ],
+              "mrone": [
+                "greeting"
+              ],
+              "god": [
+                "greeting"
+              ],
+              "morinng": [
+                "greeting"
+              ],
+              "afternon": [
+                "greeting"
+              ],
+              "afternnon": [
+                "greeting"
+              ],
+              "godo": [
+                "greeting"
+              ],
+              "yoow": [
+                "greeting"
+              ],
+              "ywo": [
+                "greeting"
+              ],
+              "youw": [
+                "greeting"
+              ],
+              "gow": [
+                "greeting"
+              ],
+              "yoww": [
+                "greeting"
+              ],
               "help": [
                 "help",
-                "info"
+                "info",
+                "checkInvoiceStatus",
+                "checkInvoiceHistory"
               ],
               "me": [
                 "help",
-                "info"
+                "info",
+                "checkInvoiceStatus",
+                "checkInvoiceHistory"
               ],
               "what": [
-                "info"
+                "info",
+                "checkInvoiceStatus",
+                "checkInvoiceHistory"
               ],
               "can": [
-                "info"
+                "info",
+                "checkInvoiceStatus",
+                "checkInvoiceHistory"
               ],
               "you": [
-                "info"
+                "info",
+                "checkInvoiceStatus"
               ],
               "do": [
-                "info"
+                "info",
+                "checkInvoiceStatus"
               ],
               "how": [
-                "info"
+                "info",
+                "checkInvoiceStatus",
+                "checkInvoiceHistory"
               ],
               "tell": [
-                "info"
+                "info",
+                "checkInvoiceStatus"
               ],
               "to": [
-                "info"
+                "info",
+                "checkInvoiceStatus",
+                "checkInvoiceHistory"
+              ],
+              "show": [
+                "checkInvoiceStatus"
+              ],
+              "the": [
+                "checkInvoiceStatus",
+                "checkInvoiceHistory"
+              ],
+              "current": [
+                "checkInvoiceStatus"
+              ],
+              "status": [
+                "checkInvoiceStatus"
+              ],
+              "of": [
+                "checkInvoiceStatus",
+                "checkInvoiceHistory"
+              ],
+              "my": [
+                "checkInvoiceStatus",
+                "checkInvoiceHistory"
+              ],
+              "invoic": [
+                "checkInvoiceStatus",
+                "checkInvoiceHistory"
+              ],
+              "i": [
+                "checkInvoiceStatus",
+                "checkInvoiceHistory"
+              ],
+              "need": [
+                "checkInvoiceStatus"
+              ],
+              "check": [
+                "checkInvoiceStatus",
+                "checkInvoiceHistory"
+              ],
+              "latest": [
+                "checkInvoiceStatus"
+              ],
+              "on": [
+                "checkInvoiceStatus",
+                "checkInvoiceHistory"
+              ],
+              "recent": [
+                "checkInvoiceStatus"
+              ],
+              "view": [
+                "checkInvoiceStatus"
+              ],
+              "outstand": [
+                "checkInvoiceStatus"
+              ],
+              "is": [
+                "checkInvoiceStatus",
+                "checkInvoiceHistory"
+              ],
+              "pend": [
+                "checkInvoiceStatus"
+              ],
+              "find": [
+                "checkInvoiceStatus",
+                "checkInvoiceHistory"
+              ],
+              "out": [
+                "checkInvoiceStatus"
+              ],
+              "about": [
+                "checkInvoiceStatus"
+              ],
+              "detail": [
+                "checkInvoiceStatus"
+              ],
+              "access": [
+                "checkInvoiceStatus",
+                "checkInvoiceHistory"
+              ],
+              "record": [
+                "checkInvoiceStatus",
+                "checkInvoiceHistory"
+              ],
+              "want": [
+                "checkInvoiceStatus"
+              ],
+              "review": [
+                "checkInvoiceStatus"
+              ],
+              "that": [
+                "checkInvoiceStatus"
+              ],
+              "pleas": [
+                "checkInvoiceStatus"
+              ],
+              "guid": [
+                "checkInvoiceStatus"
+              ],
+              "get": [
+                "checkInvoiceStatus"
+              ],
+              "updat": [
+                "checkInvoiceStatus"
+              ],
+              "payment": [
+                "checkInvoiceStatus",
+                "checkInvoiceHistory"
+              ],
+              "am": [
+                "checkInvoiceStatus"
+              ],
+              "look": [
+                "checkInvoiceStatus"
+              ],
+              "see": [
+                "checkInvoiceStatus",
+                "checkInvoiceHistory"
+              ],
+              "progress": [
+                "checkInvoiceStatus"
+              ],
+              "through": [
+                "checkInvoiceStatus"
+              ],
+              "where": [
+                "checkInvoiceStatus",
+                "checkInvoiceHistory"
+              ],
+              "go": [
+                "checkInvoiceStatus"
+              ],
+              "histori": [
+                "checkInvoiceHistory"
+              ],
+              "past": [
+                "checkInvoiceHistory"
+              ],
+              "a": [
+                "checkInvoiceHistory"
+              ],
+              "way": [
+                "checkInvoiceHistory"
+              ],
+              "all": [
+                "checkInvoiceHistory"
+              ],
+              "previous": [
+                "checkInvoiceHistory"
+              ],
+              "and": [
+                "checkInvoiceHistory"
+              ],
+              "process": [
+                "checkInvoiceHistory"
+              ],
+              "your": [
+                "checkInvoiceHistory"
+              ],
+              "platform": [
+                "checkInvoiceHistory"
+              ],
+              "understand": [
+                "checkInvoiceHistory"
               ]
             },
             "neuralNetwork": {
@@ -283,13 +1056,32 @@
               },
               "features": [
                 "hello",
+                "there",
                 "hi",
                 "hey",
-                "there",
                 "good",
                 "morn",
                 "afternoon",
                 "yow",
+                "helo",
+                "hlelo",
+                "heyllo",
+                "hii",
+                "hie",
+                "hy",
+                "tehr",
+                "thr",
+                "mrone",
+                "god",
+                "morinng",
+                "afternon",
+                "afternnon",
+                "godo",
+                "yoow",
+                "ywo",
+                "youw",
+                "gow",
+                "yoww",
                 "help",
                 "me",
                 "what",
@@ -298,73 +1090,504 @@
                 "do",
                 "how",
                 "tell",
-                "to"
+                "to",
+                "show",
+                "the",
+                "current",
+                "status",
+                "of",
+                "my",
+                "invoic",
+                "i",
+                "need",
+                "check",
+                "latest",
+                "on",
+                "recent",
+                "view",
+                "outstand",
+                "is",
+                "pend",
+                "find",
+                "out",
+                "about",
+                "detail",
+                "access",
+                "record",
+                "want",
+                "review",
+                "that",
+                "pleas",
+                "guid",
+                "get",
+                "updat",
+                "payment",
+                "am",
+                "look",
+                "see",
+                "progress",
+                "through",
+                "where",
+                "go",
+                "histori",
+                "past",
+                "a",
+                "way",
+                "all",
+                "previous",
+                "and",
+                "process",
+                "your",
+                "platform",
+                "understand"
               ],
               "intents": [
                 "greeting",
                 "help",
-                "info"
+                "info",
+                "checkInvoiceStatus",
+                "checkInvoiceHistory"
               ],
               "perceptrons": [
                 [
-                  6.270742416381836,
-                  6.270924091339111,
-                  3.1366891860961914,
-                  3.1366891860961914,
-                  4.182260513305664,
-                  2.0912389755249023,
-                  2.0910239219665527,
-                  6.269252300262451,
-                  -8.003341674804688,
-                  -2.3869690895080566,
-                  -2.102368116378784,
-                  -1.820929765701294,
-                  -1.9863948822021484,
-                  -2.102368116378784,
-                  -0.49981385469436646,
-                  -0.8066779375076294,
-                  -0.6401612758636475,
-                  8.012101041738845
+                  2.2791907787323,
+                  0.3566380739212036,
+                  2.4891045093536377,
+                  1.9826362133026123,
+                  1.6989109516143799,
+                  0.8802146911621094,
+                  0.8957505226135254,
+                  2.5004684925079346,
+                  2.4990360736846924,
+                  2.4972238540649414,
+                  2.495027542114258,
+                  2.492443799972534,
+                  2.489471435546875,
+                  2.486107110977173,
+                  0.5221366286277771,
+                  0.5438223481178284,
+                  0.7524247169494629,
+                  1.5379916429519653,
+                  0.7452443242073059,
+                  0.7387208938598633,
+                  0.7293752431869507,
+                  1.5072062015533447,
+                  2.4580838680267334,
+                  2.4531149864196777,
+                  2.447758197784424,
+                  2.4420151710510254,
+                  2.435886859893799,
+                  -11.676206588745117,
+                  -3.907409191131592,
+                  -2.706683874130249,
+                  -3.069744348526001,
+                  -3.0728302001953125,
+                  -2.962578535079956,
+                  -1.5197080373764038,
+                  -0.931800127029419,
+                  -2.5056495666503906,
+                  -0.38483500480651855,
+                  -1.2716138362884521,
+                  -0.17498968541622162,
+                  -1.3596854209899902,
+                  -0.7599546313285828,
+                  -3.2049968242645264,
+                  -3.2049968242645264,
+                  -1.1388945579528809,
+                  -0.2612597346305847,
+                  -0.4907754063606262,
+                  -0.4870525896549225,
+                  -0.7474883794784546,
+                  -0.12235048413276672,
+                  -0.09237541258335114,
+                  -0.09237541258335114,
+                  -0.7753989100456238,
+                  0,
+                  -0.6173955202102661,
+                  -0.1978720873594284,
+                  -0.1978720873594284,
+                  -0.1978720873594284,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  -0.03357088193297386,
+                  -0.25762635469436646,
+                  -0.25762635469436646,
+                  -0.25762635469436646,
+                  0,
+                  0,
+                  -0.7262498140335083,
+                  0,
+                  -0.03357088193297386,
+                  -0.32121598720550537,
+                  0,
+                  -0.32121598720550537,
+                  0,
+                  -0.7262498140335083,
+                  -0.7262498140335083,
+                  -0.7262498140335083,
+                  -0.7262498140335083,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  11.812628803322443
                 ],
                 [
-                  -1.7070679664611816,
-                  -1.7048661708831787,
-                  -0.8616122603416443,
-                  -0.8616122603416443,
-                  -1.1514474153518677,
-                  -0.576158344745636,
-                  -0.5746052265167236,
-                  -1.7007060050964355,
-                  12.052486419677734,
-                  0.7284784317016602,
-                  -1.4257371425628662,
-                  -4.522535800933838,
-                  -4.819881916046143,
-                  -1.4257371425628662,
-                  -4.4032111167907715,
-                  -1.3064135313034058,
-                  -1.009005069732666,
-                  1.738425743585122
+                  -0.6364250779151917,
+                  -0.3220345973968506,
+                  -0.6308864951133728,
+                  -0.47634533047676086,
+                  -0.5643965005874634,
+                  -0.3864128291606903,
+                  -0.381600022315979,
+                  -0.6283815503120422,
+                  -0.6262083053588867,
+                  -0.6239263415336609,
+                  -0.6215373277664185,
+                  -0.6190429329872131,
+                  -0.6164451837539673,
+                  -0.6137458086013794,
+                  -0.16869477927684784,
+                  -0.1549125462770462,
+                  -0.0771377757191658,
+                  -0.24448657035827637,
+                  -0.07086548209190369,
+                  -0.06995073705911636,
+                  -0.0691814124584198,
+                  -0.2484176903963089,
+                  -0.6079218983650208,
+                  -0.6048636436462402,
+                  -0.6017102599143982,
+                  -0.5984644293785095,
+                  -0.5951283574104309,
+                  12.485455513000488,
+                  1.675760269165039,
+                  -0.6728181838989258,
+                  -4.585729122161865,
+                  -4.751486778259277,
+                  -0.6249827146530151,
+                  -3.6919972896575928,
+                  -0.6093401312828064,
+                  -2.2123522758483887,
+                  -0.17681430280208588,
+                  -0.19632019102573395,
+                  -0.04784538596868515,
+                  -0.27485552430152893,
+                  -0.17681430280208588,
+                  -2.8949952125549316,
+                  -2.8949952125549316,
+                  -0.00772869074717164,
+                  -0.00772869074717164,
+                  -0.09474346041679382,
+                  -0.00772869074717164,
+                  -0.05363796651363373,
+                  -0.09308487921953201,
+                  0,
+                  0,
+                  -0.0239173024892807,
+                  -0.0239173024892807,
+                  -1.7410510778427124,
+                  0,
+                  0,
+                  0,
+                  -0.7803890705108643,
+                  -0.7803890705108643,
+                  0,
+                  0,
+                  0,
+                  -0.004236805252730846,
+                  -0.034924183040857315,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  -0.027509773150086403,
+                  -1.7410510778427124,
+                  0,
+                  0,
+                  -1.7410510778427124,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  -1.7410510778427124,
+                  0.6472632685523567
                 ],
                 [
-                  -0.5426887273788452,
-                  -0.5352274179458618,
-                  -0.3724927604198456,
-                  -0.3724927604198456,
-                  -0.6112069487571716,
-                  -0.288665235042572,
-                  -0.2585788369178772,
-                  -0.49176540970802307,
-                  -0.1389772891998291,
-                  0.1694634109735489,
-                  2.8278424739837646,
-                  4.392609119415283,
-                  4.270775318145752,
-                  2.8278424739837646,
-                  5.724791526794434,
-                  4.161502361297607,
-                  4.283206939697266,
-                  0.011305710808782206
+                  -0.31307828426361084,
+                  -0.2252665013074875,
+                  -0.2079293578863144,
+                  -0.3025211989879608,
+                  -0.3752555847167969,
+                  -0.19939658045768738,
+                  -0.1861988604068756,
+                  -0.19878967106342316,
+                  -0.19224445521831512,
+                  -0.18590527772903442,
+                  -0.17976610362529755,
+                  -0.17382104694843292,
+                  -0.16806438565254211,
+                  -0.16249053180217743,
+                  -0.11256039142608643,
+                  -0.06216610595583916,
+                  -0.04275384172797203,
+                  -0.0871201604604721,
+                  -0.034154608845710754,
+                  -0.029231248423457146,
+                  -0.02512783743441105,
+                  -0.0833817720413208,
+                  -0.14588195085525513,
+                  -0.14127665758132935,
+                  -0.13680794835090637,
+                  -0.13247224688529968,
+                  -0.12826596200466156,
+                  0.9082441329956055,
+                  -0.17359982430934906,
+                  2.9583449363708496,
+                  4.165078639984131,
+                  4.302199363708496,
+                  3.7300474643707275,
+                  5.2086687088012695,
+                  4.176976203918457,
+                  3.884226083755493,
+                  -0.48607584834098816,
+                  -1.4167232513427734,
+                  -0.3753316402435303,
+                  -0.6560525894165039,
+                  -1.3195393085479736,
+                  -4.379517078399658,
+                  -4.379517078399658,
+                  -0.9446189999580383,
+                  -0.04859213903546333,
+                  -1.714135766029358,
+                  -0.04859213903546333,
+                  -1.714135766029358,
+                  -0.039269544184207916,
+                  -0.020112797617912292,
+                  -0.020112797617912292,
+                  -1.6169513463974,
+                  -1.6169513463974,
+                  -0.15465687215328217,
+                  -0.12510399520397186,
+                  -0.12510399520397186,
+                  -0.12510399520397186,
+                  -1.0965503454208374,
+                  -1.0965503454208374,
+                  0,
+                  0,
+                  -0.6574710607528687,
+                  0,
+                  0,
+                  0,
+                  0,
+                  -0.6574710607528687,
+                  -0.6574710607528687,
+                  -0.6574710607528687,
+                  -0.6574710607528687,
+                  -0.6574710607528687,
+                  0,
+                  -0.009661190211772919,
+                  0,
+                  0,
+                  -0.009661190211772919,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  -0.009661190211772919,
+                  -0.5997818916106796
+                ],
+                [
+                  -0.01360253244638443,
+                  -2.0150835514068604,
+                  -0.013042795471847057,
+                  -0.028570160269737244,
+                  -0.0547630675137043,
+                  -0.02184244990348816,
+                  -0.01985727809369564,
+                  -0.011644583195447922,
+                  -0.011165305972099304,
+                  -0.01070574950426817,
+                  -0.010265103541314602,
+                  -0.009842588566243649,
+                  -0.009437459520995617,
+                  -0.009049001149833202,
+                  -0.017173951491713524,
+                  -0.007355755195021629,
+                  -0.005288047716021538,
+                  -0.006597087252885103,
+                  -0.004245493095368147,
+                  -0.0036201304756104946,
+                  -0.0030975884292274714,
+                  -0.0059664747677743435,
+                  -0.006622507702559233,
+                  -0.0063497088849544525,
+                  -0.0060881441459059715,
+                  -0.0058373515494167805,
+                  -0.005596887320280075,
+                  0.7215768694877625,
+                  1.138685703277588,
+                  -1.224565863609314,
+                  -1.601186990737915,
+                  1.991367220878601,
+                  1.1079766750335693,
+                  0.7310829162597656,
+                  -1.1721616983413696,
+                  0.0783972442150116,
+                  0.9151077270507812,
+                  -1.8937571048736572,
+                  0.26589539647102356,
+                  4.878296852111816,
+                  -0.39869385957717896,
+                  5.419114589691162,
+                  5.419114589691162,
+                  -2.066009521484375,
+                  0.4642292559146881,
+                  0.38428795337677,
+                  2.5968105792999268,
+                  0.8501403331756592,
+                  0.6493901014328003,
+                  0.9484649300575256,
+                  0.9484649300575256,
+                  1.3326956033706665,
+                  3.1743595600128174,
+                  -1.1656138896942139,
+                  2.2279856204986572,
+                  2.2279856204986572,
+                  2.2279856204986572,
+                  1.51600182056427,
+                  1.51600182056427,
+                  0.370940238237381,
+                  0.370940238237381,
+                  2.1106390953063965,
+                  -1.4782503843307495,
+                  -1.2949501276016235,
+                  0.6489755511283875,
+                  0.6489755511283875,
+                  2.3320369720458984,
+                  1.7395504713058472,
+                  1.7395504713058472,
+                  -0.3319683074951172,
+                  1.7395504713058472,
+                  0.18313826620578766,
+                  -2.0518710613250732,
+                  1.3417288064956665,
+                  -5.020639419555664,
+                  -6.796156883239746,
+                  -2.0150835514068604,
+                  -2.0150835514068604,
+                  -2.0150835514068604,
+                  -2.0150835514068604,
+                  -1.332619071006775,
+                  -1.8237394094467163,
+                  -1.8237394094467163,
+                  -1.8237394094467163,
+                  -1.6526402235031128,
+                  -1.8419750187117234
+                ],
+                [
+                  -0.4605032205581665,
+                  1.05780029296875,
+                  -0.11606842279434204,
+                  -0.5089269280433655,
+                  -0.41364169120788574,
+                  -0.135140061378479,
+                  -0.12258168309926987,
+                  -0.09597647190093994,
+                  -0.09206005930900574,
+                  -0.0883033499121666,
+                  -0.08469982445240021,
+                  -0.08124325424432755,
+                  -0.07792764902114868,
+                  -0.07474725693464279,
+                  -0.08987043052911758,
+                  -0.03527960926294327,
+                  -0.03383168205618858,
+                  -0.03632408753037453,
+                  -0.02751767821609974,
+                  -0.02352413348853588,
+                  -0.020131997764110565,
+                  -0.03204967454075813,
+                  -0.05469644442200661,
+                  -0.052462317049503326,
+                  -0.05031938478350639,
+                  -0.048263926059007645,
+                  -0.04629237949848175,
+                  0.08982173353433609,
+                  -2.3136966228485107,
+                  -0.08065986633300781,
+                  1.0766336917877197,
+                  -3.7529892921447754,
+                  -3.4120259284973145,
+                  -1.5532336235046387,
+                  -0.8770793080329895,
+                  0.7168546319007874,
+                  -1.4816423654556274,
+                  1.287337064743042,
+                  -0.8491689562797546,
+                  -4.885420322418213,
+                  0.8751862049102783,
+                  1.5094572305679321,
+                  1.5094572305679321,
+                  1.6700583696365356,
+                  -1.1584117412567139,
+                  -0.5333399772644043,
+                  -1.8540785312652588,
+                  -0.8786100149154663,
+                  -0.3344944715499878,
+                  -0.6391147375106812,
+                  -0.6391147375106812,
+                  2.05468487739563,
+                  -0.6783139705657959,
+                  2.214615821838379,
+                  -1.0498753786087036,
+                  -1.0498753786087036,
+                  -1.0498753786087036,
+                  1.510587215423584,
+                  1.510587215423584,
+                  0,
+                  0,
+                  -1.0150842666625977,
+                  0,
+                  0,
+                  -0.2743154764175415,
+                  -0.2743154764175415,
+                  -0.35562869906425476,
+                  -1.0150842666625977,
+                  -1.0150842666625977,
+                  1.7210321426391602,
+                  -1.0150842666625977,
+                  0,
+                  3.0554003715515137,
+                  -0.42276862263679504,
+                  4.459229946136475,
+                  6.098778247833252,
+                  1.7313907146453857,
+                  1.7313907146453857,
+                  1.7313907146453857,
+                  1.7313907146453857,
+                  1.742084264755249,
+                  1.816812515258789,
+                  1.816812515258789,
+                  1.816812515258789,
+                  2.614158868789673,
+                  -1.2091338887040182
                 ]
               ]
             }
@@ -377,6 +1600,10 @@
       [
         "en",
         "hello"
+      ],
+      [
+        "en",
+        "hello there"
       ],
       [
         "en",
@@ -397,6 +1624,86 @@
       [
         "en",
         "yow"
+      ],
+      [
+        "en",
+        "helo"
+      ],
+      [
+        "en",
+        "hlelo"
+      ],
+      [
+        "en",
+        "heyllo"
+      ],
+      [
+        "en",
+        "hii"
+      ],
+      [
+        "en",
+        "hie"
+      ],
+      [
+        "en",
+        "hy"
+      ],
+      [
+        "en",
+        "hey tehre"
+      ],
+      [
+        "en",
+        "hey thr"
+      ],
+      [
+        "en",
+        "hey tehre"
+      ],
+      [
+        "en",
+        "good mroning"
+      ],
+      [
+        "en",
+        "god morning"
+      ],
+      [
+        "en",
+        "good morinng"
+      ],
+      [
+        "en",
+        "good afternon"
+      ],
+      [
+        "en",
+        "good afternnon"
+      ],
+      [
+        "en",
+        "godo afternoon"
+      ],
+      [
+        "en",
+        "yoow"
+      ],
+      [
+        "en",
+        "ywo"
+      ],
+      [
+        "en",
+        "youw"
+      ],
+      [
+        "en",
+        "gow"
+      ],
+      [
+        "en",
+        "yoww"
       ],
       [
         "en",
@@ -421,6 +1728,86 @@
       [
         "en",
         "Tell me what you do"
+      ],
+      [
+        "en",
+        "Can you show me the current status of my invoices?"
+      ],
+      [
+        "en",
+        "I need to check the latest status on my invoices."
+      ],
+      [
+        "en",
+        "Show me the status of my recent invoices."
+      ],
+      [
+        "en",
+        "How to view the status of my outstanding invoices?"
+      ],
+      [
+        "en",
+        "What's the status of my latest invoice?"
+      ],
+      [
+        "en",
+        "Tell me how to check what's pending on my invoices."
+      ],
+      [
+        "en",
+        "How do I find out about my invoice details?"
+      ],
+      [
+        "en",
+        "Can you help me access my invoice records?"
+      ],
+      [
+        "en",
+        "I want to review the status of my invoices, how do I do that?"
+      ],
+      [
+        "en",
+        "Please guide me on how to check my invoice status."
+      ],
+      [
+        "en",
+        "How to get updates on my invoice payments?"
+      ],
+      [
+        "en",
+        "I'm looking to see the progress of my invoice payments, how can I do that?"
+      ],
+      [
+        "en",
+        "Guide me through checking my invoice status."
+      ],
+      [
+        "en",
+        "Where do I go to see my invoice payment status?"
+      ],
+      [
+        "en",
+        "Where can I find my invoice history?"
+      ],
+      [
+        "en",
+        "How can I access the records of my past invoices?"
+      ],
+      [
+        "en",
+        "Is there a way to see all my previous invoices?"
+      ],
+      [
+        "en",
+        "Can I see the history of my payments and invoices?"
+      ],
+      [
+        "en",
+        "What is the process to check my invoice history on your platform?"
+      ],
+      [
+        "en",
+        "Help me understand where to find my past invoices."
       ]
     ]
   },
@@ -438,6 +1825,23 @@
     },
     "responses": {
       "en": {
+        "checkInvoiceStatus": [
+          {
+            "answer": "You can view the status and history of your invoices in your account dashboard under the 'Invoices' section."
+          },
+          {
+            "answer": "To check your invoice status, please log into your account and navigate to the 'Invoices' tab where you can see all the details."
+          },
+          {
+            "answer": "You can easily check the status of your invoices by accessing the 'My Invoices' area on our website."
+          },
+          {
+            "answer": "Your invoice status and history are available online. Just visit the 'Invoices' section after logging into your account."
+          },
+          {
+            "answer": "For details on your invoices' status and history, please go to the 'Invoices' section in your profile on our portal."
+          }
+        ],
         "greeting": [
           {
             "answer": "Hi, I am DelBot, your virtual assistent!"
@@ -447,6 +1851,66 @@
           },
           {
             "answer": "What's up? I'm  Delbot, your virtual assistent!"
+          },
+          {
+            "answer": "Hello! How can I assist you today?"
+          },
+          {
+            "answer": "Greetings! What can I do for you?"
+          },
+          {
+            "answer": "Good day! How may I help you?"
+          },
+          {
+            "answer": "Hey! Ready to help, just ask."
+          },
+          {
+            "answer": "Hello there! Need any assistance?"
+          },
+          {
+            "answer": "Hi! What brings you here today?"
+          },
+          {
+            "answer": "Welcome! How can I make your day better?"
+          },
+          {
+            "answer": "Good to see you! What can I help you with today?"
+          },
+          {
+            "answer": "Hey, how’s it going? Anything I can help with?"
+          },
+          {
+            "answer": "Hi there! How’s everything?"
+          },
+          {
+            "answer": "Hello! Anything particular you need help with today?"
+          },
+          {
+            "answer": "Welcome back! How can I assist you further?"
+          },
+          {
+            "answer": "Good to have you here! How can I serve you today?"
+          },
+          {
+            "answer": "Hi! Let me know if there's anything I can do for you."
+          },
+          {
+            "answer": "Hello! I’m here to help, just tell me what you need."
+          },
+          {
+            "answer": "Hey there! Looking for help? You’re in the right place."
+          },
+          {
+            "answer": "Welcome! What information are you seeking today?"
+          },
+          {
+            "answer": "Hello! Feel free to ask me anything."
+          },
+          {
+            "answer": "Hi, how are things? Let me know if you need help."
+          },
+          {
+            "answer": "Good day to you! What assistance do you require?"
           }
         ],
         "help": [

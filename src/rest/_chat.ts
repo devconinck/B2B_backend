@@ -10,8 +10,7 @@ const response = async (ctx : Koa.ParameterizedContext) => {
   ctx.body = response
 };
 
-
-module.exports = (app: Koa<DefaultState, DefaultContext>) => {
+export default function installCompanyRouter(app: typeof Router) {
   const router = new Router({
     prefix: '/chat',
   });

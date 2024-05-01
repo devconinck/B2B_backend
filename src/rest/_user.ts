@@ -1,7 +1,8 @@
-import Koa, { DefaultState, DefaultContext } from 'koa';
+import Koa from 'koa';
+import Router from '@koa/router';
 
-const Router = require('@koa/router');
-const userService = require('../service/user');
+import userService from '../service/user';
+
 
 const login = async (ctx: Koa.ParameterizedContext) => {
   // TODO niet zomaar any noemen
@@ -11,7 +12,7 @@ const login = async (ctx: Koa.ParameterizedContext) => {
 };
 
 
-module.exports = (app: Koa<DefaultState, DefaultContext>) => {
+export default function installHealthRouter(app: Router) {
   const router = new Router({
     prefix: '/user',
   });
@@ -19,5 +20,7 @@ module.exports = (app: Koa<DefaultState, DefaultContext>) => {
   // Public routes
   router.post('/login', login);
 
-  app.use(router.routes()).use(router.allowedMethods());
+  app
+      .use(router.routes())
+      .use(router.allowedMethods());
 };

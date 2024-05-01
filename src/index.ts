@@ -1,4 +1,4 @@
-import createServer from './createServer';
+import createServer from "./createServer";
 
 async function main() {
   try {
@@ -10,9 +10,9 @@ async function main() {
       process.exit(0);
     }
 
-    process.on('SIGINT', onClose); // CTRL+C
-    process.on('SIGQUIT', onClose); // Keyboard quit
-    process.on('SIGTERM', onClose); // `kill` command
+    process.on("SIGINT", onClose); // CTRL+C
+    process.on("SIGQUIT", onClose); // Keyboard quit
+    process.on("SIGTERM", onClose); // `kill` command
   } catch (error) {
     console.error(error);
     process.exit(-1);

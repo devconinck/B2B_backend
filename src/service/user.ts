@@ -1,28 +1,44 @@
-const { ServiceError } = require('../core/serviceError');
-const userRepository = require('../data/user');
-const { verifyPassword } = require('../core/password');
-const { generateJWT } = require('../core/jwt');
+import Koa from "koa";
+import { getLogger } from "../core/logging";
+import { Role } from "../core/roles";
+import { serializedAccount } from "../data/user";
+
+const { ServiceError } = require("../core/serviceError");
+const userRepository = require("../data/user");
+const { verifyPassword } = require("../core/password");
+const { generateJWT, verifyJWT } = require("../core/jwt");
 
 const login = async (email: string, password: string) => {
-
-  const user = await userRepository.findByEmail(email);
-  if(!user) {
-    throw ServiceError.unauthorized('The given email and password do not match');
+  const user: serializedAccount = await userRepository.findByEmail(email);
+  if (!user) {
+    throw ServiceError.unauthorized(
+      "The given email and password do not match"
+    );
   }
 
-  const passwordValid = await verifyPassword(password, user.PASSWORD);
-  if(!passwordValid) {
-    throw ServiceError.unauthorized('The given email and password do not match');
+  const passwordValid = await verifyPassword(password, user.password);
+  if (!passwordValid) {
+    throw ServiceError.unauthorized(
+      "The given email and password do not match"
+    );
   }
 
   return await makeLoginData(user);
 };
 
-const makeExposedUser = ({id, name, email, roles}: User): ExposedUser => ({
-  id, name, email, roles,
+const makeExposedUser = ({
+  id,
+  email,
+  role,
+  companyId,
+}: serializedAccount): ExposedUser => ({
+  id,
+  email,
+  role,
+  companyId,
 });
 
-const makeLoginData = async (user: User) => {
+const makeLoginData = async (user: serializedAccount) => {
   const token = await generateJWT(user);
   return {
     user: makeExposedUser(user),
@@ -30,20 +46,43 @@ const makeLoginData = async (user: User) => {
   };
 };
 
-interface User {
-  id: string;
-  name: string;
-  email: string;
-  roles: string[];
-}
+const checkAndParseSession = async (authHeader: any) => {
+  if (!authHeader) {
+    throw ServiceError.unauthorized("You need to be signed in");
+  }
 
-interface ExposedUser {
-  id: string;
-  name: string;
-  email: string;
-  roles: string[];
-}
+  if (!authHeader.startsWith("Bearer ")) {
+    throw ServiceError.unauthorized("Invalid authentication token");
+  }
 
-module.exports = {
-  login,
+  const authToken = authHeader.substring(7);
+  try {
+    const { role, companyId } = await verifyJWT(authToken);
+
+    return {
+      role,
+      companyId,
+      authToken,
+    };
+  } catch (error: any) {
+    getLogger().error(error.message, { error });
+    throw new Error(error.message);
+  }
 };
+
+const checkRole = (role: Role, requiredRole: Role) => {
+  if (requiredRole !== role) {
+    throw ServiceError.forbidden(
+      "You are not allowed to view this part of the application"
+    );
+  }
+};
+
+export interface ExposedUser {
+  id: Number;
+  email: string;
+  role: Role;
+  companyId: Number;
+}
+
+export default { login, checkAndParseSession, checkRole };

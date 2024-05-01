@@ -9,10 +9,10 @@ datasource db {
 
 model account {
   ID         BigInt   @id @default(autoincrement())
-  EMAIL      String?  @db.VarChar(255)
-  PASSWORD   String?  @db.VarChar(255)
-  ROLE       Int?
-  company_id BigInt?
+  EMAIL      String   @db.VarChar(255)
+  PASSWORD   String   @db.VarChar(255)
+  ROLE       Int
+  company_id BigInt
   company    company? @relation(fields: [company_id], references: [ID], onDelete: NoAction, onUpdate: NoAction, map: "FK_ACCOUNT_company_id")
 
   @@index([company_id], map: "FK_ACCOUNT_company_id")
@@ -40,6 +40,7 @@ model company {
   company_paymentoptions                                                    company_paymentoptions[]  @ignore
   order_table_order_table_FROMCOMPANY_IDTocompany                           order_table[]             @relation("order_table_FROMCOMPANY_IDTocompany")
   order_table_order_table_TOCOMPANY_IDTocompany                             order_table[]             @relation("order_table_TOCOMPANY_IDTocompany")
+  product                                                                   product[]
 }
 
 model company_known_companies {
@@ -147,5 +148,9 @@ model product {
   PRODUCTID              String?     @db.VarChar(255)
   PRODUCTUNITOFMEASUREID String?     @db.VarChar(255)
   SYNCID                 Int?
+  FROMCOMPANY_ID         BigInt
   orderitem              orderitem[]
+  company                company?    @relation(fields: [FROMCOMPANY_ID], references: [ID], onDelete: NoAction, onUpdate: NoAction, map: "FK_PRODUCT_FROMCOMPANY_ID")
+
+  @@index([FROMCOMPANY_ID], map: "FK_PRODUCT_FROMCOMPANY_ID")
 }

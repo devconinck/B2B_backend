@@ -66,11 +66,11 @@ manager.addDocument('en', "I'm looking to see the progress of my invoice payment
 manager.addDocument('en', "Guide me through checking my invoice status.", 'checkInvoiceStatus');
 manager.addDocument('en', "Where do I go to see my invoice payment status?", 'checkInvoiceStatus');
 
-manager.addAnswer('en', 'checkInvoiceStatus', "You can view the status and history of your invoices in your account dashboard under the 'Invoices' section.");
-manager.addAnswer('en', 'checkInvoiceStatus', "To check your invoice status, please log into your account and navigate to the 'Invoices' tab where you can see all the details.");
-manager.addAnswer('en', 'checkInvoiceStatus', "You can easily check the status of your invoices by accessing the 'My Invoices' area on our website.");
-manager.addAnswer('en', 'checkInvoiceStatus', "Your invoice status and history are available online. Just visit the 'Invoices' section after logging into your account.");
-manager.addAnswer('en', 'checkInvoiceStatus', "For details on your invoices' status and history, please go to the 'Invoices' section in your profile on our portal.");
+manager.addAnswer('en', 'checkInvoiceStatus', "You can find the invoice status of each order in your profile. Go to Profile > My Orders and click on the order you want to see.");
+manager.addAnswer('en', 'checkInvoiceStatus', "To check your invoice status, please log into your account and navigate to the 'My Orders' tab where you can see all the details.");
+manager.addAnswer('en', 'checkInvoiceStatus', "You can easily check the status of your invoices by accessing the 'My Orders' area on our website.");
+manager.addAnswer('en', 'checkInvoiceStatus', "Your invoice status and history are available online. Just visit the 'My Orders' section after logging into your account.");
+manager.addAnswer('en', 'checkInvoiceStatus', "For details on your invoices' status and history, please go to the 'My Orders' section in your profile on our portal.");
 
 manager.addDocument('en', "Where can I find my invoice history?", 'checkInvoiceHistory');
 manager.addDocument('en', "How can I access the records of my past invoices?", 'checkInvoiceHistory');
@@ -78,6 +78,8 @@ manager.addDocument('en', "Is there a way to see all my previous invoices?", 'ch
 manager.addDocument('en', "Can I see the history of my payments and invoices?", 'checkInvoiceHistory');
 manager.addDocument('en', "What is the process to check my invoice history on your platform?", 'checkInvoiceHistory');
 manager.addDocument('en', "Help me understand where to find my past invoices.", 'checkInvoiceHistory');
+
+manager.addAnswer('en', 'checkInvoiceHistory', "You can view the status and history of your invoices in your account dashboard under the 'Invoices' section.");
 
 
 
@@ -106,6 +108,37 @@ manager.addAnswer('en', 'greeting', 'Welcome! What information are you seeking t
 manager.addAnswer('en', 'greeting', 'Hello! Feel free to ask me anything.');
 manager.addAnswer('en', 'greeting', 'Hi, how are things? Let me know if you need help.');
 manager.addAnswer('en', 'greeting', 'Good day to you! What assistance do you require?');
+
+/********************
+ *      THANKS      *
+ *******************/
+manager.addDocument('en', 'Thank you so much!', 'thanks');
+manager.addDocument('en', 'Thanks a lot!', 'thanks');
+manager.addDocument('en', 'I really appreciate it.', 'thanks');
+manager.addDocument('en', 'Thanks for your help!', 'thanks');
+manager.addDocument('en', 'Thank you, that was very helpful!', 'thanks');
+manager.addDocument('en', 'Thanks, you’ve been great!', 'thanks');
+manager.addDocument('en', 'Much appreciated!', 'thanks');
+manager.addDocument('en', 'Thanks a ton!', 'thanks');
+manager.addDocument('en', "I can't thank you enough.", 'thanks');
+manager.addDocument('en', 'Thanks for everything!', 'thanks');
+manager.addDocument('en', 'thx', 'thanks');
+manager.addDocument('en', 'thnx', 'thanks');
+manager.addDocument('en', 'ty', 'thanks');
+manager.addDocument('en', 'Thanks', 'thanks');
+manager.addDocument('en', 'Ait', 'thanks');
+manager.addDocument('en', 'Aight', 'thanks');
+
+manager.addAnswer('en', 'thanks', 'You’re welcome! I’m here to help anytime.');
+manager.addAnswer('en', 'thanks', 'It’s my pleasure to assist you!');
+manager.addAnswer('en', 'thanks', 'No problem at all, glad I could help!');
+manager.addAnswer('en', 'thanks', 'You’re welcome! Let me know if there’s anything else I can do for you.');
+manager.addAnswer('en', 'thanks', 'I’m always here to help, don’t hesitate to reach out.');
+manager.addAnswer('en', 'thanks', 'Happy to help, anytime!');
+manager.addAnswer('en', 'thanks', 'You’re very welcome! Feel free to ask any more questions.');
+manager.addAnswer('en', 'thanks', 'Glad to be of service. Have a great day!');
+manager.addAnswer('en', 'thanks', 'Thank you for your kind words! Let me know if you need more assistance.');
+manager.addAnswer('en', 'thanks', 'Always a pleasure to assist you! Reach out anytime you need help.');
 
 
 manager.addAnswer('en','help','How can I help');

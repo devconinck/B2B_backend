@@ -8,15 +8,6 @@ import { Role } from "../core/roles";
 import { handleDBError } from "./_handleDBError";
 import { PaymentStatus as pstatus } from "../core/enum";
 
-const getMyOrders = async (companyId: number) => {
-  const items = serializeOrders(
-    await repositoryOrders.findOrdersFromCustomer(companyId)
-  );
-  return {
-    items,
-    count: items.length,
-  };
-}
 const debugLog = (message: any, meta = {}) => {
   const logger = getLogger();
   logger.debug(message, meta);

@@ -90,7 +90,6 @@ const findOrder = async (role: Role, companyId: number, orderId: number) => {
       ORDERID: String(orderId),
     },
   });
-  return result;
 };
 
 const updateById = async (

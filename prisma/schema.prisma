@@ -84,8 +84,8 @@ model company_update_requests {
   ZIPCODE                                String?                                  @db.VarChar(255)
   EMAIL                                  String?                                  @db.VarChar(255)
   PHONENUMBER                            String?                                  @db.VarChar(255)
-    companyupdaterequest_newpaymentoptions companyupdaterequest_newpaymentoptions[] @ignore
-  }
+  companyupdaterequest_newpaymentoptions companyupdaterequest_newpaymentoptions[] @ignore
+}
 
 /// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
 model companyupdaterequest_newpaymentoptions {
@@ -145,6 +145,7 @@ model product {
   ID                     BigInt      @id @default(autoincrement())
   DESCRIPTION            String?     @db.VarChar(255)
   NAME                   String?     @db.VarChar(255)
+  PRICE                  Int?
   PRODUCTAVAILABILITY    String?     @db.VarChar(255)
   PRODUCTCATEGORYID      String?     @db.VarChar(255)
   PRODUCTID              String?     @db.VarChar(255)

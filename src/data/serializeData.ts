@@ -1,4 +1,10 @@
-import { product, order_table, company, account, orderitem } from "@prisma/client";
+import {
+  product,
+  order_table,
+  company,
+  account,
+  orderitem,
+} from "@prisma/client";
 import { getPaymentStatusByNumber, getOrderStatusByNumber } from "../core/enum";
 import { getRoleByNumber } from "../core/roles";
 import { serializedAccount } from "../core/model";
@@ -6,14 +12,14 @@ import { serializedAccount } from "../core/model";
 export const serializeProducts = (products: Array<product>) => {
   return products.map((result) => ({
     id: Number(result.ID.toString()),
-    name: result.NAME,
-    description: result.DESCRIPTION,
+    name: result.NAME ? result.NAME : "",
+    description: result.DESCRIPTION ? result.DESCRIPTION : "",
     productAvailability: result.PRODUCTAVAILABILITY,
     productCategoryId: result.PRODUCTCATEGORYID,
     productId: result.PRODUCTID,
     productUnitOfMeasureId: result.PRODUCTUNITOFMEASUREID,
     syncId: result.SYNCID,
-    fromCompanyId: Number(result.FROMCOMPANY_ID.toString()),
+    fromCompanyId: Number(result.FROMCOMPANY_ID?.toString()),
   }));
 };
 
@@ -61,7 +67,9 @@ export const serializeCompanies = (companies: Array<company>) => {
   }));
 };
 
-export const serializeOrderItems = (orderItems: Array<orderitem & { product: product | null }>) => {
+export const serializeOrderItems = (
+  orderItems: Array<orderitem & { product: product | null }>
+) => {
   return orderItems.map((orderItem) => ({
     id: Number(orderItem.ID.toString()),
     inStock: orderItem.INSTOCK,
@@ -84,7 +92,7 @@ export const serializeOrderItems = (orderItems: Array<orderitem & { product: pro
           productId: orderItem.product.PRODUCTID,
           productUnitOfMeasureId: orderItem.product.PRODUCTUNITOFMEASUREID,
           syncId: orderItem.product.SYNCID,
-          fromCompanyId: Number(orderItem.product.FROMCOMPANY_ID.toString()),
+          fromCompanyId: Number(orderItem.product.FROMCOMPANY_ID?.toString()),
         }
       : null,
   }));
@@ -95,9 +103,9 @@ export const serializeAccounts = (
 ): serializedAccount[] => {
   return users.map((result) => ({
     id: Number(result.ID.toString()),
-    email: result.EMAIL,
-    password: result.PASSWORD,
-    role: getRoleByNumber(result.ROLE),
-    companyId: Number(result.company_id.toString()),
+    email: result.EMAIL ? result.EMAIL : "",
+    password: result.PASSWORD ? result.PASSWORD : "",
+    role: getRoleByNumber(result.ROLE ? result.ROLE : 4),
+    companyId: Number(result.company_id?.toString()),
   }));
 };

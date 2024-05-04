@@ -13,7 +13,16 @@ const getAllCompanies = async (ctx: Koa.Context) => {
 };
 
 const getCompany = async (ctx: Koa.Context) => {
-  const companyId = ctx.params.id;
+  // WAAROM KAN IK NIET AAN SESSION??????????????? VR DE REST WEL OK DENK IK
+  // PAS HIERNA DE INVOICE AAN
+
+  // er staat wel alleen klant bij de rol van factuur downloaden
+  // dus daarvoor tonen we de bestellingen die HIJ heeft geplaatst bij andere bedrijven
+  //dus dan zou de header van dat ander bedrijf zijn denkek
+  const companyId = ctx.params.id.toLowerCase() === "current"
+    ? ctx.state.session.companyId
+    : ctx.params.id;
+
   ctx.body = await companyService.getCompany(companyId);
 };
 

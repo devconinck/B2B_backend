@@ -37,7 +37,7 @@ model company {
   account                                                                   account[]
   company_known_companies_company_known_companies_company_idTocompany       company_known_companies[] @relation("company_known_companies_company_idTocompany")
   company_known_companies_company_known_companies_known_company_idTocompany company_known_companies[] @relation("company_known_companies_known_company_idTocompany")
-  company_paymentoptions                                                    company_paymentoptions[] @ignore
+  company_paymentoptions                                                    company_paymentoptions[]  @ignore
   order_table_order_table_FROMCOMPANY_IDTocompany                           order_table[]             @relation("order_table_FROMCOMPANY_IDTocompany")
   order_table_order_table_TOCOMPANY_IDTocompany                             order_table[]             @relation("order_table_TOCOMPANY_IDTocompany")
   product                                                                   product[]
@@ -103,14 +103,14 @@ model order_table {
   DATE                                        String?     @db.VarChar(255)
   LASTPAYMENTREMINDER                         String?     @db.VarChar(255)
   NAME                                        String?     @db.VarChar(255)
-  NETAMOUNT                                   String?     @db.VarChar(255)
+  NETAMOUNT                                   Float?
   ORDERDATETIME                               DateTime?   @db.Date
   ORDERID                                     String?     @db.VarChar(255)
   ORDERREFERENCE                              String?     @db.VarChar(255)
   ORDERSTATUS                                 Int?
   PAYMENTSTATUS                               Int?
-  TAXAMOUNT                                   String?     @db.VarChar(255)
-  TOTALAMOUNT                                 String?     @db.VarChar(255)
+  TAXAMOUNT                                   Float?
+  TOTALAMOUNT                                 Float?
   FROMCOMPANY_ID                              BigInt?
   TOCOMPANY_ID                                BigInt?
   company_order_table_FROMCOMPANY_IDTocompany company?    @relation("order_table_FROMCOMPANY_IDTocompany", fields: [FROMCOMPANY_ID], references: [ID], onDelete: NoAction, onUpdate: NoAction, map: "FK_order_table_FROMCOMPANY_ID")

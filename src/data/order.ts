@@ -7,6 +7,8 @@ import { getLogger } from "../core/logging";
 
 const prisma = new PrismaClient();
 
+
+// TODO: KLOPT DE TOCOMPANY, PRECIES IETS AANGEPAST MET MERGEN?????
 const getCompanyField = (role: Role) => {
   switch (role) {
     case Role.SUPPLIER:
@@ -64,8 +66,8 @@ const findOrders = async (params: {
       },
       // Werkt nog niet naar toebehoren
       TOTALAMOUNT: {
-        /*    gte: minAmount,
-        lte: maxAmount, */
+        gte: minAmount,
+        lte: maxAmount,
       },
       ORDERREFERENCE: {
         contains: orderReference,

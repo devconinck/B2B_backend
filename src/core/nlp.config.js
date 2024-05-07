@@ -57,12 +57,13 @@ manager.addDocument('en','Tell me what you do', 'info');
  *  INVOICE STATUS  *
  *******************/
 // Adding phrases to check invoice status
-manager.addRegexEntity('orderid', 'en', /ORD\d+/);
+manager.addRegexEntity('orderid', 'en', /\d+/);
 
 manager.addDocument('en', 'I need details for order %orderid%', 'orderStatus');
 manager.addDocument('en', 'What is the status of invoice %orderid%?', 'orderStatus');
 manager.addDocument('en', 'Can you check invoice %orderid% for me?', 'orderStatus');
-
+manager.addDocument('en', '%orderid%', 'orderStatus');
+manager.addDocument('en', 'The orderid is %orderid%', 'orderStatus');
 manager.addAnswer('en', 'orderStatus', "The status of invoice #{{orderid}} is ");
 
 manager.addDocument('en', "Where can I find my invoice history?", 'checkInvoiceHistory');

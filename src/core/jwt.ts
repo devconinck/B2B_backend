@@ -2,6 +2,8 @@
 import { VerifyOptions, SignOptions } from "jsonwebtoken";
 import Jwt from "jsonwebtoken";
 import config from "config";
+import Koa from 'koa'
+import { getLogger } from "./logging";
 
 const JWT_AUDIENCE: string = config.get("auth.jwt.audience");
 const JWT_SECRET: Jwt.Secret = config.get("auth.jwt.secret");
@@ -39,6 +41,25 @@ export const generateJWT = (acc: any) => {
       }
     );
   });
+};
+
+
+export const optionalJwtMiddleware = async (ctx: Koa.Context, next: Koa.Next) => {
+  const authHeader = ctx.request.headers.authorization;
+  
+  if (authHeader && authHeader.startsWith("Bearer ")) {
+    const token = authHeader.slice(7); // Remove "Bearer " from the start
+    try {
+      // Verify token and attach user data to context
+      ctx.state.user = Jwt.verify(token, JWT_SECRET);
+    } catch (error: any) {
+      // Log error, don't throw; token is optional
+      const logger = getLogger;
+      console.log("Invalid JWT provided: " + error.message);
+    }
+  }
+  
+  await next(); // Proceed regardless of token validity
 };
 
 export const verifyJWT = (authToken: string) => {

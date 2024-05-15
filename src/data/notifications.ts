@@ -16,16 +16,14 @@ const findNotifications = async (params: {
 
   const offset = (page - 1) * pageAmount;
 
-  return await prisma.notification.findMany({
-    where: {
-        COMPANYID: BigInt(companyId),
-    },
-    orderBy: {
-      DATE: "asc",
-    },
+  const notifications = await prisma.notification.findMany({
+    where: { COMPANYID: BigInt(companyId) },
+    orderBy: { DATE: "asc" },
     skip: offset,
     take: pageAmount,
   });
+
+  return notifications.length > 0 ? notifications : [];
 };
 
 

@@ -10,6 +10,7 @@ import installCompanyRouter from "./_company";
 import installOrderRouter from "./_order";
 import installProductRouter from "./_product";
 import installOrderItemRouter from "./_orderItem";
+import installNotificationRouter from "./_notifications";
 
 
 /**
@@ -31,6 +32,7 @@ export default function installRest(app: Koa) {
   installOrderRouter(router);
   installProductRouter(router);
   installOrderItemRouter(router);
+  installNotificationRouter(router);
 
   app.use(router.routes()).use(router.allowedMethods());
 }

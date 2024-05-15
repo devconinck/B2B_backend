@@ -23,7 +23,7 @@ const findNotifications = async (params: {
     take: pageAmount,
   });
 
-  return notifications.length > 0 ? notifications : [];
+  return notifications;
 };
 
 

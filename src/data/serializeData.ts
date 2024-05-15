@@ -4,6 +4,7 @@ import {
   company,
   account,
   orderitem,
+  company_paymentoptions,
 } from "@prisma/client";
 import { getPaymentStatusByNumber, getOrderStatusByNumber } from "../core/enum";
 import { getRoleByNumber } from "../core/roles";
@@ -43,28 +44,48 @@ export const serializeOrders = (results: Array<order_table>) => {
   }));
 };
 
-export const serializeCompanies = (companies: Array<company>) => {
-  return companies.map((result) => ({
-    id: Number(result.ID.toString()),
-    name: result.NAME,
-    logo: result.LOGO,
-    isActive: result.ISACTIVE,
-    vatNumber: result.VATNUMBER,
-    bankAccountNr: Number(result.BANKACCOUNTNR?.toString()),
-    sector: result.SECTOR,
-    customerStart: result.CUSTOMERSTART,
+export const serializeCompanies = (
+  companies: Array<
+    company & { company_paymentoptions: company_paymentoptions[] | null }
+  >
+) => {
+  return companies.map(serializeCompany);
+};
+
+export const serializeCompany = (
+  company: company & { company_paymentoptions: company_paymentoptions[] | null }
+) => {
+  const paymentOptions = company.company_paymentoptions
+    ? company.company_paymentoptions.reduce((acc: any, option) => {
+        acc.push(option.PAYMENTOPTIONS);
+        return acc;
+      }, [])
+    : [];
+
+  return {
+    id: Number(company.ID.toString()),
+    name: company.NAME,
+    logo: company.LOGO,
+    isActive: company.ISACTIVE,
+    vatNumber: company.VATNUMBER,
+    bankAccountNr: company.BANKACCOUNTNR
+      ? Number(company.BANKACCOUNTNR.toString())
+      : null,
+    sector: company.SECTOR,
+    customerStart: company.CUSTOMERSTART,
     address: {
-      country: result.COUNTRY,
-      city: result.CITY,
-      zipcode: result.ZIPCODE,
-      street: result.STREET,
-      number: result.NUMBER,
+      country: company.COUNTRY,
+      city: company.CITY,
+      zipcode: company.ZIPCODE,
+      street: company.STREET,
+      number: company.NUMBER,
     },
     contact: {
-      email: result.EMAIL,
-      phoneNumber: result.PHONENUMBER,
+      email: company.EMAIL,
+      phoneNumber: company.PHONENUMBER,
     },
-  }));
+    paymentOptions,
+  };
 };
 
 export const serializeOrderItems = (

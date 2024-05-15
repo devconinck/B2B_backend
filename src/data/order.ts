@@ -7,7 +7,6 @@ import { getLogger } from "../core/logging";
 
 const prisma = new PrismaClient();
 
-
 // TODO: KLOPT DE TOCOMPANY, PRECIES IETS AANGEPAST MET MERGEN?????
 const getCompanyField = (role: Role) => {
   switch (role) {
@@ -89,7 +88,7 @@ const findOrder = async (role: Role, companyId: number, orderId: number) => {
   return await prisma.order_table.findFirst({
     where: {
       [companyField]: companyId,
-      ORDERID: String(orderId),
+      ID: orderId,
     },
   });
 };

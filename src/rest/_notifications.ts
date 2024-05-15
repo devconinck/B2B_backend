@@ -26,7 +26,7 @@ export default function installOrderRouter(app: Router) {
 
 
   // TODO MOET HIJ CUSTOMER OF LEVERANCIER ROL HEBBEN?
-  router.put("/", requireAuthentication, getNotifications);
+  router.get("/", requireAuthentication, getNotifications);
 
   app.use(router.routes()).use(router.allowedMethods());
 }

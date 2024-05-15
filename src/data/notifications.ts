@@ -1,4 +1,7 @@
 import { PrismaClient } from "@prisma/client";
+import { NotificationStatus } from "../types/enums/NotificationStatus";
+import { NotificationType } from "../types/enums/NotificationType";
+import order from "./order";
 
 const prisma = new PrismaClient();
 
@@ -26,6 +29,19 @@ const findNotifications = async (params: {
   return notifications;
 };
 
+// TODO ontvangen betalingen van klant voor order
+const paymentReceivedNotification = async (companyId: string, orderId: string) => {
+  const notification = await prisma.notification.create({
+    data: {
+      NOTIFICATIONTYPE: NotificationType.PAYMENT_RECEIVED,
+      DATE: new Date(),
+      TEXT: `Payment received for order #${orderId}`,
+      ORDERID: orderId,
+      NOTIFICATIONSTATUS: NotificationStatus.NEW,
+      COMPANYID: BigInt(companyId), 
+    },
+  });
+  return notification;
+}
 
-
-export default { findNotifications };
+export default { findNotifications, paymentReceivedNotification };

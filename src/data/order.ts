@@ -110,7 +110,7 @@ const updateById = async (
     });
     
     if (status === pstatus.PAID) {
-      repositoryNotifications.paymentReceivedNotification(orderId.toString(), companyId.toString())
+      repositoryNotifications.paymentReceivedNotification(companyId.toString(), orderId.toString())
     }
     
     return updatedOrder;

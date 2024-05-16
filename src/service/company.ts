@@ -1,6 +1,7 @@
 import { ServiceError } from "../core/serviceError";
 import * as companyRepository from "../data/company";
 import { serializeProducts, serializeCompanies } from "../data/serializeData";
+import { handleDBError } from "./_handleDBError";
 
 export const getAllProductsCompany = async (companyId: number) => {
   const items = serializeProducts(
@@ -22,11 +23,58 @@ export const getCompany = async (companyId: number) => {
   return serializeCompanies([items]);
 };
 
-
 export const getAllCompanies = async () => {
   const items = serializeCompanies(await companyRepository.findAllCompanies());
   return {
     items,
     count: items.length,
   };
+};
+
+export const updateCompanyRequest = async ({
+  newBankAccountNr,
+  newCustomerEmail,
+  newCustomerPassword,
+  newCustomerStart,
+  newLogo,
+  newName,
+  newSector,
+  newSupplierEmail,
+  newSupplierPassword,
+  newVatNumber,
+  oldVatNumber,
+  requestDate,
+  city,
+  country,
+  number,
+  street,
+  zipcode,
+  email,
+  phonenumber,
+}: any) => {
+  try {
+    await companyRepository.updateCompany({
+      newBankAccountNr,
+      newCustomerEmail,
+      newCustomerPassword,
+      newCustomerStart,
+      newLogo,
+      newName,
+      newSector,
+      newSupplierEmail,
+      newSupplierPassword,
+      newVatNumber,
+      oldVatNumber,
+      requestDate,
+      city,
+      country,
+      number,
+      street,
+      zipcode,
+      email,
+      phonenumber,
+    });
+  } catch (error: any) {
+    throw handleDBError(error);
+  }
 };

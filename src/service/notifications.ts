@@ -7,13 +7,23 @@ const debugLog = (message: any, meta = {}) => {
   logger.debug(message, meta);
 };
 
+// TODO serializen
 const getNotifications = async (params: {
   companyId: string;
   page?: number;
   pageAmount?: number;
 }) => {
   debugLog("Fetching orders", params);
-  return await repositoryNotifications.findNotifications(params);
+  
+  const notifications = await repositoryNotifications.findNotifications(params);
+
+  const serializedNotifications = JSON.parse(
+    JSON.stringify(notifications, (key, value) =>
+      typeof value === 'bigint' ? value.toString() : value
+    )
+  );
+
+  return serializedNotifications;
 };
 
 

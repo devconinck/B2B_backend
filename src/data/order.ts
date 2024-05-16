@@ -101,9 +101,12 @@ const updateById = async (
   companyId: number,
   status: pstatus
 ) => {
+  console.log(orderId)
   try {
     const updatedOrder = prisma.order_table.update({
-      where: { ID: orderId, FROMCOMPANY_ID: companyId },
+      where: {
+        ORDERID: orderId.toString(), FROMCOMPANY_ID: companyId 
+      },
       data: {
         PAYMENTSTATUS: paymentStatusToNumber(status),
       },

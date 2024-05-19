@@ -48,6 +48,7 @@ export const updateCompany = async ({
   zipcode,
   email,
   phonenumber,
+  paymentOptions,
 }: any) => {
   try {
     await prisma.company_update_requests.create({
@@ -73,6 +74,20 @@ export const updateCompany = async ({
         PHONENUMBER: phonenumber, // OK
       },
     });
+    const updateRequestId = await prisma.company_update_requests.findFirst({
+      where: { OLDVATNUMBER: oldVatNumber, NEWVATNUMBER: newVatNumber },
+      select: { ID: true },
+    });
+    if (updateRequestId) {
+      await prisma.companyupdaterequest_newpaymentoptions.create({
+        data: {
+          CompanyUpdateRequest_ID: updateRequestId.ID,
+          NEWPAYMENTOPTIONS: paymentOptions.join(","),
+        },
+      });
+    } else {
+      throw Error("The new paymentoptions could not be stored");
+    }
   } catch (error: any) {
     getLogger().error("Error in create updateCompany", { error });
     throw error;

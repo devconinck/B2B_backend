@@ -90,12 +90,12 @@ model company_update_requests {
 
 /// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
 model companyupdaterequest_newpaymentoptions {
-  CompanyUpdateRequest_ID BigInt?
-  NEWPAYMENTOPTIONS       String?                  @db.VarChar(255)
+  CompanyUpdateRequest_ID BigInt
+  NEWPAYMENTOPTIONS       String                   @db.VarChar(255)
   company_update_requests company_update_requests? @relation(fields: [CompanyUpdateRequest_ID], references: [ID], onDelete: NoAction, onUpdate: NoAction, map: "CmpnypdtRequestNEWPAYMENTOPTIONSCmpnypdteRequestID")
 
+  @@id([CompanyUpdateRequest_ID, NEWPAYMENTOPTIONS])
   @@index([CompanyUpdateRequest_ID], map: "CmpnypdtRequestNEWPAYMENTOPTIONSCmpnypdteRequestID")
-  @@ignore
 }
 
 model order_table {

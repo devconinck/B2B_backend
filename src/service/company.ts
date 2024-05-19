@@ -51,6 +51,7 @@ export const updateCompanyRequest = async ({
   zipcode,
   email,
   phonenumber,
+  paymentOptions,
 }: any) => {
   try {
     await companyRepository.updateCompany({
@@ -73,6 +74,7 @@ export const updateCompanyRequest = async ({
       zipcode,
       email,
       phonenumber,
+      paymentOptions,
     });
   } catch (error: any) {
     throw handleDBError(error);

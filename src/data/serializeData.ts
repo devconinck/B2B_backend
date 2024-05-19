@@ -20,6 +20,7 @@ export const serializeProducts = (products: Array<product>) => {
     productId: result.PRODUCTID,
     productUnitOfMeasureId: result.PRODUCTUNITOFMEASUREID,
     syncId: result.SYNCID,
+    price: result.PRICE,
     fromCompanyId: Number(result.FROMCOMPANY_ID?.toString()),
   }));
 };

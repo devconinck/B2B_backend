@@ -30,7 +30,6 @@ const getCompany = async (ctx: Koa.Context) => {
   ctx.body = await companyService.getCompany(companyId);
 };
 
-// TODO payment options
 const postUpdateCompanyRequest = async (ctx: any) => {
   const role = ctx.state.session.role;
   let supplierEmail = null;
@@ -45,25 +44,26 @@ const postUpdateCompanyRequest = async (ctx: any) => {
   }
   await companyService.updateCompanyRequest({
     ...ctx.request.body,
-    newBankAccountNr: ctx.request.body.bankAccountNr, // NOPE
-    newCustomerEmail: customerEmail, // TODO OK
+    newBankAccountNr: ctx.request.body.bankaccountnr,
+    newCustomerEmail: customerEmail,
     // newCustomerPassword: ctx.request.body.newCustomerPassword, // NOPE
-    newCustomerStart: ctx.request.body.customersince, // OK
+    newCustomerStart: new Date(),
     // newLogo: ctx.request.body.newLogo, // NOPE
-    newName: ctx.request.body.companyName, // OK
-    newSector: ctx.request.body.sector, // OK
-    newSupplierEmail: supplierEmail, // TODO OK
+    newName: ctx.request.body.companyName,
+    newSector: ctx.request.body.sector,
+    newSupplierEmail: supplierEmail,
     // newSupplierPassword: ctx.request.body.newSupplierPassword, // NOPE
-    newVatNumber: ctx.request.body.vatnumber, // OK
-    oldVatNumber: ctx.request.body.oldVatNumber, // TODO
-    requestDate: new Date(), // TODO OK
-    city: ctx.request.body.city, // OK
-    country: ctx.request.body.country, // OK
-    number: ctx.request.body.number, // OK
-    street: ctx.request.body.street, // OK
-    zipcode: ctx.request.body.postal, // OK
+    newVatNumber: ctx.request.body.vatnumber,
+    oldVatNumber: ctx.request.body.oldvatnumber,
+    requestDate: new Date(),
+    city: ctx.request.body.city,
+    country: ctx.request.body.country,
+    number: ctx.request.body.number,
+    street: ctx.request.body.street,
+    zipcode: ctx.request.body.postal,
     email: ctx.request.body.email,
-    phonenumber: ctx.request.body.phone, // OK
+    phonenumber: ctx.request.body.phone,
+    paymnetOptions: ctx.request.body.paymentOptions,
   });
   ctx.status = 200;
 };

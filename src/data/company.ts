@@ -74,17 +74,19 @@ export const updateCompany = async ({
         PHONENUMBER: phonenumber, // OK
       },
     });
-    const updateRequestId = await prisma.company_update_requests.findFirst({
+    const updateRequest: any = await prisma.company_update_requests.findMany({
       where: { OLDVATNUMBER: oldVatNumber, NEWVATNUMBER: newVatNumber },
-      select: { ID: true },
     });
-    if (updateRequestId) {
-      await prisma.companyupdaterequest_newpaymentoptions.create({
-        data: {
-          CompanyUpdateRequest_ID: updateRequestId.ID,
-          NEWPAYMENTOPTIONS: paymentOptions.join(","),
-        },
-      });
+    const updateRequestLast = updateRequest.at(-1);
+    if (updateRequestLast) {
+      for (const req of paymentOptions) {
+        await prisma.companyupdaterequest_newpaymentoptions.create({
+          data: {
+            CompanyUpdateRequest_ID: updateRequestLast.ID,
+            NEWPAYMENTOPTIONS: req,
+          },
+        });
+      }
     } else {
       throw Error("The new paymentoptions could not be stored");
     }

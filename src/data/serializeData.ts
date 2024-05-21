@@ -4,10 +4,14 @@ import {
   company,
   account,
   orderitem,
+  notification,
 } from "@prisma/client";
 import { getPaymentStatusByNumber, getOrderStatusByNumber } from "../core/enum";
 import { getRoleByNumber } from "../core/roles";
 import { serializedAccount } from "../core/model";
+import notifications from "./notifications";
+import { NotificationStatus } from "../types/enums/NotificationStatus";
+import { NotificationType } from "../types/enums/NotificationType";
 
 export const serializeProducts = (products: Array<product>) => {
   return products.map((result) => ({
@@ -95,6 +99,19 @@ export const serializeOrderItems = (
           fromCompanyId: Number(orderItem.product.FROMCOMPANY_ID?.toString()),
         }
       : null,
+  }));
+};
+
+export const serializedNotifications = (notifications: Array<notification>) => {
+  return notifications.map((result) => ({
+    id: Number(result.ID.toString()),
+    date: result.DATE?.toLocaleDateString(),
+    notificationStatus: result.NOTIFICATIONSTATUS,
+    notificationType: result.NOTIFICATIONTYPE,
+    orderid: result.ORDERID,
+    text: result.TEXT,
+    companyid: Number(result.COMPANYID?.toString())
+
   }));
 };
 

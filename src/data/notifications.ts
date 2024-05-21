@@ -44,6 +44,8 @@ const paymentReceivedNotification = async (companyId: string, orderId: string) =
   return notification;
 }
 
+
+// Serialize Error
 const readById = async (companyId: number, notificationId: string) => {
   try {
     const updatedOrder = prisma.notification.update({
@@ -62,9 +64,11 @@ const readById = async (companyId: number, notificationId: string) => {
   }
 };
 
+
+// Werkt niet
 const readAll = async (companyId: number) => {
   try {
-    const updatedOrders = prisma.notification.updateMany({
+    await prisma.notification.updateMany({
       where: {
         COMPANYID: companyId 
       },
@@ -74,7 +78,7 @@ const readAll = async (companyId: number) => {
     });
     
     
-    return [updatedOrders];
+    return { succes: true};
   } catch (error: any) {
     getLogger().error("Error in updateById", { error });
     throw error;

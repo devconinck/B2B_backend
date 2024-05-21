@@ -1,5 +1,6 @@
 import { getLogger } from "../core/logging";
 import repositoryNotifications from "../data/notifications";
+import { serializedNotifications } from "../data/serializeData";
 import { handleDBError } from "./_handleDBError";
 
 
@@ -18,13 +19,7 @@ const getNotifications = async (params: {
   
   const notifications = await repositoryNotifications.findNotifications(params);
 
-  const serializedNotifications = JSON.parse(
-    JSON.stringify(notifications, (key, value) =>
-      typeof value === 'bigint' ? value.toString() : value
-    )
-  );
-
-  return serializedNotifications;
+  return serializedNotifications(notifications);
 };
 
 
@@ -33,7 +28,9 @@ const updateNotification = async (
   notificationId: string
 ) => {
   try {
-    return await repositoryNotifications.readById(companyId, notificationId);
+    const notification =  await repositoryNotifications.readById(companyId, notificationId);
+    
+    return serializedNotifications([notification]);
   } catch (error: any) {
     throw handleDBError(error);
   }
@@ -43,7 +40,9 @@ const updateNotifications = async (
   companyId: number,
 ) => {
   try {
-    return await repositoryNotifications.readAll(companyId);
+    const updates = await repositoryNotifications.readAll(companyId);
+
+    return updates;
   } catch (error: any) {
     throw handleDBError(error);
   }

@@ -16,6 +16,8 @@ const getNotifications = async (params: {
   pageAmount?: number;
 }) => {
   debugLog("Fetching orders", params);
+
+  console.log(params)
   
   const notifications = await repositoryNotifications.findNotifications(params);
 

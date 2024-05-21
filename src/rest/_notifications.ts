@@ -9,10 +9,13 @@ const getNotifications = async (ctx: Koa.Context) => {
     page,
     pageAmount,
   } = ctx.query;
+
+
+  console.log(page, pageAmount)
   ctx.body = await notificationService.getNotifications({
     companyId,
     page: page ? parseInt(page as string, 10) : undefined,
-    pageAmount: pageAmount ? parseInt(page as string, 10) : undefined
+    pageAmount: pageAmount ? parseInt(pageAmount as string, 10) : undefined
   });
 };
 

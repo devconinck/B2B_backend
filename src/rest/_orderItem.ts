@@ -19,7 +19,7 @@ const getOrderItems = async (ctx: Koa.Context) => {
     companyId, 
     orderId: Number(orderId),
     page: page ? parseInt(page as string, 10) : undefined,
-    pageAmount: pageAmount ? parseInt(page as string, 10) : undefined,
+    pageAmount: pageAmount ? parseInt(pageAmount as string, 10) : undefined,
   });
 };
 

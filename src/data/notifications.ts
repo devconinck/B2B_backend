@@ -16,9 +16,7 @@ const findNotifications = async (params: {
     page = 1,
     pageAmount = 20,
   } = params;
-
-  console.log(page, pageAmount)
-
+  
   const offset = (page - 1) * pageAmount;
 
   const notifications = await prisma.notification.findMany({

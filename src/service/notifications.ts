@@ -17,11 +17,19 @@ const getNotifications = async (params: {
   pageAmount?: number;
   status?: NotificationStatus
 }) => {
-  debugLog("Fetching orders", params);
+  debugLog("Fetching notifications", params);
   
   const notifications = await repositoryNotifications.findNotifications(params);
 
   return serializedNotifications(notifications);
+};
+
+const getUnreadNotificationCount = async (companyId: string) => {
+  debugLog("Fetching unread notification count", companyId);
+
+  const count = await repositoryNotifications.findUnreadNotificationCount(companyId);
+
+  return count;
 };
 
 
@@ -50,4 +58,4 @@ const updateNotifications = async (
   }
 };
 
-export default { getNotifications, updateNotification, updateNotifications };
+export default { getNotifications, updateNotification, updateNotifications, getUnreadNotificationCount };

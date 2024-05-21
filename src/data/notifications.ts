@@ -34,6 +34,17 @@ const findNotifications = async (params: {
   return notifications;
 };
 
+const findUnreadNotificationCount = async (companyId: string) => {
+  const notifications = await prisma.notification.count({
+    where: { 
+      COMPANYID: BigInt(companyId), 
+      NOTIFICATIONSTATUS: NotificationStatus.UNREAD,
+    },
+  });
+
+  return { "unreadNotificationCount" : notifications || 0};
+};
+
 
 
 // TODO ontvangen betalingen van klant voor order
@@ -92,4 +103,4 @@ const readAll = async (companyId: number) => {
   }
 };
 
-export default { findNotifications, paymentReceivedNotification, readById, readAll };
+export default { findNotifications, paymentReceivedNotification, readById, readAll, findUnreadNotificationCount };

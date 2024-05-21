@@ -1,7 +1,7 @@
 import { PrismaClient } from "@prisma/client";
 import { NotificationStatus } from "../types/enums/NotificationStatus";
 import { NotificationType } from "../types/enums/NotificationType";
-import order from "./order";
+import { getLogger } from "../core/logging";
 
 const prisma = new PrismaClient();
 
@@ -44,4 +44,41 @@ const paymentReceivedNotification = async (companyId: string, orderId: string) =
   return notification;
 }
 
-export default { findNotifications, paymentReceivedNotification };
+const readById = async (companyId: number, notificationId: string) => {
+  try {
+    const updatedOrder = prisma.notification.update({
+      where: {
+        ID: BigInt(notificationId), COMPANYID: companyId 
+      },
+      data: {
+        NOTIFICATIONSTATUS: NotificationStatus.READ,
+      },
+    });
+  
+    return updatedOrder;
+  } catch (error: any) {
+    getLogger().error("Error in updateById", { error });
+    throw error;
+  }
+};
+
+const readAll = async (companyId: number) => {
+  try {
+    const updatedOrders = prisma.notification.updateMany({
+      where: {
+        COMPANYID: companyId 
+      },
+      data: {
+        NOTIFICATIONSTATUS: NotificationStatus.READ,
+      },
+    });
+    
+    
+    return [updatedOrders];
+  } catch (error: any) {
+    getLogger().error("Error in updateById", { error });
+    throw error;
+  }
+};
+
+export default { findNotifications, paymentReceivedNotification, readById, readAll };

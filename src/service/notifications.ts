@@ -1,5 +1,6 @@
 import { getLogger } from "../core/logging";
 import repositoryNotifications from "../data/notifications";
+import { handleDBError } from "./_handleDBError";
 
 
 const debugLog = (message: any, meta = {}) => {
@@ -27,4 +28,25 @@ const getNotifications = async (params: {
 };
 
 
-export default { getNotifications };
+const updateNotification = async (
+  companyId: number,
+  notificationId: string
+) => {
+  try {
+    return await repositoryNotifications.readById(companyId, notificationId);
+  } catch (error: any) {
+    throw handleDBError(error);
+  }
+};
+
+const updateNotifications = async (
+  companyId: number,
+) => {
+  try {
+    return await repositoryNotifications.readAll(companyId);
+  } catch (error: any) {
+    throw handleDBError(error);
+  }
+};
+
+export default { getNotifications, updateNotification, updateNotifications };

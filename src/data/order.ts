@@ -100,21 +100,25 @@ const updateById = async (
   companyId: number,
   status: pstatus
 ) => {
-  console.log(orderId)
+  console.log(orderId);
   try {
-    const updatedOrder = prisma.order_table.update({
+    const updatedOrder = prisma.order_table.updateMany({
       where: {
-        ORDERID: orderId.toString(), FROMCOMPANY_ID: companyId 
+        ORDERID: orderId.toString(),
+        FROMCOMPANY_ID: companyId,
       },
       data: {
         PAYMENTSTATUS: paymentStatusToNumber(status),
       },
     });
-    
+
     if (status === pstatus.PAID) {
-      repositoryNotifications.paymentReceivedNotification(companyId.toString(), orderId.toString())
+      repositoryNotifications.paymentReceivedNotification(
+        companyId.toString(),
+        orderId.toString()
+      );
     }
-    
+
     return updatedOrder;
   } catch (error: any) {
     getLogger().error("Error in updateById", { error });

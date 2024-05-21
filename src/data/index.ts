@@ -8,6 +8,8 @@ export async function initializeData() {
   logger.info("🔁 Initializing connection to the database");
 
   try {
+    logger.info(`Connecting to database: ${process.env.DATABASE_URL}`);
+
     // Prisma automatically connects to the database
     prismaInstance = new PrismaClient();
 
@@ -30,7 +32,7 @@ export async function shutdownData() {
   logger.info("Database connection closed");
 }
 
-function getPrisma(): PrismaClient {
+export function getPrisma(): PrismaClient {
   if (!prismaInstance)
     throw new Error(
       "Please initialize the data layer before getting the Prisma instance"

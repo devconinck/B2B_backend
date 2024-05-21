@@ -28,7 +28,7 @@ const getAllOrders = async (ctx: Koa.ParameterizedContext) => {
     role,
     companyId,
     page: page ? parseInt(page as string, 10) : undefined,
-    pageAmount: pageAmount ? parseInt(page as string, 10) : undefined,
+    pageAmount: pageAmount ? parseInt(pageAmount as string, 10) : undefined,
     startDate: startDate ? new Date(startDate as string) : undefined,
     endDate: endDate ? new Date(endDate as string) : undefined,
     companyName: companyName as string,

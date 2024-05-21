@@ -4,6 +4,7 @@ import { OrderStatus } from "../types/enums/OrderStatus";
 import { Role } from "../core/roles";
 import { PaymentStatus as pstatus, paymentStatusToNumber } from "../core/enum";
 import { getLogger } from "../core/logging";
+import repositoryNotifications from "./notifications";
 
 const prisma = new PrismaClient();
 
@@ -99,13 +100,22 @@ const updateById = async (
   companyId: number,
   status: pstatus
 ) => {
+  console.log(orderId)
   try {
-    return prisma.order_table.update({
-      where: { ID: orderId, FROMCOMPANY_ID: companyId },
+    const updatedOrder = prisma.order_table.update({
+      where: {
+        ORDERID: orderId.toString(), FROMCOMPANY_ID: companyId 
+      },
       data: {
         PAYMENTSTATUS: paymentStatusToNumber(status),
       },
     });
+    
+    if (status === pstatus.PAID) {
+      repositoryNotifications.paymentReceivedNotification(companyId.toString(), orderId.toString())
+    }
+    
+    return updatedOrder;
   } catch (error: any) {
     getLogger().error("Error in updateById", { error });
     throw error;

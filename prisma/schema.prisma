@@ -106,7 +106,7 @@ model order_table {
   NAME                                        String?     @db.VarChar(255)
   NETAMOUNT                                   Float?
   ORDERDATETIME                               DateTime?   @db.Date
-  ORDERID                                     String?     @db.VarChar(255)
+  ORDERID                                     String?     @unique(map: "UNQ_order_table_0") @db.VarChar(255)
   ORDERREFERENCE                              String?     @db.VarChar(255)
   ORDERSTATUS                                 Int?
   PAYMENTSTATUS                               Int?

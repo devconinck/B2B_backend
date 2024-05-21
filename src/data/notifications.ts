@@ -45,7 +45,27 @@ const findUnreadNotificationCount = async (companyId: string) => {
   return { "unreadNotificationCount" : notifications || 0};
 };
 
-
+const updateStatus = async (
+  companyId: number,
+  notificationId: string,
+  status: NotificationStatus
+) => {
+  try {
+    const updatedNotification = await prisma.notification.update({
+      where: {
+        ID: BigInt(notificationId),
+        COMPANYID: companyId,
+      },
+      data: {
+        NOTIFICATIONSTATUS: status,
+      },
+    });
+    return updatedNotification;
+  } catch (error: any) {
+    getLogger().error("Error in updateStatus", { error });
+    throw error;
+  }
+};
 
 // TODO ontvangen betalingen van klant voor order
 const paymentReceivedNotification = async (companyId: string, orderId: string) => {
@@ -62,28 +82,6 @@ const paymentReceivedNotification = async (companyId: string, orderId: string) =
   return notification;
 }
 
-
-// Serialize Error
-const readById = async (companyId: number, notificationId: string) => {
-  try {
-    const updatedOrder = prisma.notification.update({
-      where: {
-        ID: BigInt(notificationId), COMPANYID: companyId 
-      },
-      data: {
-        NOTIFICATIONSTATUS: NotificationStatus.READ,
-      },
-    });
-  
-    return updatedOrder;
-  } catch (error: any) {
-    getLogger().error("Error in updateById", { error });
-    throw error;
-  }
-};
-
-
-// Werkt niet
 const readAll = async (companyId: number) => {
   try {
     await prisma.notification.updateMany({
@@ -103,4 +101,4 @@ const readAll = async (companyId: number) => {
   }
 };
 
-export default { findNotifications, paymentReceivedNotification, readById, readAll, findUnreadNotificationCount };
+export default { findNotifications, paymentReceivedNotification, readAll, findUnreadNotificationCount, updateStatus };

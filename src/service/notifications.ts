@@ -32,13 +32,13 @@ const getUnreadNotificationCount = async (companyId: string) => {
   return count;
 };
 
-
 const updateNotification = async (
   companyId: number,
-  notificationId: string
+  notificationId: string,
+  status: NotificationStatus
 ) => {
   try {
-    const notification =  await repositoryNotifications.readById(companyId, notificationId);
+    const notification =  await repositoryNotifications.updateStatus(companyId, notificationId, status);
     
     return serializedNotifications([notification]);
   } catch (error: any) {

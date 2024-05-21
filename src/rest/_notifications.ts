@@ -3,6 +3,7 @@ import Router from "@koa/router";
 import { requireAuthentication } from "../core/auth";
 import notificationService from "../service/notifications";
 import { NotificationStatus } from "../types/enums/NotificationStatus";
+import { UpdateNotificationStatusRequest } from "../types/interface";
 
 const getNotifications = async (ctx: Koa.Context) => {
   const { companyId } = ctx.state.session;
@@ -20,12 +21,26 @@ const getNotifications = async (ctx: Koa.Context) => {
   });
 };
 
+const updateNotificationStatus = async (ctx: Koa.Context) => {
+  const { companyId } = ctx.state.session;
+  const notificationId = ctx.params.id;
+  const { status } = <UpdateNotificationStatusRequest>ctx.request.body;
+
+  ctx.body = await notificationService.updateNotification(
+    companyId,
+    notificationId,
+    status
+  );
+};
+
+
 const readNotification = async (ctx: Koa.Context) => {
   const { companyId } = ctx.state.session;
   const notificationId = ctx.params.id;
   ctx.body = await notificationService.updateNotification(
     companyId,
-    notificationId
+    notificationId,
+    NotificationStatus.READ
   );
 };
 
@@ -56,7 +71,7 @@ export default function installOrderRouter(app: Router) {
   router.get("/", requireAuthentication, getNotifications);
   router.get("/unread-count", requireAuthentication, unreadCount);
 
-
+  router.put("/:id/status", requireAuthentication, updateNotificationStatus)
   router.put("/:id/read", requireAuthentication, readNotification)
   router.put("/read-all", requireAuthentication, readNotifications)
 

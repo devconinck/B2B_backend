@@ -2,18 +2,21 @@ import Koa from "koa";
 import Router from "@koa/router";
 import { requireAuthentication } from "../core/auth";
 import notificationService from "../service/notifications";
+import { NotificationStatus } from "../types/enums/NotificationStatus";
 
 const getNotifications = async (ctx: Koa.Context) => {
   const { companyId } = ctx.state.session;
   const {
     page,
     pageAmount,
+    status,
   } = ctx.query;
 
   ctx.body = await notificationService.getNotifications({
     companyId,
     page: page ? parseInt(page as string, 10) : undefined,
-    pageAmount: pageAmount ? parseInt(pageAmount as string, 10) : undefined
+    pageAmount: pageAmount ? parseInt(pageAmount as string, 10) : undefined,
+    status: status as NotificationStatus,
   });
 };
 

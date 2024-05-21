@@ -1,6 +1,7 @@
 import { getLogger } from "../core/logging";
 import repositoryNotifications from "../data/notifications";
 import { serializedNotifications } from "../data/serializeData";
+import { NotificationStatus } from "../types/enums/NotificationStatus";
 import { handleDBError } from "./_handleDBError";
 
 
@@ -14,6 +15,7 @@ const getNotifications = async (params: {
   companyId: string;
   page?: number;
   pageAmount?: number;
+  status?: NotificationStatus
 }) => {
   debugLog("Fetching orders", params);
   

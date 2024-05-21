@@ -10,17 +10,22 @@ const findNotifications = async (params: {
   companyId: string;
   page?: number;
   pageAmount?: number;
+  status?: NotificationStatus
 }) => {
   const {
     companyId,
     page = 1,
     pageAmount = 20,
+    status,
   } = params;
-  
+
   const offset = (page - 1) * pageAmount;
 
   const notifications = await prisma.notification.findMany({
-    where: { COMPANYID: BigInt(companyId) },
+    where: { 
+      COMPANYID: BigInt(companyId), 
+      NOTIFICATIONSTATUS: status,
+    },
     orderBy: { DATE: "asc" },
     skip: offset,
     take: pageAmount,
@@ -28,6 +33,8 @@ const findNotifications = async (params: {
 
   return notifications;
 };
+
+
 
 // TODO ontvangen betalingen van klant voor order
 const paymentReceivedNotification = async (companyId: string, orderId: string) => {

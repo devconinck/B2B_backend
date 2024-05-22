@@ -37,8 +37,8 @@ export default async function createServer() {
   await initializeData();
 
   // train nlp model
-  //await nlpManager.train();
-  //nlpManager.save();
+  await nlpManager.train();
+  nlpManager.save();
 
   // Create a new KOA App
   const app = new Koa();

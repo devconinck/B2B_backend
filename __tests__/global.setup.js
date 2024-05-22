@@ -139,8 +139,8 @@ module.exports = async () => {
       },
       {
         ID: 4,
-        EMAIL: "Danny.ricciardo@gmail.com",
-        PASSWORD: "a7146cd107df7f9369938ca4874b6abf4507f1c2f6f70f8855f31b135d83c33f",
+        EMAIL: "max.verstappen@hotmail.com",
+        PASSWORD: "e3688b51224f68e5efb4cf8e3be8e9d89001cc240ccc27c1c76e3bffac5208fc",
         ROLE: 2,
         company_id: 1,
       },

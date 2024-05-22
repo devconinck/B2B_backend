@@ -5,10 +5,11 @@ import { OrderStatus } from "../types/enums/OrderStatus";
 import { requireAuthentication, makeRequireRole } from "../core/auth";
 import orderService from "../service/order";
 import { Role } from "../core/roles";
-import { getPaymentStatusByNumber } from "../core/enum";
+import { getPaymentStatusByNumber, paymentStatusToNumber } from "../core/enum";
 import { UpdatePaymentStatusRequest } from "../types/interface";
+import Joi from "joi";
+const validate = require("../core/validation");
 
-// Get all the cardio exercises in the database TODO ???? cardio excercises???? @Heekie
 const getAllOrders = async (ctx: Koa.ParameterizedContext) => {
   const { companyId, role } = ctx.state.session;
   const {
@@ -45,16 +46,34 @@ const getAllOrders = async (ctx: Koa.ParameterizedContext) => {
         : undefined,
   });
 
-
   ctx.body = JSON.stringify(orders, (key, value) =>
     typeof value === "bigint" ? value.toString() : value
   );
+};
+getAllOrders.validationScheme = {
+  query: {
+    page: Joi.number().optional(),
+    pageAmount: Joi.number().optional(),
+    startDate: Joi.string().optional(),
+    endDate: Joi.string().optional(),
+    companyName: Joi.string().optional(),
+    minAmount: Joi.number().optional(),
+    maxAmount: Joi.number().optional(),
+    orderReference: Joi.string().optional(),
+    orderStatus: Joi.number().optional(),
+    paymentStatus: Joi.number().optional(),
+  },
 };
 
 const getOrder = async (ctx: Koa.Context) => {
   const { companyId, role } = ctx.state.session;
   const orderId = ctx.params.id;
   ctx.body = await orderService.getOrder(role, companyId, orderId);
+};
+getOrder.validationScheme = {
+  params: {
+    id: Joi.number(),
+  },
 };
 
 const updateOrder = async (ctx: Koa.Context) => {
@@ -69,6 +88,14 @@ const updateOrder = async (ctx: Koa.Context) => {
     paymentStatus
   );
 };
+updateOrder.validationScheme = {
+  params: {
+    id: Joi.number(),
+  },
+  body: {
+    paymentStatus: Joi.number(),
+  },
+};
 
 export default function installOrderRouter(app: Router) {
   const router = new Router({
@@ -77,21 +104,26 @@ export default function installOrderRouter(app: Router) {
 
   const requireCustomer = makeRequireRole(Role.CUSTOMER);
 
-  /* 
-    // Routes when logged in as customer --> FromCompany
-    router.get('/myorders', requireAuthentication, requireCustomer, getMyOrders); 
-    router.get('/myorder/:id', requireAuthentication, requireCustomer, getMyOrder);
-    // Routes when logged in as supplier --> ToCompany
-    router.get('/ordersforme', requireAuthentication, requireSupplier, getOrdersForMe); 
-    router.get('/orderforme/:id', requireAuthentication, requireSupplier, getMyOrder);
-    */
-  // Nieuw oplossing --> We halen de rol op en geven deze mee, op basis hiervan halen we de correct
+  router.get(
+    "/all",
+    validate(getAllOrders.validationScheme),
+    requireAuthentication,
+    getAllOrders
+  );
+  router.get(
+    "/:id",
+    validate(getOrder.validationScheme),
+    requireAuthentication,
+    getOrder
+  );
 
-  // Authenticatie toevoegen
-  router.get("/all", requireAuthentication, getAllOrders);
-  router.get("/:id", requireAuthentication, getOrder);
-
-  router.put("/:id", requireAuthentication, requireCustomer, updateOrder);
+  router.put(
+    "/:id",
+    validate(updateOrder.validationScheme),
+    requireAuthentication,
+    requireCustomer,
+    updateOrder
+  );
 
   app.use(router.routes()).use(router.allowedMethods());
 }

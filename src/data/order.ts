@@ -65,7 +65,6 @@ const findOrders = async (params: {
       NAME: {
         contains: companyName,
       },
-      // Werkt nog niet naar toebehoren
       TOTALAMOUNT: {
         gte: minAmount,
         lte: maxAmount,
@@ -90,7 +89,7 @@ const findOrder = async (role: Role, companyId: number, orderId: number) => {
   return await prisma.order_table.findFirst({
     where: {
       [companyField]: companyId,
-      ORDERID: String(orderId), // ID: orderId = juist
+      ORDERID: String(orderId),
     },
   });
 };
@@ -100,7 +99,6 @@ const updateById = async (
   companyId: number,
   status: pstatus
 ) => {
-  console.log(orderId);
   try {
     const updatedOrder = prisma.order_table.updateMany({
       where: {

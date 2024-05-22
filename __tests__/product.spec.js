@@ -1,4 +1,5 @@
 const { withServer, loginCustomer, loginSupplier, loginAdmin } = require('./supertest.setup');
+const { testAuthHeader } = require('./common/auth');
 
 describe('Product', () => {
   let request, prisma;

@@ -1,5 +1,5 @@
 const { withServer, loginCustomer, loginSupplier, loginAdmin } = require('./supertest.setup');
-const jwt = require("jsonwebtoken");
+const { testAuthHeader } = require('./common/auth');
 
 describe('Company', () => {
   let request, prisma;
@@ -132,7 +132,7 @@ describe('Company', () => {
       });
     });
 
-    test('should 400 with invalid tire center id', async () => {
+    test('should 400 with invalid company id', async () => {
       const response = await request.get(`${url}/invalid/products`);
 
       expect(response.status).toBe(400);
@@ -191,5 +191,25 @@ describe('Company', () => {
 
     expect(response.status).toBe(201);
   });
+
+  testAuthHeader(() => request.post(`${url}/update`)
+    .send({
+      bankaccountnr: 1234567890,
+      companyName: 'Fake Company Inc. 2',
+      sector: 'Finance',
+      phone: '987654321',
+      email: 'email2@example.com',
+      country: 'Country2',
+      city: 'City2',
+      postal: '23456',
+      street: 'Street2',
+      number: '2',
+      useremail: 'max.verstappen@hotmail.com',
+      customersince: 'May 20, 2024',
+      vatnumber: 'CT987654321',
+      oldvatnumber: 'CT987654321',
+      paymentOptions: [ 'BANK_TRANSFER', 'BITCOIN' ]
+    })
+  );
 
 });

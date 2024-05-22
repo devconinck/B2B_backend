@@ -2,25 +2,27 @@ import Koa from "koa";
 import Router from "@koa/router";
 import { requireAuthentication } from "../core/auth";
 import orderItemService from "../service/orderItem";
-
+import Joi from "joi";
 
 const getOrderItems = async (ctx: Koa.Context) => {
   const { companyId, role } = ctx.state.session;
 
   const orderId = ctx.params.id;
 
-  const {
-    page,
-    pageAmount,
-  } = ctx.query;
+  const { page, pageAmount } = ctx.query;
 
   ctx.body = await orderItemService.getOrderItems({
-    role, 
-    companyId, 
+    role,
+    companyId,
     orderId: Number(orderId),
     page: page ? parseInt(page as string, 10) : undefined,
     pageAmount: pageAmount ? parseInt(pageAmount as string, 10) : undefined,
   });
+};
+getOrderItems.validationScheme = {
+  param: {
+    id: Joi.number(),
+  },
 };
 
 export default function installOrderItemRouter(app: Router) {

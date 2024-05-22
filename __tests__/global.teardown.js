@@ -5,15 +5,16 @@ module.exports = async () => {
   try {
     // Remove any leftover data
     await prisma.account.deleteMany({});
-    await prisma.company.deleteMany({});
+    await prisma.product.deleteMany({});
     await prisma.company_known_companies.deleteMany({});
     await prisma.company_paymentoptions.deleteMany({});
-    await prisma.company_update_requests.deleteMany({});
     await prisma.companyupdaterequest_newpaymentoptions.deleteMany({});
+    await prisma.company_update_requests.deleteMany({});
     await prisma.notification.deleteMany({});
     await prisma.order_table.deleteMany({});
     await prisma.orderitem.deleteMany({});
-    await prisma.product.deleteMany({});
+    await prisma.company.deleteMany({});
+    
 
     await prisma.$disconnect();
     

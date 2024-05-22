@@ -4,30 +4,32 @@ import Router from "@koa/router";
 import * as companyService from "../service/company";
 import { requireAuthentication } from "../core/auth";
 import { Role } from "../core/roles";
+import Joi from "joi";
+const validate = require("../core/validation");
 
 const getOwnProducts = async (ctx: Koa.Context) => {
   const companyId = ctx.params.id;
   ctx.body = await companyService.getAllProductsCompany(companyId);
 };
+getOwnProducts.validationScheme = {
+  params: {
+    id: Joi.number(),
+  },
+};
 
 const getAllCompanies = async (ctx: Koa.Context) => {
   ctx.body = await companyService.getAllCompanies();
 };
+getAllCompanies.validationScheme = null;
 
 const getCompany = async (ctx: Koa.Context) => {
-  // WAAROM KAN IK NIET AAN SESSION??????????????? VR DE REST WEL OK DENK IK
-  // PAS HIERNA DE INVOICE AAN
-  // --> Kan er nu wel aan bij gebruik vn requireAuthentication
-
-  // er staat wel alleen klant bij de rol van factuur downloaden
-  // dus daarvoor tonen we de bestellingen die HIJ heeft geplaatst bij andere bedrijven
-  //dus dan zou de header van dat ander bedrijf zijn denkek
-  const companyId =
-    ctx.params.id.toLowerCase() === "current"
-      ? ctx.state.session.companyId
-      : ctx.params.id;
-
+  const companyId = ctx.params.id;
   ctx.body = await companyService.getCompany(companyId);
+};
+getCompany.validationScheme = {
+  params: {
+    id: Joi.number(),
+  },
 };
 
 const postUpdateCompanyRequest = async (ctx: any) => {
@@ -46,13 +48,10 @@ const postUpdateCompanyRequest = async (ctx: any) => {
     ...ctx.request.body,
     newBankAccountNr: ctx.request.body.bankaccountnr,
     newCustomerEmail: customerEmail,
-    // newCustomerPassword: ctx.request.body.newCustomerPassword, // NOPE
     newCustomerStart: new Date(),
-    // newLogo: ctx.request.body.newLogo, // NOPE
     newName: ctx.request.body.companyName,
     newSector: ctx.request.body.sector,
     newSupplierEmail: supplierEmail,
-    // newSupplierPassword: ctx.request.body.newSupplierPassword, // NOPE
     newVatNumber: ctx.request.body.vatnumber,
     oldVatNumber: ctx.request.body.oldvatnumber,
     requestDate: new Date(),
@@ -65,7 +64,28 @@ const postUpdateCompanyRequest = async (ctx: any) => {
     phonenumber: ctx.request.body.phone,
     paymnetOptions: ctx.request.body.paymentOptions,
   });
-  ctx.status = 200;
+  ctx.status = 201;
+};
+postUpdateCompanyRequest.validationScheme = {
+  body: {
+    customerEmail: Joi.string().allow(null).optional(),
+    supplierEmail: Joi.string().allow(null).optional(),
+    useremail: Joi.string().email(),
+    companyName: Joi.string(),
+    sector: Joi.string(),
+    vatnumber: Joi.string(),
+    oldvatnumber: Joi.string(),
+    bankaccountnr: Joi.number(),
+    city: Joi.string(),
+    country: Joi.string(),
+    number: Joi.string(),
+    street: Joi.string(),
+    postal: Joi.string(),
+    email: Joi.string().email(),
+    phone: Joi.string(),
+    paymentOptions: Joi.any(),
+    customersince: Joi.string().optional(),
+  },
 };
 
 export default function installCompanyRouter(app: Router) {
@@ -75,10 +95,19 @@ export default function installCompanyRouter(app: Router) {
 
   // TODO: zorgt voor requireAuthentication op /:id vr problemen op de frontend?
   // Public routes
-  router.get("/:id/products", getOwnProducts);
+  router.get(
+    "/:id/products",
+    validate(getOwnProducts.validationScheme),
+    getOwnProducts
+  );
   router.get("/", getAllCompanies);
-  router.get("/:id", requireAuthentication, getCompany);
-  router.post("/update", requireAuthentication, postUpdateCompanyRequest);
+  router.get("/:id", validate(getCompany.validationScheme), getCompany);
+  router.post(
+    "/update",
+    validate(postUpdateCompanyRequest.validationScheme),
+    requireAuthentication,
+    postUpdateCompanyRequest
+  );
 
   app.use(router.routes()).use(router.allowedMethods());
 }

@@ -18,7 +18,7 @@ const loginCustomer = async (supertest) => {
 
 const loginSupplier = async (supertest) => {
   const response = await supertest.post('/api/user/login').send({
-    email: 'Charles.leclerc@gmail.com',
+    email: 'Charles.leclerc@icloud.com',
     password: 'Test123!',
   });
 

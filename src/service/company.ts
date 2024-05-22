@@ -4,9 +4,13 @@ import { serializeProducts, serializeCompanies } from "../data/serializeData";
 import { handleDBError } from "./_handleDBError";
 
 export const getAllProductsCompany = async (companyId: number) => {
-  const items = serializeProducts(
-    await companyRepository.findByCompany(companyId)
-  );
+  const Unserializeditems = await companyRepository.findByCompany(companyId);
+  if (Unserializeditems.length === 0) {
+    throw ServiceError.notFound(`No company with id ${companyId} exists`, {
+      companyId,
+    });
+  }
+  const items = serializeProducts(Unserializeditems);
   return {
     items,
     count: items.length,

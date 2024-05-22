@@ -93,7 +93,6 @@ export default function installCompanyRouter(app: Router) {
     prefix: "/company",
   });
 
-  // TODO: zorgt voor requireAuthentication op /:id vr problemen op de frontend?
   // Public routes
   router.get(
     "/:id/products",

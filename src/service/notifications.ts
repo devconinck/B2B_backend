@@ -4,21 +4,19 @@ import { serializedNotifications } from "../data/serializeData";
 import { NotificationStatus } from "../types/enums/NotificationStatus";
 import { handleDBError } from "./_handleDBError";
 
-
 const debugLog = (message: any, meta = {}) => {
   const logger = getLogger();
   logger.debug(message, meta);
 };
 
-// TODO serializen
 const getNotifications = async (params: {
   companyId: string;
   page?: number;
   pageAmount?: number;
-  status?: NotificationStatus
+  status?: NotificationStatus;
 }) => {
   debugLog("Fetching notifications", params);
-  
+
   const notifications = await repositoryNotifications.findNotifications(params);
 
   return serializedNotifications(notifications);
@@ -27,7 +25,9 @@ const getNotifications = async (params: {
 const getUnreadNotificationCount = async (companyId: string) => {
   debugLog("Fetching unread notification count", companyId);
 
-  const count = await repositoryNotifications.findUnreadNotificationCount(companyId);
+  const count = await repositoryNotifications.findUnreadNotificationCount(
+    companyId
+  );
 
   return count;
 };
@@ -38,17 +38,19 @@ const updateNotification = async (
   status: NotificationStatus
 ) => {
   try {
-    const notification =  await repositoryNotifications.updateStatus(companyId, notificationId, status);
-    
+    const notification = await repositoryNotifications.updateStatus(
+      companyId,
+      notificationId,
+      status
+    );
+
     return serializedNotifications([notification]);
   } catch (error: any) {
     throw handleDBError(error);
   }
 };
 
-const updateNotifications = async (
-  companyId: number,
-) => {
+const updateNotifications = async (companyId: number) => {
   try {
     const updates = await repositoryNotifications.readAll(companyId);
 
@@ -58,4 +60,9 @@ const updateNotifications = async (
   }
 };
 
-export default { getNotifications, updateNotification, updateNotifications, getUnreadNotificationCount };
+export default {
+  getNotifications,
+  updateNotification,
+  updateNotifications,
+  getUnreadNotificationCount,
+};

@@ -1,7 +1,5 @@
 const ServiceError = require("../core/serviceError");
 
-// BIG FKN TODO
-
 export const handleDBError = (error: any) => {
   const { code = "", sqlMessage } = error;
 

@@ -107,10 +107,7 @@ export default async function createServer() {
         ctx.status = 404;
       }
     } catch (error) {
-      logger.error("Error occurred while handling a request", {
-        // Werkt niet TODO
-        //error: (await import('serialize-error')).serializeError(error as CustomError),
-      });
+      logger.error("Error occurred while handling a request", {});
 
       const isDevelopment = NODE_ENV === "development";
 
@@ -122,21 +119,16 @@ export default async function createServer() {
         stack: isDevelopment ? (error as Error).stack : undefined,
       };
 
-      // Validatie Prisma
-      // TODO
-
       if (error instanceof ServiceError) {
         if (error.isNotFound) statusCode = 404;
         if (error.isUnauthorized) statusCode = 401;
         if (error.isForbidden) statusCode = 403;
       }
 
-      // Why not use the ServiceError instance?
       if (ctx.state.jwtOriginalError) {
         statusCode = 401;
         errorBody.code = "UNAUTHORIZED";
         errorBody.message = ctx.state.jwtOriginalError.message;
-        // Werkt niet TODO
         //errorBody.details.jwtOriginalError = (await import('serialize-error')).serializeError(ctx.state.jwtOriginalError);
       }
 

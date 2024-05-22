@@ -5,25 +5,19 @@ import { getLogger } from "../core/logging";
 
 const prisma = new PrismaClient();
 
-// TODO error handling
 const findNotifications = async (params: {
   companyId: string;
   page?: number;
   pageAmount?: number;
-  status?: NotificationStatus
+  status?: NotificationStatus;
 }) => {
-  const {
-    companyId,
-    page = 1,
-    pageAmount = 20,
-    status,
-  } = params;
+  const { companyId, page = 1, pageAmount = 20, status } = params;
 
   const offset = (page - 1) * pageAmount;
 
   const notifications = await prisma.notification.findMany({
-    where: { 
-      COMPANYID: BigInt(companyId), 
+    where: {
+      COMPANYID: BigInt(companyId),
       NOTIFICATIONSTATUS: status,
     },
     orderBy: { DATE: "asc" },
@@ -36,13 +30,13 @@ const findNotifications = async (params: {
 
 const findUnreadNotificationCount = async (companyId: string) => {
   const notifications = await prisma.notification.count({
-    where: { 
-      COMPANYID: BigInt(companyId), 
+    where: {
+      COMPANYID: BigInt(companyId),
       NOTIFICATIONSTATUS: NotificationStatus.UNREAD,
     },
   });
 
-  return { "unreadNotificationCount" : notifications || 0};
+  return { unreadNotificationCount: notifications || 0 };
 };
 
 const updateStatus = async (
@@ -67,8 +61,10 @@ const updateStatus = async (
   }
 };
 
-// TODO ontvangen betalingen van klant voor order
-const paymentReceivedNotification = async (companyId: string, orderId: string) => {
+const paymentReceivedNotification = async (
+  companyId: string,
+  orderId: string
+) => {
   const notification = await prisma.notification.create({
     data: {
       NOTIFICATIONTYPE: NotificationType.PAYMENT_RECEIVED,
@@ -76,29 +72,34 @@ const paymentReceivedNotification = async (companyId: string, orderId: string) =
       TEXT: `Payment received for order #${orderId}`,
       ORDERID: orderId,
       NOTIFICATIONSTATUS: NotificationStatus.NEW,
-      COMPANYID: BigInt(companyId), 
+      COMPANYID: BigInt(companyId),
     },
   });
   return notification;
-}
+};
 
 const readAll = async (companyId: number) => {
   try {
     await prisma.notification.updateMany({
       where: {
-        COMPANYID: companyId 
+        COMPANYID: companyId,
       },
       data: {
         NOTIFICATIONSTATUS: NotificationStatus.READ,
       },
     });
-    
-    
-    return { succes: true};
+
+    return { succes: true };
   } catch (error: any) {
     getLogger().error("Error in updateById", { error });
     throw error;
   }
 };
 
-export default { findNotifications, paymentReceivedNotification, readAll, findUnreadNotificationCount, updateStatus };
+export default {
+  findNotifications,
+  paymentReceivedNotification,
+  readAll,
+  findUnreadNotificationCount,
+  updateStatus,
+};

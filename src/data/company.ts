@@ -27,7 +27,6 @@ export const findAllCompanies = async () => {
   });
 };
 
-// TODO iets teruggeven?
 export const updateCompany = async ({
   newBankAccountNr,
   newCustomerEmail,

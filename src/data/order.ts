@@ -8,7 +8,6 @@ import repositoryNotifications from "./notifications";
 
 const prisma = new PrismaClient();
 
-// TODO: KLOPT DE TOCOMPANY, PRECIES IETS AANGEPAST MET MERGEN?????
 const getCompanyField = (role: Role) => {
   switch (role) {
     case Role.SUPPLIER:
@@ -20,7 +19,6 @@ const getCompanyField = (role: Role) => {
   }
 };
 
-// TODO: COMBINATIE PAGE EN PAGEAMOUNT WERKEN NIET GOED SAMEN
 const findOrders = async (params: {
   role: Role;
   companyId: string;

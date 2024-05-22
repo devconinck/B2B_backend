@@ -3,15 +3,18 @@ const { shutdownData, getPrisma } = require('../src/data');
 module.exports = async () => {
   const prisma = getPrisma();
   try {
-    // Remove any leftover data (but we use the prod db)
-    /*
-    await prisma.appointment.deleteMany({});
-    await prisma.order.deleteMany({});
+    // Remove any leftover data
+    await prisma.account.deleteMany({});
+    await prisma.company.deleteMany({});
+    await prisma.company_known_companies.deleteMany({});
+    await prisma.company_paymentoptions.deleteMany({});
+    await prisma.company_update_requests.deleteMany({});
+    await prisma.companyupdaterequest_newpaymentoptions.deleteMany({});
+    await prisma.notification.deleteMany({});
+    await prisma.order_table.deleteMany({});
     await prisma.orderitem.deleteMany({});
     await prisma.product.deleteMany({});
-    await prisma.tirecenter.deleteMany({});
-    await prisma.user.deleteMany({});
-    */
+
     await prisma.$disconnect();
     
     // Call any additional shutdown logic if necessary

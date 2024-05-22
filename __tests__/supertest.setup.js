@@ -46,7 +46,7 @@ const withServer = (setter) => {
   let server;
 
   beforeAll(async () => {
-    server = await createServer();
+    server = await createServer.default();
 
     setter({
       prisma: getPrisma(),

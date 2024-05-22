@@ -1,7 +1,7 @@
 module.exports = {
   port: 9000,
   log: {
-    level: "silly",
+    level: "none",
     disabled: false,
   },
   cors: {

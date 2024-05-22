@@ -22,9 +22,9 @@ const config = {
 
   // An array of glob patterns indicating a set of files for which coverage information should be collected
   collectCoverageFrom: [
-    './src/repository/**/*.js',
-    './src/service/**/*.js',
-    './src/rest/**/*.js',
+    './src/data/**/*.ts',
+    './src/service/**/*.ts',
+    './src/rest/**/*.ts',
   ],
 
   // The directory where Jest should output its coverage files
@@ -158,9 +158,7 @@ const config = {
   // testLocationInResults: false,
 
   // The glob patterns Jest uses to detect test files
-  testMatch: [
-    "**/__tests__/**/*.[jt]s?(x)",
-  ],
+  testMatch: ['**/__tests__/**/?(*.)+(spec|test).[jt]s?(x)'],
 
   // An array of regexp pattern strings that are matched against all test paths, matched tests are skipped
   // testPathIgnorePatterns: [

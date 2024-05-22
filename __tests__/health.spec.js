@@ -8,10 +8,8 @@ describe('Health', () => {
   let server;
   let request;
 
-  console.log(createServer);
-
   beforeAll(async () => {
-    server = await createServer();
+    server = await createServer.default();
     request = supertest(server.getApp().callback());
   });
 
@@ -23,16 +21,19 @@ describe('Health', () => {
 
   describe('GET /api/health/ping', () => {
 
-    it('should return pong', async () => {
+    test('should return pong', async () => {
       const response = await request.get(`${url}/ping`);
 
       expect(response.statusCode).toBe(200);
       expect(response.body).toEqual({
+        details: {
+          "request-ip-address": "::ffff:127.0.0.1",
+        },
         pong: true,
       });
     });
 
-    it('should 400 with unknown query parameters', async () => {
+    test('should 400 with unknown query parameters', async () => {
       const response = await request.get(`${url}/ping?invalid=true`);
 
       expect(response.statusCode).toBe(400);
@@ -43,14 +44,14 @@ describe('Health', () => {
 
   describe('GET /api/health/version', () => {
 
-    it('should return version from package.json', async () => {
+    test('should return version from package.json', async () => {
       const response = await request.get(`${url}/version`);
 
       expect(response.statusCode).toBe(200);
       expect(response.body).toEqual({
-        env: 'test',
-        version: packageJson.version,
         name: packageJson.name,
+        version: packageJson.version,
+        env: 'test',
       });
     });
 

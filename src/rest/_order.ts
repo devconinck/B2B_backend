@@ -32,7 +32,7 @@ const getAllOrders = async (ctx: Koa.ParameterizedContext) => {
     pageAmount: pageAmount ? parseInt(pageAmount as string, 10) : undefined,
     startDate: startDate ? new Date(startDate as string) : undefined,
     endDate: endDate ? new Date(endDate as string) : undefined,
-    companyName: companyName as string,
+    companyName: companyName ? companyName as string : undefined,
     minAmount: minAmount ? parseInt(minAmount as string, 10) : undefined,
     maxAmount: maxAmount ? parseInt(maxAmount as string, 10) : undefined,
     orderReference: orderReference as string,
@@ -56,10 +56,10 @@ getAllOrders.validationScheme = {
     pageAmount: Joi.number().optional(),
     startDate: Joi.string().optional(),
     endDate: Joi.string().optional(),
-    companyName: Joi.string().optional(),
+    companyName: Joi.string().allow('').optional(),
     minAmount: Joi.number().optional(),
     maxAmount: Joi.number().optional(),
-    orderReference: Joi.string().optional(),
+    orderReference: Joi.string().allow('').optional(),
     orderStatus: Joi.number().optional(),
     paymentStatus: Joi.number().optional(),
   },
@@ -106,7 +106,7 @@ export default function installOrderRouter(app: Router) {
 
   router.get(
     "/all",
-    validate(getAllOrders.validationScheme),
+    //validate(getAllOrders.validationScheme),
     requireAuthentication,
     getAllOrders
   );
